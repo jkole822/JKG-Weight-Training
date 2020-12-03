@@ -10,11 +10,11 @@ const passport = require("passport");
 mongoose.connect(keys.mongoURI);
 
 require("./models/user");
+require("./models/lift");
 require("./services/passport/facebook");
 require("./services/passport/google");
 
 // Session stores user information for 30 minutes
-app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
 	cookieSession({
@@ -27,6 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./routes/auth-routes")(app);
+require("./routes/workout-routes")(app);
 
 if (process.env.NODE_ENV === "production") {
 	// Express will serve up production assets

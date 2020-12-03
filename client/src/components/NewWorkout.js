@@ -23,14 +23,18 @@ class NewWorkout extends Component {
 	render() {
 		return (
 			<div>
-				<form>
+				<form onSubmit={this.props.handleSubmit}>
 					{this.renderFields()}
 					<Link to="/workouts" className="red btn flat left white-text">
 						Cancel
 					</Link>
-					<button className="teal btn-flat right white-text" type="submit">
+					<Link
+						to="/workouts/review"
+						className="teal btn-flat right white-text"
+						type="submit"
+					>
 						Next
-					</button>
+					</Link>
 				</form>
 			</div>
 		);

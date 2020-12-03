@@ -9,7 +9,7 @@ const liftSchema = new mongoose.Schema({
 	leg_press: { type: Number, required: true },
 	front_squat: { type: Number, required: true },
 	bent_over_rows: { type: Number, required: true },
-	_user: { type: Schema.Types.ObjectId, ref: "User" },
+	_user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 mongoose.model("lifts", liftSchema);

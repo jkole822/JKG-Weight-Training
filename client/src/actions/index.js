@@ -11,7 +11,14 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const submitWorkout = (values, history) => async dispatch => {
-	const res = await axios.post("/api/workouts", values);
+	const existingStats = await axios.get("/api/workouts");
+
+	var res;
+	if (existingStats.data) {
+		res = await axios.patch("/api/workouts", values);
+	} else {
+		res = await axios.post("/api/workouts", values);
+	}
 
 	history.push("/workouts");
 	dispatch({

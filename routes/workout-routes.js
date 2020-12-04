@@ -1,8 +1,18 @@
 const mongoose = require("mongoose");
-
+const User = mongoose.model("users");
 const Lifts = mongoose.model("lifts");
 
 module.exports = app => {
+	app.get("/api/workouts", async (req, res) => {
+		const lifts = await Lifts.findOne({ _user: req.user });
+
+		if (!lifts) {
+			return res.send(null);
+		}
+
+		res.send(lifts);
+	});
+
 	app.post("/api/workouts", async (req, res) => {
 		const {
 			squat,
@@ -14,6 +24,10 @@ module.exports = app => {
 			front_squat,
 			bent_over_rows,
 		} = req.body;
+
+		const user = await User.findByIdAndUpdate(req.user._id, {
+			workout_version: "A",
+		});
 
 		const lifts = new Lifts({
 			squat,
@@ -28,21 +42,12 @@ module.exports = app => {
 		});
 
 		try {
+			await user.save();
 			await lifts.save();
 			res.send(req.user);
 		} catch (e) {
 			res.status(422).send(e);
 		}
-	});
-
-	app.get("/api/workouts", async (req, res) => {
-		const lifts = await Lifts.findOne({ _user: req.user });
-
-		if (!lifts) {
-			return res.send(null);
-		}
-
-		res.send(lifts);
 	});
 
 	app.patch("/api/workouts", async (req, res) => {
@@ -67,6 +72,10 @@ module.exports = app => {
 			return res.status(400).send({ error: "Invalid updates" });
 		}
 
+		const user = await User.findByIdAndUpdate(req.user._id, {
+			workout_routine: "A",
+		});
+
 		try {
 			const lifts = await Lifts.findOne({ _user: req.user._id });
 
@@ -75,6 +84,7 @@ module.exports = app => {
 			}
 
 			updates.forEach(update => (lifts[update] = change[update]));
+			await user.save();
 			await lifts.save();
 			res.send(req.user);
 		} catch (e) {

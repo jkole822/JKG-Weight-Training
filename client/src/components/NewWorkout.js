@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
-import WorkoutField from "./WorkoutField";
+import NewWorkoutField from "./NewWorkoutField";
 import _ from "lodash";
 import formFields from "./formFields";
 
@@ -11,7 +11,7 @@ class NewWorkout extends Component {
 			return (
 				<Field
 					key={name}
-					component={WorkoutField}
+					component={NewWorkoutField}
 					type="text"
 					label={label}
 					name={name}

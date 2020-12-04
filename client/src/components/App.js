@@ -8,6 +8,7 @@ import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import NewWorkout from "./NewWorkout";
 import WorkoutReview from "./WorkoutReview";
+import WorkoutLog from "./WorkoutLog";
 
 class App extends Component {
 	componentDidMount() {
@@ -23,6 +24,7 @@ class App extends Component {
 					<Route path="/workouts" component={Dashboard} exact />
 					<Route path="/workouts/new" component={NewWorkout} exact />
 					<Route path="/workouts/review" component={WorkoutReview} exact />
+					<Route path="/workouts/log" component={WorkoutLog} exact />
 				</div>
 			</BrowserRouter>
 		);

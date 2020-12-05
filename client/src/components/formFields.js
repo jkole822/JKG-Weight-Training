@@ -1,11 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default [
-	{ label: "Squat", name: "squat" },
-	{ label: "Deadlift", name: "deadlift" },
-	{ label: "Bench Press", name: "bench_press" },
-	{ label: "Military Press", name: "military_press" },
-	{ label: "Leg Pres", name: "leg_press" },
-	{ label: "Romanian Deadlift", name: "romanian_deadlift" },
-	{ label: "Front Squat", name: "front_squat" },
-	{ label: "Bent Over Rows", name: "bent_over_rows" },
+	{ label: "Squat", name: "squat", routine: "a" },
+	{ label: "Romanian Deadlift", name: "romanian_deadlift", routine: "a" },
+	{ label: "Deadlift", name: "deadlift", routine: "b" },
+	{ label: "Leg Pres", name: "leg_press", routine: "b" },
+	{ label: "Front Squat", name: "front_squat", routine: "b" },
+	{ label: "Bench Press", name: "bench_press", routine: "c" },
+	{ label: "Military Press", name: "military_press", routine: "c" },
+	{ label: "Bent Over Rows", name: "bent_over_rows", routine: "c" },
 ];

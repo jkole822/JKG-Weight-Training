@@ -26,7 +26,7 @@ module.exports = app => {
 		} = req.body;
 
 		const user = await User.findByIdAndUpdate(req.user._id, {
-			workout_version: "A",
+			workout_routine: "a",
 		});
 
 		const lifts = new Lifts({

@@ -11,9 +11,14 @@ class WorkoutLog extends Component {
 	}
 
 	renderExercise() {
-		return _.map(formFields, ({ label, name }) => {
-			return <Exercise key={name} label={label} />;
-		});
+		return _.chain(formFields)
+			.filter(({ routine }) => {
+				return routine === this.props.auth.workout_routine;
+			})
+			.map(({ label, name }) => {
+				return <Exercise key={name} label={label} name={name} />;
+			})
+			.value();
 	}
 
 	render() {
@@ -21,4 +26,8 @@ class WorkoutLog extends Component {
 	}
 }
 
-export default connect(null, actions)(WorkoutLog);
+function mapStateToProps({ auth }) {
+	return { auth };
+}
+
+export default connect(mapStateToProps, actions)(WorkoutLog);

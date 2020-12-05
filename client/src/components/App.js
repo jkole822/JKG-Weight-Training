@@ -18,8 +18,8 @@ class App extends Component {
 	render() {
 		return (
 			<BrowserRouter>
+				<Header />
 				<div className="container">
-					<Header />
 					<Route path="/" component={Landing} exact />
 					<Route path="/workouts" component={Dashboard} exact />
 					<Route path="/workouts/new" component={NewWorkout} exact />

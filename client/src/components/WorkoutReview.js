@@ -23,7 +23,12 @@ const WorkoutReview = ({ formValues, submitWorkout, history }) => {
 			<Link to="/workouts/new" className="yellow darken-3 white-text btn-flat">
 				Edit
 			</Link>
-			<button onClick={() => submitWorkout(formValues, history)}>Submit</button>
+			<button
+				className="green white-text btn-flat right"
+				onClick={() => submitWorkout(formValues, history)}
+			>
+				Submit
+			</button>
 		</div>
 	);
 };

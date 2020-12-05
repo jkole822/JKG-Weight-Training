@@ -35,3 +35,7 @@ export const submitWorkout = (values, history) => async dispatch => {
 		payload: res.data,
 	});
 };
+
+// export const logWorkout = (values, history) => async dispatch => {
+// 	const res = await axios.post()
+// }

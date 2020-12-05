@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
+import { Field } from "redux-form";
 import ExerciseField from "./ExerciseField";
 
 class Exercise extends Component {
@@ -44,8 +44,4 @@ function mapStateToProps({ stats }) {
 	return { stats };
 }
 
-Exercise = connect(mapStateToProps)(Exercise);
-
-export default reduxForm({
-	form: "workoutLog",
-})(Exercise);
+export default connect(mapStateToProps)(Exercise);

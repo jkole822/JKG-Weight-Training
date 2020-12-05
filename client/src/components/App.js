@@ -9,6 +9,7 @@ import Dashboard from "./Dashboard";
 import NewWorkout from "./NewWorkout";
 import WorkoutReview from "./WorkoutReview";
 import WorkoutLog from "./WorkoutLog";
+import WorkoutLogReview from "./WorkoutLogReview";
 
 class App extends Component {
 	componentDidMount() {
@@ -25,6 +26,11 @@ class App extends Component {
 					<Route path="/workouts/new" component={NewWorkout} exact />
 					<Route path="/workouts/review" component={WorkoutReview} exact />
 					<Route path="/workouts/log" component={WorkoutLog} exact />
+					<Route
+						path="/workouts/log/review"
+						component={WorkoutLogReview}
+						exact
+					/>
 				</div>
 			</BrowserRouter>
 		);

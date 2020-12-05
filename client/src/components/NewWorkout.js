@@ -22,21 +22,19 @@ class NewWorkout extends Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.props.handleSubmit}>
-					{this.renderFields()}
-					<Link to="/workouts" className="red btn flat left white-text">
-						Cancel
-					</Link>
-					<Link
-						to="/workouts/review"
-						className="teal btn-flat right white-text"
-						type="submit"
-					>
-						Next
-					</Link>
-				</form>
-			</div>
+			<form onSubmit={this.props.handleSubmit}>
+				{this.renderFields()}
+				<Link to="/workouts" className="red btn flat left white-text">
+					Cancel
+				</Link>
+				<Link
+					to="/workouts/review"
+					className="teal btn-flat right white-text"
+					type="submit"
+				>
+					Review
+				</Link>
+			</form>
 		);
 	}
 }

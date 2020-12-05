@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { reduxForm } from "redux-form";
 import * as actions from "../actions";
 import _ from "lodash";
 import formFields from "./formFields";
@@ -22,7 +24,21 @@ class WorkoutLog extends Component {
 	}
 
 	render() {
-		return <div>{this.renderExercise()}</div>;
+		return (
+			<form onSubmit={this.props.handleSubmit}>
+				{this.renderExercise()}
+				<Link to="/workouts" className="red btn flat left white-text">
+					Cancel
+				</Link>
+				<Link
+					to="/workouts/log/review"
+					className="teal btn-flat right white-text"
+					type="submit"
+				>
+					Review
+				</Link>
+			</form>
+		);
 	}
 }
 
@@ -30,4 +46,9 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps, actions)(WorkoutLog);
+WorkoutLog = connect(mapStateToProps, actions)(WorkoutLog);
+
+export default reduxForm({
+	form: "workoutLog",
+	destroyOnUnmount: false,
+})(WorkoutLog);

@@ -73,7 +73,7 @@ module.exports = app => {
 		}
 
 		const user = await User.findByIdAndUpdate(req.user._id, {
-			workout_routine: "A",
+			workout_routine: "a",
 		});
 
 		try {

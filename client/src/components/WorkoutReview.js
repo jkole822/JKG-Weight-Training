@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import formFields from "./formFields";
 import { withRouter } from "react-router-dom";
 import * as actions from "../actions";

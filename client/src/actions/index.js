@@ -24,7 +24,7 @@ export const submitWorkout = (values, history) => async dispatch => {
 
 	let res;
 	if (existingStats.data) {
-		res = await axios.patch("/api/workouts", values);
+		res = await axios.patch("/api/workouts/renew", values);
 	} else {
 		res = await axios.post("/api/workouts", values);
 	}
@@ -45,6 +45,8 @@ export const submitLog = (values, history) => async dispatch => {
 	} else {
 		res = await axios.post("/api/workouts/log", values);
 	}
+
+	await axios.patch("/api/workouts/update", values);
 
 	history.push("/workouts");
 	dispatch({

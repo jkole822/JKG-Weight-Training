@@ -26,9 +26,7 @@ module.exports = app => {
 			bent_over_rows,
 		} = req.body;
 
-		const user = await User.findByIdAndUpdate(req.user._id, {
-			workout_routine: "a",
-		});
+		req.user.workout_routine = "a";
 
 		const stats = new Stats({
 			squat,
@@ -43,15 +41,15 @@ module.exports = app => {
 		});
 
 		try {
-			await user.save();
+			const user = await req.user.save();
 			await stats.save();
-			res.send(req.user);
+			res.send(user);
 		} catch (e) {
 			res.status(422).send(e);
 		}
 	});
 
-	app.patch("/api/workouts", async (req, res) => {
+	app.patch("/api/workouts/renew", async (req, res) => {
 		const change = req.body;
 
 		const updates = Object.keys(change);
@@ -73,9 +71,7 @@ module.exports = app => {
 			return res.status(400).send({ error: "Invalid updates" });
 		}
 
-		const user = await User.findByIdAndUpdate(req.user._id, {
-			workout_routine: "a",
-		});
+		req.user.workout_routine = "a";
 
 		try {
 			const stats = await Stats.findOne({ _user: req.user._id });
@@ -93,6 +89,39 @@ module.exports = app => {
 		}
 	});
 
+	app.patch("/api/workouts/update", async (req, res) => {
+		const log = req.body;
+		const exercises = Object.keys(log);
+
+		const stats = await Stats.findOne({ _user: req.user._id });
+
+		exercises.forEach(exercise => {
+			const statVolume = stats[exercise] * 5 * 3;
+			let logVolume = 0;
+			let sumWeight = 0;
+			for (let i = 1; i < 4; i++) {
+				const logWeight = log[exercise][`set_${i}`].weight;
+				const logReps = log[exercise][`set_${i}`].reps;
+				logVolume += parseInt(logWeight) * parseInt(logReps);
+				sumWeight += parseInt(logWeight);
+			}
+
+			const avgWeight = sumWeight / 3;
+			const roundedAvgWeight = Math.round(avgWeight / 5) * 5;
+
+			if (logVolume >= statVolume) {
+				stats[exercise] = roundedAvgWeight;
+			}
+		});
+
+		try {
+			await stats.save();
+			res.send(stats);
+		} catch (e) {
+			res.status(422).send(e);
+		}
+	});
+
 	app.get("/api/workouts/log", async (req, res) => {
 		const log = await LogHistory.findOne({ _user: req.user });
 
@@ -104,23 +133,15 @@ module.exports = app => {
 	});
 
 	app.post("/api/workouts/log", async (req, res) => {
-		let user = await User.findById(req.user._id);
-
-		switch (user.workout_routine) {
+		switch (req.user.workout_routine) {
 			case "a":
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "b",
-				});
+				req.user.workout_routine = "b";
 				break;
 			case "b":
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "c",
-				});
+				req.user.workout_routine = "c";
 				break;
 			default:
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "a",
-				});
+				req.user.workout_routine = "a";
 				break;
 		}
 
@@ -130,34 +151,24 @@ module.exports = app => {
 		});
 
 		try {
-			await user.save();
+			const user = await req.user.save();
 			await log.save();
-			res.send(req.user);
+			res.send(user);
 		} catch (e) {
 			res.status(422).send(e);
 		}
-
-		res.send(user);
 	});
 
 	app.patch("/api/workouts/log", async (req, res) => {
-		let user = await User.findById(req.user._id);
-
-		switch (user.workout_routine) {
+		switch (req.user.workout_routine) {
 			case "a":
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "b",
-				});
+				req.user.workout_routine = "b";
 				break;
 			case "b":
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "c",
-				});
+				req.user.workout_routine = "c";
 				break;
 			default:
-				user = await User.findByIdAndUpdate(req.user._id, {
-					workout_routine: "a",
-				});
+				req.user.workout_routine = "a";
 				break;
 		}
 
@@ -169,13 +180,11 @@ module.exports = app => {
 		);
 
 		try {
-			await user.save();
+			const user = await req.user.save();
 			await log.save();
-			res.send(req.user);
+			res.send(user);
 		} catch (e) {
 			res.status(422).send(e);
 		}
-
-		res.send(user);
 	});
 };

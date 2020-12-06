@@ -13,7 +13,7 @@ class Exercise extends Component {
 					<Field
 						name={`${this.props.name}.set_${i + 1}.weight`}
 						component={ExerciseField}
-						placeholder={this.props.stats[this.props.name]}
+						placeholder={parseInt(this.props.stats[this.props.name]) + 5}
 					/>
 					<Field
 						name={`${this.props.name}.set_${i + 1}.reps`}

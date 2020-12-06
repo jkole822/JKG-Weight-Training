@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = require("mongoose");
 
-const liftSchema = new mongoose.Schema({
+const statSchema = new Schema({
 	squat: { type: Number, required: true },
 	deadlift: { type: Number, required: true },
 	military_press: { type: Number, required: true },
@@ -9,7 +10,7 @@ const liftSchema = new mongoose.Schema({
 	leg_press: { type: Number, required: true },
 	front_squat: { type: Number, required: true },
 	bent_over_rows: { type: Number, required: true },
-	_user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+	_user: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-mongoose.model("lifts", liftSchema);
+mongoose.model("stats", statSchema);

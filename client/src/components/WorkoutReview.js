@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import * as actions from "../actions";
 import _ from "lodash";
 
-const WorkoutReview = ({ formValues, submitWorkout, history }) => {
+const WorkoutReview = ({ onCancel, formValues, submitWorkout, history }) => {
 	const reviewFields = _.map(formFields, ({ label, name }) => {
 		return (
 			<div key={name}>
@@ -20,9 +20,12 @@ const WorkoutReview = ({ formValues, submitWorkout, history }) => {
 		<div>
 			<h5>Review your entries</h5>
 			{reviewFields}
-			<Link to="/workouts/new" className="yellow darken-3 white-text btn-flat">
+			<button
+				onClick={onCancel}
+				className="yellow darken-3 white-text btn-flat"
+			>
 				Edit
-			</Link>
+			</button>
 			<button
 				className="green white-text btn-flat right"
 				onClick={() => submitWorkout(formValues, history)}

@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import formFields from "./formFields";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import * as actions from "../actions";
 import _ from "lodash";
 
-const WorkoutLogReview = ({ auth, formValues, history }) => {
+const WorkoutLogReview = ({
+	auth,
+	formValues,
+	onCancel,
+	submitLog,
+	history,
+}) => {
 	const reviewFields = _.chain(formFields)
 		.filter(({ routine }) => {
 			return routine === auth.workout_routine;
@@ -17,10 +23,10 @@ const WorkoutLogReview = ({ auth, formValues, history }) => {
 					<div key={`review_set_${name}_${i + 1}`} className="row">
 						<div className="col s4 center-align">{`Set ${i + 1}`}</div>
 						<div className="col s4 center-align">
-							{formValues[`weight_${name}_${i + 1}`]}
+							{formValues[name][`set_${i + 1}`].weight}
 						</div>
 						<div className="col s4 center-align">
-							{formValues[`reps_${name}_${i + 1}`]}
+							{formValues[name][`set_${i + 1}`].reps}
 						</div>
 					</div>
 				);
@@ -39,12 +45,15 @@ const WorkoutLogReview = ({ auth, formValues, history }) => {
 		<div>
 			<h5>Review your entries</h5>
 			{reviewFields}
-			<Link to="/workouts/log" className="yellow darken-3 white-text btn-flat">
+			<button
+				onClick={onCancel}
+				className="yellow darken-3 white-text btn-flat"
+			>
 				Edit
-			</Link>
+			</button>
 			<button
 				className="green white-text btn-flat right"
-				// onClick={() => submitLog(formValues, history)}
+				onClick={() => submitLog(formValues, history)}
 			>
 				Submit
 			</button>

@@ -5,7 +5,10 @@ const Dashboard = () => {
 	return (
 		<div>
 			<Link to="/workouts/new" className="btn btn-large red">
-				Start New Workout
+				Begin New Program
+			</Link>
+			<Link to="/workouts/log" className="btn btn-large teal right">
+				Start Workout
 			</Link>
 		</div>
 	);

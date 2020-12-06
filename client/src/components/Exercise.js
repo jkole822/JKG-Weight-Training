@@ -11,12 +11,12 @@ class Exercise extends Component {
 				<div key={`set_${this.props.name}_${i + 1}`} className="row">
 					<div className="col s4 center-align">{`Set ${i + 1}`}</div>
 					<Field
-						name={`weight_${this.props.name}_${i + 1}`}
+						name={`${this.props.name}.set_${i + 1}.weight`}
 						component={ExerciseField}
 						placeholder={this.props.stats[this.props.name]}
 					/>
 					<Field
-						name={`reps_${this.props.name}_${i + 1}`}
+						name={`${this.props.name}.set_${i + 1}.reps`}
 						component={ExerciseField}
 						placeholder={5}
 					/>

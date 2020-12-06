@@ -10,7 +10,8 @@ const passport = require("passport");
 mongoose.connect(keys.mongoURI);
 
 require("./models/user");
-require("./models/lift");
+require("./models/stat");
+require("./models/logHistory");
 require("./services/passport/facebook");
 require("./services/passport/google");
 

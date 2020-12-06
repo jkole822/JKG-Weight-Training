@@ -6,9 +6,8 @@ import * as actions from "../actions";
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
-import NewWorkout from "./NewWorkout";
-import WorkoutReview from "./WorkoutReview";
-import WorkoutLog from "./WorkoutLog";
+import WorkoutNew from "./WorkoutNew";
+import WorkoutLogNew from "./WorkoutLogNew";
 import WorkoutLogReview from "./WorkoutLogReview";
 
 class App extends Component {
@@ -23,9 +22,8 @@ class App extends Component {
 				<div className="container">
 					<Route path="/" component={Landing} exact />
 					<Route path="/workouts" component={Dashboard} exact />
-					<Route path="/workouts/new" component={NewWorkout} exact />
-					<Route path="/workouts/review" component={WorkoutReview} exact />
-					<Route path="/workouts/log" component={WorkoutLog} exact />
+					<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
+					<Route path="/workouts/log" component={WorkoutLogNew} exact />
 					<Route
 						path="/workouts/log/review"
 						component={WorkoutLogReview}

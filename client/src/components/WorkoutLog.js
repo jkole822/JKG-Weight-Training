@@ -25,18 +25,14 @@ class WorkoutLog extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit}>
+			<form onSubmit={this.props.handleSubmit(this.props.onLogSubmit)}>
 				{this.renderExercise()}
 				<Link to="/workouts" className="red btn flat left white-text">
 					Cancel
 				</Link>
-				<Link
-					to="/workouts/log/review"
-					className="teal btn-flat right white-text"
-					type="submit"
-				>
+				<button className="teal btn-flat right white-text" type="submit">
 					Review
-				</Link>
+				</button>
 			</form>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
-import NewWorkoutField from "./NewWorkoutField";
+import WorkoutFormField from "./WorkoutFormField";
 import _ from "lodash";
 import formFields from "./formFields";
 
@@ -11,7 +11,7 @@ class NewWorkout extends Component {
 			return (
 				<Field
 					key={name}
-					component={NewWorkoutField}
+					component={WorkoutFormField}
 					type="text"
 					label={label}
 					name={name}
@@ -22,18 +22,14 @@ class NewWorkout extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit}>
+			<form onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}>
 				{this.renderFields()}
 				<Link to="/workouts" className="red btn flat left white-text">
 					Cancel
 				</Link>
-				<Link
-					to="/workouts/review"
-					className="teal btn-flat right white-text"
-					type="submit"
-				>
+				<button className="teal btn-flat right white-text" type="submit">
 					Review
-				</Link>
+				</button>
 			</form>
 		);
 	}

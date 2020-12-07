@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import WorkoutFormField from "./WorkoutFormField";
 import _ from "lodash";
-import formFields from "./formFields";
+import formFields from "../formFields";
 
 class NewWorkout extends Component {
 	renderFields() {

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
-import * as actions from "../actions";
+import * as actions from "../../actions";
 import _ from "lodash";
-import formFields from "./formFields";
+import formFields from "../formFields";
 import Exercise from "./Exercise";
 
 class WorkoutLog extends Component {

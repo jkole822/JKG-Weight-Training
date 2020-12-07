@@ -6,9 +6,8 @@ import * as actions from "../actions";
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
-import WorkoutNew from "./WorkoutNew";
-import WorkoutLogNew from "./WorkoutLogNew";
-import WorkoutLogReview from "./WorkoutLogReview";
+import WorkoutNew from "./WorkoutForm/WorkoutNew";
+import WorkoutLogNew from "./WorkoutLog/WorkoutLogNew";
 
 class App extends Component {
 	componentDidMount() {
@@ -24,11 +23,6 @@ class App extends Component {
 					<Route path="/workouts" component={Dashboard} exact />
 					<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
 					<Route path="/workouts/log" component={WorkoutLogNew} exact />
-					<Route
-						path="/workouts/log/review"
-						component={WorkoutLogReview}
-						exact
-					/>
 				</div>
 			</BrowserRouter>
 		);

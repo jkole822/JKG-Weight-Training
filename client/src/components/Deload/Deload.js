@@ -98,7 +98,7 @@ class Deload extends Component {
 			<div>
 				<div id="modal1" className="modal">
 					<div class="modal-content">
-						<h4>Modal Header</h4>
+						<h4>Confirm Changes</h4>
 						<p>
 							Are you sure you want to make these changes? By clicking confirm,
 							you are overwriting the lifting stats you have selected to change.

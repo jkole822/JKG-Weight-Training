@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import M from "materialize-css";
+import MediaQuery from "react-responsive";
 
 class Header extends Component {
+	componentDidMount() {
+		M.AutoInit();
+	}
+
 	renderContent() {
 		switch (this.props.auth) {
 			case null:
@@ -26,20 +32,43 @@ class Header extends Component {
 	}
 	render() {
 		return (
-			<nav>
-				<div className="nav-wrapper indigo darken-4">
-					<Link
-						to={this.props.auth ? "/workouts" : "/"}
-						className="brand-logo"
-						style={{ marginLeft: "2rem" }}
-					>
-						Workout App
-					</Link>
-					<ul id="nav-mobile" className="right" style={{ marginRight: "2rem" }}>
-						{this.renderContent()}
-					</ul>
-				</div>
-			</nav>
+			<div>
+				<nav className="nav-extended">
+					<div className="nav-wrapper indigo darken-4">
+						<MediaQuery minWidth={993}>
+							<Link
+								to={this.props.auth ? "/workouts" : "/"}
+								className="brand-logo"
+								style={{ marginLeft: "2rem" }}
+							>
+								Workout App
+							</Link>
+						</MediaQuery>
+						<MediaQuery maxWidth={992}>
+							<Link
+								to={this.props.auth ? "/workouts" : "/"}
+								className="brand-logo"
+							>
+								Workout App
+							</Link>
+						</MediaQuery>
+						<a href="#" data-target="mobile-demo" class="sidenav-trigger">
+							<i class="material-icons">menu</i>
+						</a>
+						<ul
+							id="nav-mobile"
+							class="right hide-on-med-and-down"
+							style={{ marginRight: "2rem" }}
+						>
+							{this.renderContent()}
+						</ul>
+					</div>
+				</nav>
+
+				<ul class="sidenav" id="mobile-demo">
+					{this.renderContent()}
+				</ul>
+			</div>
 		);
 	}
 }

@@ -52,12 +52,12 @@ class Header extends Component {
 								Workout App
 							</Link>
 						</MediaQuery>
-						<a href="#" data-target="mobile-demo" class="sidenav-trigger">
-							<i class="material-icons">menu</i>
+						<a href="#" data-target="mobile-demo" className="sidenav-trigger">
+							<i className="material-icons">menu</i>
 						</a>
 						<ul
 							id="nav-mobile"
-							class="right hide-on-med-and-down"
+							className="right hide-on-med-and-down"
 							style={{ marginRight: "2rem" }}
 						>
 							{this.renderContent()}
@@ -65,7 +65,7 @@ class Header extends Component {
 					</div>
 				</nav>
 
-				<ul class="sidenav" id="mobile-demo">
+				<ul className="sidenav" id="mobile-demo">
 					{this.renderContent()}
 				</ul>
 			</div>

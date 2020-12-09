@@ -11,6 +11,7 @@ const logSchema = new Schema({
 	leg_press: logInfoSchema,
 	front_squat: logInfoSchema,
 	bent_over_rows: logInfoSchema,
+	date: { type: Date, default: new Date() },
 });
 
 module.exports = logSchema;

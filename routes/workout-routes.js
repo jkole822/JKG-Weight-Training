@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+const requireLogin = require("../../middleware/requireLogin");
+
 const User = mongoose.model("users");
 const Stats = mongoose.model("stats");
 const LogHistory = mongoose.model("logHistory");
 
 module.exports = app => {
-	app.get("/api/workouts", async (req, res) => {
+	app.get("/api/workouts", requireLogin, async (req, res) => {
 		const stats = await Stats.findOne({ _user: req.user });
 
 		if (!stats) {
@@ -14,7 +16,7 @@ module.exports = app => {
 		res.send(stats);
 	});
 
-	app.post("/api/workouts", async (req, res) => {
+	app.post("/api/workouts", requireLogin, async (req, res) => {
 		const {
 			squat,
 			deadlift,
@@ -49,7 +51,7 @@ module.exports = app => {
 		}
 	});
 
-	app.patch("/api/workouts/renew", async (req, res) => {
+	app.patch("/api/workouts/renew", requireLogin, async (req, res) => {
 		const change = req.body;
 
 		const updates = Object.keys(change);
@@ -89,7 +91,7 @@ module.exports = app => {
 		}
 	});
 
-	app.patch("/api/workouts/update", async (req, res) => {
+	app.patch("/api/workouts/update", requireLogin, async (req, res) => {
 		const log = req.body;
 		const exercises = Object.keys(log);
 
@@ -122,7 +124,7 @@ module.exports = app => {
 		}
 	});
 
-	app.get("/api/workouts/log", async (req, res) => {
+	app.get("/api/workouts/log", requireLogin, async (req, res) => {
 		const log = await LogHistory.findOne({ _user: req.user });
 
 		if (!log) {
@@ -132,7 +134,7 @@ module.exports = app => {
 		res.send(log);
 	});
 
-	app.post("/api/workouts/log", async (req, res) => {
+	app.post("/api/workouts/log", requireLogin, async (req, res) => {
 		switch (req.user.workout_routine) {
 			case "a":
 				req.user.workout_routine = "b";
@@ -159,7 +161,7 @@ module.exports = app => {
 		}
 	});
 
-	app.patch("/api/workouts/log", async (req, res) => {
+	app.patch("/api/workouts/log", requireLogin, async (req, res) => {
 		switch (req.user.workout_routine) {
 			case "a":
 				req.user.workout_routine = "b";
@@ -188,7 +190,7 @@ module.exports = app => {
 		}
 	});
 
-	app.patch("/api/workouts/deload", async (req, res) => {
+	app.patch("/api/workouts/deload", requireLogin, async (req, res) => {
 		const updates = req.body;
 		const exercises = Object.keys(updates);
 

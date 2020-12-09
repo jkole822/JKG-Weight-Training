@@ -27,11 +27,15 @@ class Header extends Component {
 	render() {
 		return (
 			<nav>
-				<div className="nav-wrapper">
-					<Link to={this.props.auth ? "/workouts" : "/"} className="brand-logo">
+				<div className="nav-wrapper indigo darken-4">
+					<Link
+						to={this.props.auth ? "/workouts" : "/"}
+						className="brand-logo"
+						style={{ marginLeft: "2rem" }}
+					>
 						Workout App
 					</Link>
-					<ul id="nav-mobile" className="right">
+					<ul id="nav-mobile" className="right" style={{ marginRight: "2rem" }}>
 						{this.renderContent()}
 					</ul>
 				</div>

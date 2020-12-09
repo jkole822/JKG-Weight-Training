@@ -187,4 +187,22 @@ module.exports = app => {
 			res.status(422).send(e);
 		}
 	});
+
+	app.patch("/api/workouts/deload", async (req, res) => {
+		const updates = req.body;
+		const exercises = Object.keys(updates);
+
+		const stats = await Stats.findOne({ _user: req.user._id });
+
+		exercises.forEach(exercise => {
+			stats[exercise] = updates[exercise];
+		});
+
+		try {
+			await stats.save();
+			res.send();
+		} catch (e) {
+			res.status(500).send(error);
+		}
+	});
 };

@@ -7,6 +7,9 @@ const Dashboard = () => {
 			<Link to="/workouts/log" className="btn btn-large teal col s12 m4">
 				Start Workout
 			</Link>
+			<Link to="/workouts/deload" className="btn btn-large indigo col s12 m4">
+				Deload Weight
+			</Link>
 			<Link to="/workouts/new" className="btn btn-large red col s12 m4">
 				Begin New Program
 			</Link>

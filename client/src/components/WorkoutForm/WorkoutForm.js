@@ -23,6 +23,13 @@ class NewWorkout extends Component {
 	render() {
 		return (
 			<form onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}>
+				<h2>Lifting Stats</h2>
+				<p>
+					For each field below, enter your current or estimated 5RM of the
+					corresponding lift. If you have not performed the lift before, it is
+					recommended that you start with an empty barbell, if applicable, which
+					is typically 45 lbs.
+				</p>
 				{this.renderFields()}
 				<Link to="/workouts" className="red btn flat left white-text">
 					Cancel
@@ -39,8 +46,11 @@ function validate(values) {
 	const errors = {};
 
 	_.each(formFields, ({ name, label }) => {
+		if (isNaN(values[name]) || values[name] <= 0) {
+			errors[name] = "You must enter a number greater than zero";
+		}
 		if (!values[name]) {
-			errors[name] = `You must provide a weight for ${label}`;
+			errors[name] = `You must enter a weight for ${label}`;
 		}
 	});
 

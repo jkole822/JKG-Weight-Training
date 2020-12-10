@@ -18,16 +18,16 @@ class Deload extends Component {
 	renderContent() {
 		return _.map(formFields, ({ name, label }) => {
 			return (
-				<div className="row" key={name}>
-					<div className="col s8">
-						<label>{label}</label>
-						<div>
+				<section className="row" key={name}>
+					<div className="col s6">
+						<h3>{label}</h3>
+						<p>
 							{this.state.deloadStats[name]
 								? this.state.deloadStats[name]
 								: this.props.stats[name]}
-						</div>
+						</p>
 					</div>
-					<div className="col s4">
+					<div className="col s6">
 						{this.renderDeloadDropdown(name)}
 						<button
 							className="btn yellow darken-3"
@@ -36,7 +36,7 @@ class Deload extends Component {
 							Reset
 						</button>
 					</div>
-				</div>
+				</section>
 			);
 		});
 	}
@@ -97,11 +97,11 @@ class Deload extends Component {
 		return (
 			<div>
 				<div id="modal1" className="modal">
-					<div class="modal-content">
+					<div className="modal-content">
 						<h4>Confirm Changes</h4>
 						<p>
 							Are you sure you want to make these changes? By clicking confirm,
-							you are overwriting the lifting stats you have selected to change.
+							you consent to permanently overwrite your current lifting stats.
 						</p>
 					</div>
 					<div className="modal-footer">
@@ -114,7 +114,23 @@ class Deload extends Component {
 						</a>
 					</div>
 				</div>
-				<h2>Lifting Stats</h2>
+				<h2>Deload Stats</h2>
+				<p>
+					If you are plateauing in one or more of your lifts, it is recommended
+					that you implement deloading which is typically a period of time that
+					you take things easier in the gym by reducing your training volume. In
+					the context of this application, you are essentially resetting your
+					progress to a certain degree based on the deload percentage you
+					select. This enables you to focus more on practicing good lifting
+					form, decreases the likelihood that you will sustain an injury, and
+					boosts morale.
+				</p>
+				<p>
+					Your current stats are shown below on the left. Simply select a
+					percentage for each of the lifts you would like to deload, and the
+					change will automatically be previewed for you. If you are satisfied
+					with the selections you made, click submit to confirm your changes.
+				</p>
 				{this.renderContent()}
 				<div className="row">
 					<button

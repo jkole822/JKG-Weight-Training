@@ -20,8 +20,8 @@ class App extends Component {
 			<BrowserRouter>
 				<div>
 					<Header />
+					<Route path="/" component={Landing} exact />
 					<div className="container">
-						<Route path="/" component={Landing} exact />
 						<Route path="/workouts" component={Dashboard} exact />
 						<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
 						<Route path="/workouts/log" component={WorkoutLogNew} exact />

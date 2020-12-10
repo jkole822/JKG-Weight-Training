@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const requireLogin = require("../../middleware/requireLogin");
+const requireLogin = require("../middleware/requireLogin");
 
 const User = mongoose.model("users");
 const Stats = mongoose.model("stats");

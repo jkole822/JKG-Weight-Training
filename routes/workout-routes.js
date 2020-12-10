@@ -128,7 +128,7 @@ module.exports = app => {
 		const log = await LogHistory.findOne({ _user: req.user });
 
 		if (!log) {
-			return res.send(null);
+			return res.send();
 		}
 
 		res.send(log);

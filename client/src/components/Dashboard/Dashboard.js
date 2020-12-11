@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions";
-import { Link } from "react-router-dom";
 import _ from "lodash";
-import formFields from "./formFields";
 import M from "materialize-css";
+import MediaQuery from "react-responsive";
+
+import * as actions from "../../actions";
+import formFields from "./../formFields";
 import Chart from "./Chart";
+import DesktopButtons from "./DesktopButtons";
+import MobileButtons from "./MobileButtons";
 
 class Dashboard extends Component {
-	state = { logData: {}, liftChart: "squat" };
+	state = { logData: {}, liftChart: "squat", mobile: "" };
 
 	async componentDidMount() {
 		await this.props.fetchStats();
@@ -68,40 +71,6 @@ class Dashboard extends Component {
 		}
 	}
 
-	renderButtons() {
-		if (this.props.stats) {
-			return (
-				<div className="fixed-action-btn">
-					<Link to="/workouts/log" className="btn-floating btn-large green">
-						<i className="large material-icons">fitness_center</i>
-					</Link>
-
-					<ul>
-						<li>
-							<Link
-								to="/workouts/deload"
-								className="btn-floating yellow darken-1"
-							>
-								<i className="material-icons">loop</i>
-							</Link>
-						</li>
-						<li>
-							<Link to="/workouts/new" className="btn-floating red">
-								<i className=" material-icons">add</i>
-							</Link>
-						</li>
-					</ul>
-				</div>
-			);
-		} else {
-			<div className="fixed-action-btn">
-				<Link to="/workouts/new" className="btn-floating btn-large red">
-					<i className="large material-icons">add</i>
-				</Link>
-			</div>;
-		}
-	}
-
 	handleChange(event) {
 		this.setState({ liftChart: event.target.value });
 	}
@@ -111,7 +80,12 @@ class Dashboard extends Component {
 			<div>
 				<Chart logData={this.state.logData} liftChart={this.state.liftChart} />
 				{this.renderDropdown()}
-				{this.renderButtons()}
+				<MediaQuery minWidth={993}>
+					<DesktopButtons stats={this.props.stats} />
+				</MediaQuery>
+				<MediaQuery maxWidth={992}>
+					<MobileButtons stats={this.props.stats} />
+				</MediaQuery>
 			</div>
 		);
 	}

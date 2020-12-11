@@ -5,7 +5,7 @@ import * as actions from "../actions";
 
 import Header from "./Header";
 import Landing from "./Landing";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard/Dashboard";
 import WorkoutNew from "./WorkoutForm/WorkoutNew";
 import WorkoutLogNew from "./WorkoutLog/WorkoutLogNew";
 import Deload from "./Deload/Deload";

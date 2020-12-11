@@ -51,28 +51,28 @@ function mapStateToProps({ auth }) {
 }
 
 function validate(values) {
-	// Need to copy in an empty template of `values` from `errorFormFields`
+	// Need to deep clone an empty template of `values` from `errorFormFields`
 	// so that errors can be set to nested objects.
-	const errors = { ...errorFormFields };
+	const errors = _.cloneDeep(errorFormFields);
 
 	_.each(formFields, ({ name }) => {
-		if (values[name]) {
-			_.forEach(values[name], (set, setKey) => {
-				if (isNaN(set.weight) || set.weight <= 0) {
-					errors[name][setKey].weight =
-						"You must enter a number greater than zero";
-				} else {
-					errors[name][setKey].weight = "";
-				}
+		_.forEach(values[name], (set, setKey) => {
+			if (set.weight && !set.reps) {
+				errors[name][setKey].reps =
+					"You must enter in the number of reps completed";
+			} else if (!set.weight && set.reps) {
+				errors[name][setKey].weight = "You must enter in the weight used";
+			}
 
-				if (isNaN(set.reps) || set.reps <= 0) {
-					errors[name][setKey].reps =
-						"You must enter a number greater than zero";
-				} else {
-					errors[name][setKey].reps = "";
-				}
-			});
-		}
+			if (set.weight && (isNaN(set.weight) || set.weight <= 0)) {
+				errors[name][setKey].weight =
+					"You must enter a number greater than zero";
+			}
+
+			if (set.reps && (isNaN(set.reps) || set.reps <= 0)) {
+				errors[name][setKey].reps = "You must enter a number greater than zero";
+			}
+		});
 	});
 
 	return errors;

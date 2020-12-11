@@ -46,7 +46,7 @@ class Header extends Component {
 								className="brand-logo"
 								style={{ marginLeft: "2rem" }}
 							>
-								Workout App
+								JKG Weight Training
 							</Link>
 						</MediaQuery>
 						<MediaQuery maxWidth={992}>
@@ -54,7 +54,7 @@ class Header extends Component {
 								to={this.props.auth ? "/workouts" : "/"}
 								className="brand-logo"
 							>
-								Workout App
+								JKG Weight Training
 							</Link>
 						</MediaQuery>
 						<a href="#" data-target="mobile-demo" className="sidenav-trigger">

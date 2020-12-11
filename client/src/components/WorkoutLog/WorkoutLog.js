@@ -25,15 +25,22 @@ class WorkoutLog extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit(this.props.onLogSubmit)}>
-				{this.renderExercise()}
-				<Link to="/workouts" className="red btn flat left white-text">
-					Cancel
-				</Link>
-				<button className="teal btn-flat right white-text" type="submit">
-					Review
-				</button>
-			</form>
+			<div>
+				<h2>Workout Log</h2>
+				<p>
+					<strong>Note: </strong>Recommended values are previewed in each input
+					field.
+				</p>
+				<form onSubmit={this.props.handleSubmit(this.props.onLogSubmit)}>
+					{this.renderExercise()}
+					<Link to="/workouts" className="red btn flat left white-text">
+						Cancel
+					</Link>
+					<button className="teal btn-flat right white-text" type="submit">
+						Review
+					</button>
+				</form>
+			</div>
 		);
 	}
 }

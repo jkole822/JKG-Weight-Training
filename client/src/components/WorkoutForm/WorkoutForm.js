@@ -43,6 +43,7 @@ class NewWorkout extends Component {
 }
 
 function validate(values) {
+	console.log(values);
 	const errors = {};
 
 	_.each(formFields, ({ name, label }) => {
@@ -53,7 +54,7 @@ function validate(values) {
 			errors[name] = `You must enter a weight for ${label}`;
 		}
 	});
-
+	console.log(errors);
 	return errors;
 }
 

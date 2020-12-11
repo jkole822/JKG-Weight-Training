@@ -124,7 +124,14 @@ module.exports = app => {
 	});
 
 	app.get("/api/workouts/log", requireLogin, async (req, res) => {
-		const log = await LogHistory.findOne({ _user: req.user });
+		const log = await LogHistory.findOne(
+			{
+				_user: req.user,
+			},
+			{
+				logHistory: { $slice: -60 },
+			}
+		).exec();
 
 		if (!log) {
 			return res.send();

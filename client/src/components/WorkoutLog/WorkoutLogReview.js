@@ -18,15 +18,15 @@ const WorkoutLogReview = ({
 		})
 		.map(({ label, name }) => {
 			const sets = [];
-			for (let i = 0; i < 3; i++) {
+			for (let i = 1; i < 4; i++) {
 				sets.push(
-					<div key={`review_set_${name}_${i + 1}`} className="row">
-						<div className="col s4 center-align">{`Set ${i + 1}`}</div>
+					<div key={`review_set_${name}_${i}`} className="row">
+						<div className="col s4 center-align">{`Set ${i}`}</div>
 						<div className="col s4 center-align">
-							{formValues[name][`set_${i + 1}`].weight}
+							{formValues[name][`set_${i}`].weight}
 						</div>
 						<div className="col s4 center-align">
-							{formValues[name][`set_${i + 1}`].reps}
+							{formValues[name][`set_${i}`].reps}
 						</div>
 					</div>
 				);

@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import formFields from "../formFields";
 import * as actions from "../../actions";
 import _ from "lodash";
 import M from "materialize-css";
 import axios from "axios";
 
+import Dropdown from "./Dropdown";
+import formFields from "../formFields";
+
 class Deload extends Component {
-	state = { deloadStats: {}, deloadPercent: {} };
+	state = {
+		deloadStats: {},
+		deloadPercent: {},
+	};
 
 	componentDidMount() {
 		this.props.fetchStats();
@@ -28,7 +33,11 @@ class Deload extends Component {
 						</p>
 					</div>
 					<div className="col s6">
-						{this.renderDeloadDropdown(name)}
+						<Dropdown
+							onChange={this.handleChange.bind(this)}
+							value={this.state.deloadPercent[name]}
+							name={name}
+						/>
 						<button
 							className="btn yellow darken-3"
 							onClick={() => this.handleClick(name)}
@@ -41,32 +50,11 @@ class Deload extends Component {
 		});
 	}
 
-	renderDeloadDropdown(name) {
-		const deloadPercentage = ["5", "10", "15", "20", "25"];
-		const options = _.map(deloadPercentage, percentage => {
-			return (
-				<option key={percentage} value={percentage}>
-					{`${percentage}%`}
-				</option>
-			);
-		});
-
-		return (
-			<div className="input-field">
-				<select onChange={event => this.handleChange(event, name)}>
-					<option>Deload by:</option>
-					{options}
-				</select>
-				<label>Deload Percentage</label>
-			</div>
-		);
-	}
-
-	async handleChange(event, name) {
+	async handleChange(value, name) {
 		await this.setState({
 			deloadPercent: {
 				...this.state.deloadPercent,
-				[name]: event.target.value,
+				[name]: value,
 			},
 		});
 
@@ -79,10 +67,15 @@ class Deload extends Component {
 		});
 	}
 
-	handleClick(name) {
-		this.setState({
+	async handleClick(name) {
+		console.log(name);
+		await this.setState({
 			deloadStats: {
 				...this.state.deloadStats,
+				[name]: "",
+			},
+			deloadPercent: {
+				...this.state.deloadPercent,
 				[name]: "",
 			},
 		});
@@ -101,7 +94,9 @@ class Deload extends Component {
 						<h4>Confirm Changes</h4>
 						<p>
 							Are you sure you want to make these changes? By clicking confirm,
-							you consent to permanently overwrite your current lifting stats.
+							you will permanently overwrite your current lifting stats. As
+							such, these changes will only be reflected in the weights
+							recommended in your workout logs.
 						</p>
 					</div>
 					<div className="modal-footer">
@@ -135,7 +130,10 @@ class Deload extends Component {
 				<div className="row">
 					<button
 						onClick={() =>
-							this.setState({ deloadStats: {}, deloadPercent: {} })
+							this.setState({
+								deloadStats: {},
+								deloadPercent: {},
+							})
 						}
 						className="col s12 m4 btn btn-large red"
 					>

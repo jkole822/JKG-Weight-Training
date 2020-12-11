@@ -6,10 +6,13 @@ import MediaQuery from "react-responsive";
 
 class Header extends Component {
 	componentDidMount() {
+		// M.AutoInit() allows you to initialize all of the Materialize Components with a single function call.
+		// It is important to note that you cannot pass in options using this method.
 		M.AutoInit();
 	}
 
 	renderContent() {
+		// Conditionally render Login Options/ Logout based on whether the user is signed in (i.e. this.props.auth is truthy)
 		switch (this.props.auth) {
 			case null:
 				return;
@@ -35,6 +38,8 @@ class Header extends Component {
 			<div>
 				<nav className="nav-extended">
 					<div className="nav-wrapper indigo darken-4">
+						{/* MediaQuery is used to add a margin to the logo on larger screens. 
+						Otherwise, the logo will be positioned in the center by default on mobile screens in which case the margin should be removed. */}
 						<MediaQuery minWidth={993}>
 							<Link
 								to={this.props.auth ? "/workouts" : "/"}
@@ -55,16 +60,19 @@ class Header extends Component {
 						<a href="#" data-target="mobile-demo" className="sidenav-trigger">
 							<i className="material-icons">menu</i>
 						</a>
+						{/* Used materialize css `Mobile Collapse Button` to compact all options into a single button that opens up to a sidebar to display those options. */}
 						<ul
 							id="nav-mobile"
 							className="right hide-on-med-and-down"
 							style={{ marginRight: "2rem" }}
 						>
+							{/* Renders the Login/Login Buttons */}
 							{this.renderContent()}
 						</ul>
 					</div>
 				</nav>
 
+				{/* This ul is referenced only for mobile screen sizes in which the buttons that were originally in the header are moved to a popup sidebar. */}
 				<ul className="sidenav" id="mobile-demo">
 					{this.renderContent()}
 				</ul>
@@ -73,6 +81,7 @@ class Header extends Component {
 	}
 }
 
+// Retrieve user data contained in `auth` from redux store.
 function mapStateToProps({ auth }) {
 	return { auth };
 }

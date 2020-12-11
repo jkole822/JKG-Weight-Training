@@ -17,6 +17,8 @@ class Dashboard extends Component {
 		await this.props.fetchStats();
 		await this.props.fetchLogs();
 		this.parseLogData();
+		// M.AutoInit() allows you to initialize all of the Materialize Components with a single function call.
+		// It is important to note that you cannot pass in options using this method.
 		M.AutoInit();
 	}
 

@@ -77,15 +77,14 @@ module.exports = app => {
 
 		try {
 			const stats = await Stats.findOne({ _user: req.user._id });
-
 			if (!stats) {
 				return res.status(404).send();
 			}
 
 			updates.forEach(update => (stats[update] = change[update]));
-			await user.save();
+			const user = await req.user.save();
 			await stats.save();
-			res.send(req.user);
+			res.send(user);
 		} catch (e) {
 			res.status(500).send();
 		}

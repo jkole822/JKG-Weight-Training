@@ -51,20 +51,25 @@ function mapStateToProps({ auth }) {
 }
 
 function validate(values) {
+	// Need to copy in an empty template of `values` from `errorFormFields`
+	// so that errors can be set to nested objects.
 	const errors = { ...errorFormFields };
-	console.log(errors);
-	console.log(values);
 
-	_.each(formFields, ({ name, label }) => {
+	_.each(formFields, ({ name }) => {
 		if (values[name]) {
 			_.forEach(values[name], (set, set_key) => {
 				if (isNaN(set.weight) || set.weight <= 0) {
 					errors[name][set_key].weight =
 						"You must enter a number greater than zero";
+				} else {
+					errors[name][set_key].weight = "";
 				}
+
 				if (isNaN(set.reps) || set.reps <= 0) {
 					errors[name][set_key].reps =
 						"You must enter a number greater than zero";
+				} else {
+					errors[name][set_key].reps = "";
 				}
 			});
 		}

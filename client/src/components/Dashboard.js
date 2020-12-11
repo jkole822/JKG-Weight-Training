@@ -72,21 +72,22 @@ class Dashboard extends Component {
 		if (this.props.stats) {
 			return (
 				<div className="fixed-action-btn">
-					<Link to="/workouts/new" className="btn-floating btn-large red">
-						<i className="large material-icons">add</i>
+					<Link to="/workouts/log" className="btn-floating btn-large green">
+						<i className="large material-icons">fitness_center</i>
 					</Link>
+
 					<ul>
-						<li>
-							<Link to="/workouts/log" className="btn-floating green">
-								<i className="material-icons">fitness_center</i>
-							</Link>
-						</li>
 						<li>
 							<Link
 								to="/workouts/deload"
 								className="btn-floating yellow darken-1"
 							>
 								<i className="material-icons">loop</i>
+							</Link>
+						</li>
+						<li>
+							<Link to="/workouts/new" className="btn-floating red">
+								<i className=" material-icons">add</i>
 							</Link>
 						</li>
 					</ul>

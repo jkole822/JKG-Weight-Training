@@ -116,7 +116,7 @@ class Deload extends Component {
 				</div>
 				<h2>Deload Stats</h2>
 				<p>
-					If you are plateauing in one or more of your lifts, it is recommended
+					If you are plateauing on one or more of your lifts, it is recommended
 					that you implement deloading which is typically a period of time that
 					you take things easier in the gym by reducing your training volume. In
 					the context of this application, you are essentially resetting your

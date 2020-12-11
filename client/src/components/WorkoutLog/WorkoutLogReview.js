@@ -18,19 +18,25 @@ const WorkoutLogReview = ({
 		})
 		.map(({ label, name }) => {
 			const sets = [];
-			for (let i = 1; i < 4; i++) {
+			_.forEach(formValues[name], (set, setKey) => {
 				sets.push(
-					<div key={`review_set_${name}_${i}`} className="row">
-						<div className="col s4 center-align">{`Set ${i}`}</div>
+					<div key={`review_set_${name}_${setKey}`} className="row">
 						<div className="col s4 center-align">
-							{formValues[name][`set_${i}`].weight}
+							{setKey === "set_1"
+								? "Set 1"
+								: setKey === "set_2"
+								? "Set 2"
+								: "Set 3"}
 						</div>
 						<div className="col s4 center-align">
-							{formValues[name][`set_${i}`].reps}
+							{formValues[name][setKey].weight}
+						</div>
+						<div className="col s4 center-align">
+							{formValues[name][setKey].reps}
 						</div>
 					</div>
 				);
-			}
+			});
 
 			return (
 				<div key={name} className="row">

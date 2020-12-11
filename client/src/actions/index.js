@@ -55,7 +55,7 @@ export const submitLog = (values, history) => async dispatch => {
 		res = await axios.post("/api/workouts/log", values);
 	}
 
-	axios.patch("/api/workouts/update", values);
+	await axios.patch("/api/workouts/update", values);
 
 	history.push("/workouts");
 	dispatch({

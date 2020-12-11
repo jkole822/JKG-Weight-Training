@@ -57,19 +57,19 @@ function validate(values) {
 
 	_.each(formFields, ({ name }) => {
 		if (values[name]) {
-			_.forEach(values[name], (set, set_key) => {
+			_.forEach(values[name], (set, setKey) => {
 				if (isNaN(set.weight) || set.weight <= 0) {
-					errors[name][set_key].weight =
+					errors[name][setKey].weight =
 						"You must enter a number greater than zero";
 				} else {
-					errors[name][set_key].weight = "";
+					errors[name][setKey].weight = "";
 				}
 
 				if (isNaN(set.reps) || set.reps <= 0) {
-					errors[name][set_key].reps =
+					errors[name][setKey].reps =
 						"You must enter a number greater than zero";
 				} else {
-					errors[name][set_key].reps = "";
+					errors[name][setKey].reps = "";
 				}
 			});
 		}

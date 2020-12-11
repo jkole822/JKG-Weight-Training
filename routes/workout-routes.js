@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
+const _ = require("lodash");
 
-const User = mongoose.model("users");
 const Stats = mongoose.model("stats");
 const LogHistory = mongoose.model("logHistory");
 
@@ -101,12 +101,12 @@ module.exports = app => {
 			const statVolume = stats[exercise] * 5 * 3;
 			let logVolume = 0;
 			let sumWeight = 0;
-			for (let i = 1; i < 4; i++) {
-				const logWeight = log[exercise][`set_${i}`].weight;
-				const logReps = log[exercise][`set_${i}`].reps;
+			_.forEach(log[exercise], set => {
+				const logWeight = set.weight;
+				const logReps = set.reps;
 				logVolume += parseInt(logWeight) * parseInt(logReps);
 				sumWeight += parseInt(logWeight);
-			}
+			});
 
 			const avgWeight = sumWeight / 3;
 			const roundedAvgWeight = Math.round(avgWeight / 5) * 5;

@@ -1,3 +1,4 @@
+/* Landing */
 #landing {
 	height: 100vh;
 	width: 100vw;
@@ -6,4 +7,44 @@
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+/* Workout Log */
+#workout-log-note {
+	margin-bottom: 3rem;
+}
+
+/* Timer */
+#timer {
+	display: flex;
+	justify-content: center;
+}
+
+#timer-buttons {
+	display: flex;
+	justify-content: center;
+	clear: both;
+}
+
+#timer-button-one {
+	margin-right: 1rem;
+}
+
+#timer-button-two {
+	margin-left: 1rem;
+}
+
+.timer-label {
+	display: flex;
+	justify-content: center;
+}
+
+#minutes {
+	font-size: 2.5rem;
+	float: "left";
+}
+
+#seconds {
+	font-size: 1.25rem;
+	float: "left";
 }

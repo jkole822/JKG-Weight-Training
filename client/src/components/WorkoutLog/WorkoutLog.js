@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import * as actions from "../../actions";
 import _ from "lodash";
+
+import Timer from "./Timer";
+import Exercise from "./Exercise";
 import formFields from "../formFields";
 import errorFormFields from "../errorFormFields";
-import Exercise from "./Exercise";
 
 class WorkoutLog extends Component {
 	componentDidMount() {
@@ -28,10 +30,11 @@ class WorkoutLog extends Component {
 		return (
 			<div>
 				<h2>Workout Log</h2>
-				<p>
+				<p id="workout-log-note">
 					<strong>Note: </strong>Recommended values are previewed in each input
 					field.
 				</p>
+				<Timer />
 				<form onSubmit={this.props.handleSubmit(this.props.onLogSubmit)}>
 					{this.renderExercise()}
 					<Link to="/workouts" className="red btn flat left white-text">

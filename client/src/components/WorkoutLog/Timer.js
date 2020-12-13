@@ -26,7 +26,7 @@ class Timer extends Component {
 			) {
 				this.setState({ secondsElapsed: this.state.secondsElapsed + 1 });
 			}
-		}, 100);
+		}, 1000);
 	}
 
 	toggleTimer() {

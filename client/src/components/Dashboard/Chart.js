@@ -51,7 +51,7 @@ class Chart extends Component {
 			.attr("x", w / 2)
 			.attr("text-anchor", "middle")
 			.attr("y", padding / 2)
-			.text("Your Progress");
+			.text("Average Weight Progression");
 
 		// Subtitle
 		svg

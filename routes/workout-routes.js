@@ -99,15 +99,14 @@ module.exports = app => {
 	// Updates lifting stats of the current user based on performance submitted in the workout log
 	app.patch("/api/workouts/update", requireLogin, async (req, res) => {
 		const log = req.body;
-		const exercises = Object.keys(log);
 
 		const stats = await Stats.findOne({ _user: req.user._id });
 
-		exercises.forEach(exercise => {
-			const statVolume = stats[exercise] * 5 * 3;
+		_.forEach(log, (exercise, exerciseKey) => {
+			const statVolume = stats[exerciseKey] * 5 * 3;
 			let logVolume = 0;
 			let sumWeight = 0;
-			_.forEach(log[exercise], set => {
+			_.forEach(exercise, set => {
 				const logWeight = set.weight;
 				const logReps = set.reps;
 				logVolume += parseInt(logWeight) * parseInt(logReps);
@@ -118,7 +117,7 @@ module.exports = app => {
 			const roundedAvgWeight = Math.round(avgWeight / 5) * 5;
 
 			if (logVolume >= statVolume) {
-				stats[exercise] = roundedAvgWeight;
+				stats[exerciseKey] = roundedAvgWeight;
 			}
 		});
 

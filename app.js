@@ -15,12 +15,12 @@ require("./models/logHistory");
 require("./services/passport/facebook");
 require("./services/passport/google");
 
-// Session stores user information for 30 minutes
+// Session stores user information for 24 hours
 app.use(bodyParser.json());
 app.use(
 	cookieSession({
 		keys: [keys.cookieKey],
-		maxAge: 1000 * 60 * 30,
+		maxAge: 1000 * 60 * 60 * 24,
 	})
 );
 

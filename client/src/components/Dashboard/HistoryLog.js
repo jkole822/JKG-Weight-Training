@@ -32,7 +32,7 @@ const HistoryLog = ({ logData }) => {
 			});
 
 			return (
-				<div>
+				<div key={name}>
 					<h3>{label}</h3>
 					{sets}
 				</div>

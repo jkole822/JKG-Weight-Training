@@ -31,9 +31,11 @@ class History extends Component {
 			return;
 		} else {
 			const logs = this.props.logsHistory.logHistory.reverse();
+			let i = 0;
 			return _.map(logs, log => {
+				i++;
 				return (
-					<div>
+					<div key={i}>
 						<h2>
 							{DateTime.fromISO(log.date).toLocaleString(DateTime.DATETIME_MED)}
 						</h2>

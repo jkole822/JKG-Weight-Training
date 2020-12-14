@@ -6,6 +6,8 @@ const Stats = mongoose.model("stats");
 const LogHistory = mongoose.model("logHistory");
 
 module.exports = app => {
+	// --------------------------- STATS -----------------------------------
+	// Fetches lifting stats for the current user
 	app.get("/api/workouts", requireLogin, async (req, res) => {
 		const stats = await Stats.findOne({ _user: req.user });
 
@@ -16,6 +18,7 @@ module.exports = app => {
 		res.send(stats);
 	});
 
+	// Initializes lifting stats for the current user if none currently exist
 	app.post("/api/workouts", requireLogin, async (req, res) => {
 		const {
 			squat,
@@ -28,6 +31,7 @@ module.exports = app => {
 			bent_over_rows,
 		} = req.body;
 
+		// Initializes with routine A
 		req.user.workout_routine = "a";
 
 		const stats = new Stats({
@@ -51,6 +55,7 @@ module.exports = app => {
 		}
 	});
 
+	// Overwrites existing stats with user input when starting a new program for the current user
 	app.patch("/api/workouts/renew", requireLogin, async (req, res) => {
 		const change = req.body;
 
@@ -73,6 +78,7 @@ module.exports = app => {
 			return res.status(400).send({ error: "Invalid updates" });
 		}
 
+		// Resets to routine A
 		req.user.workout_routine = "a";
 
 		try {
@@ -90,6 +96,7 @@ module.exports = app => {
 		}
 	});
 
+	// Updates lifting stats of the current user based on performance submitted in the workout log
 	app.patch("/api/workouts/update", requireLogin, async (req, res) => {
 		const log = req.body;
 		const exercises = Object.keys(log);
@@ -123,6 +130,27 @@ module.exports = app => {
 		}
 	});
 
+	// Updates the current user's stats based on input submitted through the deload form
+	app.patch("/api/workouts/deload", requireLogin, async (req, res) => {
+		const updates = req.body;
+		const exercises = Object.keys(updates);
+
+		const stats = await Stats.findOne({ _user: req.user._id });
+
+		exercises.forEach(exercise => {
+			stats[exercise] = updates[exercise];
+		});
+
+		try {
+			await stats.save();
+			res.send();
+		} catch (e) {
+			res.status(500).send(error);
+		}
+	});
+
+	// --------------------------- LOGS -----------------------------------
+	// Fetches the most recent workout logs for the current user (up to 60)
 	app.get("/api/workouts/log", requireLogin, async (req, res) => {
 		const log = await LogHistory.findOne(
 			{
@@ -140,7 +168,10 @@ module.exports = app => {
 		res.send(log);
 	});
 
+	// Creates a log book with the submitted log data for the current user
+	// if none exists upon submission
 	app.post("/api/workouts/log", requireLogin, async (req, res) => {
+		// Updates the user's workout routine based on their current workout routine
 		switch (req.user.workout_routine) {
 			case "a":
 				req.user.workout_routine = "b";
@@ -167,6 +198,7 @@ module.exports = app => {
 		}
 	});
 
+	// Updates the current user's log book with the submitted workout log data
 	app.patch("/api/workouts/log", requireLogin, async (req, res) => {
 		switch (req.user.workout_routine) {
 			case "a":
@@ -193,24 +225,6 @@ module.exports = app => {
 			res.send(user);
 		} catch (e) {
 			res.status(422).send(e);
-		}
-	});
-
-	app.patch("/api/workouts/deload", requireLogin, async (req, res) => {
-		const updates = req.body;
-		const exercises = Object.keys(updates);
-
-		const stats = await Stats.findOne({ _user: req.user._id });
-
-		exercises.forEach(exercise => {
-			stats[exercise] = updates[exercise];
-		});
-
-		try {
-			await stats.save();
-			res.send();
-		} catch (e) {
-			res.status(500).send(error);
 		}
 	});
 };

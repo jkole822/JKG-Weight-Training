@@ -16,14 +16,18 @@ class WorkoutLog extends Component {
 	}
 
 	renderExercise() {
-		return _.chain(formFields)
-			.filter(({ routine }) => {
-				return routine === this.props.auth.workout_routine;
-			})
-			.map(({ label, name }) => {
-				return <Exercise key={name} label={label} name={name} />;
-			})
-			.value();
+		if (!this.props.auth) {
+			return;
+		} else {
+			return _.chain(formFields)
+				.filter(({ routine }) => {
+					return routine === this.props.auth.workout_routine;
+				})
+				.map(({ label, name }) => {
+					return <Exercise key={name} label={label} name={name} />;
+				})
+				.value();
+		}
 	}
 
 	render() {

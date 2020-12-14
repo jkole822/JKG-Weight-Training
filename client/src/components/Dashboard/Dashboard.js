@@ -9,9 +9,10 @@ import formFields from "./../formFields";
 import Chart from "./Chart";
 import DesktopButtons from "./DesktopButtons";
 import MobileButtons from "./MobileButtons";
+import History from "./History";
 
 class Dashboard extends Component {
-	state = { logData: {}, liftChart: "squat", mobile: "" };
+	state = { logData: {}, liftChart: "squat" };
 
 	async componentDidMount() {
 		await this.props.fetchStats();
@@ -82,6 +83,7 @@ class Dashboard extends Component {
 			<div>
 				<Chart logData={this.state.logData} liftChart={this.state.liftChart} />
 				{this.renderDropdown()}
+				<History />
 				<MediaQuery minWidth={993}>
 					<DesktopButtons stats={this.props.stats} />
 				</MediaQuery>

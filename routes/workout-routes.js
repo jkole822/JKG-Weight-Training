@@ -168,6 +168,27 @@ module.exports = app => {
 		res.send(log);
 	});
 
+	app.get("/api/workouts/log/:page", requireLogin, async (req, res) => {
+		const page = parseInt(req.params.page);
+		const firstIndex = -5 * page;
+		const secondIndex = 5;
+
+		const log = await LogHistory.findOne(
+			{
+				_user: req.user,
+			},
+			{
+				logHistory: { $slice: [firstIndex, secondIndex] },
+			}
+		).exec();
+
+		if (!log) {
+			return res.send();
+		}
+
+		res.send(log);
+	});
+
 	// Creates a log book with the submitted log data for the current user
 	// if none exists upon submission
 	app.post("/api/workouts/log", requireLogin, async (req, res) => {

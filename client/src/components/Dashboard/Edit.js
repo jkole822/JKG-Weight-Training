@@ -64,10 +64,10 @@ const Edit = ({
 		})
 		.value();
 
-	const handleEditSubmit = () => {
+	const handleEditSubmit = async () => {
 		const _id = logData._id;
 		const req = { ...formValues.values, _id };
-		axios.patch("/api/workouts/edit", req);
+		await axios.patch("/api/workouts/edit", req);
 		history.push("/workouts");
 	};
 

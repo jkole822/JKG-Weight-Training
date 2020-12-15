@@ -249,9 +249,26 @@ module.exports = app => {
 	});
 
 	// Edits a single log from the current user's log book
-	app.patch("/api/workouts/edit", requireLogin, async (req, res) => {
-		console.log(req.body);
-		// LogHistory.updateOne({ _user: req.user._id });
+	app.patch("/api/workouts/edit", requireLogin, (req, res) => {
+		const updates = req.body;
+
+		_.forEach(updates, (exercise, exerciseKey) => {
+			if (exerciseKey !== "_id")
+				_.forEach(exercise, (set, setKey) => {
+					_.forEach(set, async (entry, entryKey) => {
+						const property = `logHistory.$.${exerciseKey}.${setKey}.${entryKey}`;
+						await LogHistory.updateOne(
+							{
+								_user: req.user._id,
+								logHistory: {
+									$elemMatch: { _id: updates._id },
+								},
+							},
+							{ $set: { [property]: entry } }
+						);
+					});
+				});
+		});
 
 		res.send();
 	});

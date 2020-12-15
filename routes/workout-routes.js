@@ -247,4 +247,12 @@ module.exports = app => {
 			res.status(422).send(e);
 		}
 	});
+
+	// Edits a single log from the current user's log book
+	app.patch("/api/workouts/edit", requireLogin, async (req, res) => {
+		console.log(req.body);
+		// LogHistory.updateOne({ _user: req.user._id });
+
+		res.send();
+	});
 };

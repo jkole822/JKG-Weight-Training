@@ -9,6 +9,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import WorkoutNew from "./WorkoutForm/WorkoutNew";
 import WorkoutLogNew from "./WorkoutLog/WorkoutLogNew";
 import Deload from "./Deload/Deload";
+import Edit from "./Dashboard/Edit";
 
 class App extends Component {
 	componentDidMount() {
@@ -26,6 +27,7 @@ class App extends Component {
 						<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
 						<Route path="/workouts/log" component={WorkoutLogNew} exact />
 						<Route path="/workouts/deload" component={Deload} exact />
+						<Route path="/workouts/edit" component={Edit} exact />
 					</div>
 				</div>
 			</BrowserRouter>

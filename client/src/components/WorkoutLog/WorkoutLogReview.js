@@ -21,18 +21,15 @@ const WorkoutLogReview = ({
 			_.forEach(formValues[name], (set, setKey) => {
 				sets.push(
 					<div key={`review_set_${name}_${setKey}`} className="row">
-						<div className="col s4 center-align">
+						<div className="col s6 center-align">
 							{setKey === "set_1"
 								? "Set 1"
 								: setKey === "set_2"
 								? "Set 2"
 								: "Set 3"}
 						</div>
-						<div className="col s4 center-align">
-							{formValues[name][setKey].weight}
-						</div>
-						<div className="col s4 center-align">
-							{formValues[name][setKey].reps}
+						<div className="col s6 center-align">
+							{`${formValues[name][setKey].weight} lbs x ${formValues[name][setKey].reps}`}
 						</div>
 					</div>
 				);

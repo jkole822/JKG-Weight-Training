@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import _ from "lodash";
@@ -40,6 +41,14 @@ class History extends Component {
 							{DateTime.fromISO(log.date).toLocaleString(DateTime.DATETIME_MED)}
 						</h2>
 						<HistoryLog logData={log} />
+						<Link
+							to={{
+								pathname: "/workouts/edit",
+								state: { logData: log },
+							}}
+						>
+							Edit
+						</Link>
 					</div>
 				);
 			});

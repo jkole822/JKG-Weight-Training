@@ -1,14 +1,22 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 
-export default ({ input, placeholder, meta: { error, touched } }) => {
+export default ({
+	value,
+	placeholder,
+	input,
+	label,
+	meta: { error, touched },
+}) => {
 	return (
-		<div className="col s4">
+		<div>
+			<label>{label}</label>
 			<input
 				className="center-align"
 				type="number"
-				{...input}
+				value={value}
 				placeholder={placeholder}
+				{...input}
 				style={{ marginBottom: "5px" }}
 			/>
 			<div className="red-text" style={{ marginBottom: "20px" }}>

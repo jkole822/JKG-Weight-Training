@@ -31,27 +31,32 @@ class History extends Component {
 		if (!this.props.logsHistory.logHistory) {
 			return;
 		} else {
-			const logs = this.props.logsHistory.logHistory.reverse();
+			const logs = this.props.logsHistory.logHistory;
 			let i = 0;
-			return _.map(logs, log => {
-				i++;
-				return (
-					<div key={i}>
-						<h2>
-							{DateTime.fromISO(log.date).toLocaleString(DateTime.DATETIME_MED)}
-						</h2>
-						<HistoryLog logData={log} />
-						<Link
-							to={{
-								pathname: "/workouts/edit",
-								state: { logData: log },
-							}}
-						>
-							Edit
-						</Link>
-					</div>
-				);
-			});
+			return _.chain(logs)
+				.reverse()
+				.map(log => {
+					i++;
+					return (
+						<div key={i}>
+							<h2>
+								{DateTime.fromISO(log.date).toLocaleString(
+									DateTime.DATETIME_MED
+								)}
+							</h2>
+							<HistoryLog logData={log} />
+							<Link
+								to={{
+									pathname: "/workouts/edit",
+									state: { logData: log },
+								}}
+							>
+								Edit
+							</Link>
+						</div>
+					);
+				})
+				.value();
 		}
 	}
 

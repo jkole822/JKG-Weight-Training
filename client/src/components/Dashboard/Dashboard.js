@@ -83,12 +83,12 @@ class Dashboard extends Component {
 			});
 
 			return (
-				<div className="input-field">
+				<div id="chart-dropdown" className="input-field">
 					<select onChange={event => this.handleChange(event)}>
 						<option>Select a lift</option>
 						{options}
 					</select>
-					<label>View Progress</label>
+					<label className="light-blue-text text-darken-1">View Progress</label>
 				</div>
 			);
 		}

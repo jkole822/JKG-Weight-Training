@@ -38,21 +38,30 @@ class History extends Component {
 				.map(log => {
 					i++;
 					return (
-						<div key={i}>
-							<h2>
-								{DateTime.fromISO(log.date).toLocaleString(
-									DateTime.DATETIME_MED
-								)}
-							</h2>
-							<HistoryLog logData={log} />
-							<Link
-								to={{
-									pathname: "/workouts/edit",
-									state: { logData: log },
-								}}
-							>
-								Edit
-							</Link>
+						<div className="row" key={i}>
+							<div className="col s12">
+								<div className="card grey darken-3 log-card">
+									<div className="card-content grey-text text-lighten-2">
+										<span className="card-title">
+											{DateTime.fromISO(log.date).toLocaleString(
+												DateTime.DATETIME_MED
+											)}
+										</span>
+										<HistoryLog logData={log} />
+									</div>
+									<div className="card-action log-card-bottom">
+										<Link
+											className="light-blue-text text-darken-1"
+											to={{
+												pathname: "/workouts/edit",
+												state: { logData: log },
+											}}
+										>
+											Edit
+										</Link>
+									</div>
+								</div>
+							</div>
 						</div>
 					);
 				})
@@ -75,20 +84,22 @@ class History extends Component {
 	render() {
 		return (
 			<div>
-				<h2>Log History</h2>
+				<div id="log-nav-buttons">
+					<button
+						onClick={this.handleBackClick}
+						className="btn light-blue darken-4 waves-effect waves-light"
+					>
+						<i class="material-icons">navigate_before</i>
+					</button>
+					<button
+						onClick={this.handleNextClick}
+						className="btn light-blue darken-4 waves-effect waves-light"
+					>
+						<i class="material-icons">navigate_next</i>
+					</button>
+				</div>
+				<h2 id="log-history-heading">Training History</h2>
 				{this.renderLogs()}
-				<button
-					onClick={this.handleBackClick}
-					className="btn indigo waves-effect waves-light"
-				>
-					Back
-				</button>
-				<button
-					onClick={this.handleNextClick}
-					className="btn indigo waves-effect waves-light right"
-				>
-					Next
-				</button>
 			</div>
 		);
 	}

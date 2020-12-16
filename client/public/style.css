@@ -35,6 +35,53 @@
 	font-size: 1.3rem;
 }
 
+/* Dashboard */
+#chart-dropdown {
+	margin-bottom: 5vh;
+}
+
+.select-dropdown {
+	color: #e0e0e0;
+}
+
+.dropdown-content {
+	background-color: #424242 !important;
+}
+
+.dropdown-content > li > span {
+	color: #039be5 !important;
+}
+
+/* Log History */
+#log-nav-buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#log-history-heading {
+	text-align: center;
+	font-size: 2rem;
+}
+
+.log-card {
+	border-radius: 25px !important;
+}
+
+.log-card-bottom {
+	border-bottom-left-radius: 25px !important;
+	border-bottom-right-radius: 25px !important;
+}
+
+.exercise-name {
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+
+.exercise-metric,
+.set-id {
+	font-size: 0.8rem;
+}
+
 /* Workout Log */
 #workout-log-note {
 	margin-bottom: 3rem;

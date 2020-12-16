@@ -4,9 +4,14 @@ import * as d3 from "d3";
 class Chart extends Component {
 	constructor(props) {
 		super(props);
+
+		// Need to createRef to import d3 svg created with `renderData`
 		this.myRef = React.createRef();
 	}
 
+	// Calls renderData each time liftChart prop is updated which is when
+	// the user selects a new exercise from the dropdown menu from the dashboard
+	// component
 	componentDidUpdate(prevProps) {
 		if (
 			(this.props.liftChart === prevProps.liftChart &&
@@ -20,13 +25,16 @@ class Chart extends Component {
 	renderData(dataset) {
 		const w = 900;
 		const h = 500;
-		const padding = 75;
+		const padding = 80;
 
+		// Format date to be used on x-axis
 		const dateFormat = d3.timeFormat("%-m/%-d");
+		// Subtitle text
 		const exerciseLabel = dataset.label;
 
 		// Scales
 		const xScale = d3
+			// Need to use scaleTime since x-axis data corresponds to Date objects
 			.scaleTime()
 			.domain(d3.extent(dataset.log, d => new Date(d.date)))
 			.range([padding, w - padding]);
@@ -39,14 +47,22 @@ class Chart extends Component {
 		// SVG Container
 		const svg = d3
 			.select(this.myRef.current)
+			// html("") Clears previous chart from the div
 			.html("")
 			.append("svg")
 			.attr("viewBox", `0 0 ${w} ${h}`)
+			.style("background", "#424242")
+			.style("margin-top", "5vh")
+			.style("margin-bottom", "5vh")
+			.style("border-radius", "25px")
 			.classed("svg-content", true);
 
 		// Title
 		svg
 			.append("text")
+			.attr("fill", "#e0e0e0")
+			.style("font-size", "1.3rem")
+			.style("font-weight", "600")
 			.attr("id", "title")
 			.attr("x", w / 2)
 			.attr("text-anchor", "middle")
@@ -56,9 +72,10 @@ class Chart extends Component {
 		// Subtitle
 		svg
 			.append("text")
+			.attr("fill", "#e0e0e0")
 			.attr("id", "subtitle")
 			.attr("x", w / 2)
-			.attr("y", padding / 2 + 20)
+			.attr("y", padding / 2 + 28)
 			.attr("text-anchor", "middle")
 			.text(exerciseLabel);
 
@@ -67,7 +84,7 @@ class Chart extends Component {
 			.append("path")
 			.datum(dataset.log)
 			.attr("fill", "none")
-			.attr("stroke", "steelblue")
+			.attr("stroke", "#039be5")
 			.attr("stroke-width", 1.5)
 			.attr(
 				"d",
@@ -89,6 +106,7 @@ class Chart extends Component {
 		// x-axis Label
 		svg
 			.append("text")
+			.attr("fill", "#039be5")
 			.attr("class", "axis-label")
 			.attr("text-anchor", "middle")
 			.attr("x", w / 2)
@@ -107,11 +125,12 @@ class Chart extends Component {
 		// y-axis Label
 		svg
 			.append("text")
+			.attr("fill", "#039be5")
 			.attr("transform", "rotate(-90)")
 			.attr("text-anchor", "middle")
 			.attr("class", "axis-label")
-			.attr("x", 0 - h / 2)
-			.attr("y", padding / 3)
+			.attr("x", -h / 2)
+			.attr("y", padding / 2.5)
 			.text("Weight (lbs.)");
 	}
 

@@ -19,16 +19,22 @@ class Header extends Component {
 			case false:
 				return [
 					<li key="google-login">
-						<a href="/auth/google">Login with Google</a>
+						<a className="white-text" href="/auth/google">
+							Login with Google
+						</a>
 					</li>,
 					<li key="facebook-login">
-						<a href="/auth/facebook">Login with Facebook</a>
+						<a className="white-text" href="/auth/facebook">
+							Login with Facebook
+						</a>
 					</li>,
 				];
 			default:
 				return (
 					<li>
-						<a href="/api/logout">Logout</a>
+						<a className="white-text" href="/api/logout">
+							Logout
+						</a>
 					</li>
 				);
 		}
@@ -37,13 +43,13 @@ class Header extends Component {
 		return (
 			<div>
 				<nav className="nav-extended">
-					<div className="nav-wrapper indigo darken-4">
+					<div className="nav-wrapper grey darken-3">
 						{/* MediaQuery is used to add a margin to the logo on larger screens. 
 						Otherwise, the logo will be positioned in the center by default on mobile screens in which case the margin should be removed. */}
 						<MediaQuery minWidth={993}>
 							<Link
 								to={this.props.auth ? "/workouts" : "/"}
-								className="brand-logo"
+								className="brand-logo grey-text text-lighten-3"
 								style={{ marginLeft: "2rem" }}
 							>
 								JKG Weight Training
@@ -51,8 +57,9 @@ class Header extends Component {
 						</MediaQuery>
 						<MediaQuery maxWidth={992}>
 							<Link
+								id="logo-small"
 								to={this.props.auth ? "/workouts" : "/"}
-								className="brand-logo"
+								className="brand-logo grey-text text-lighten-3"
 							>
 								JKG Weight Training
 							</Link>
@@ -73,7 +80,7 @@ class Header extends Component {
 				</nav>
 
 				{/* This ul is referenced only for mobile screen sizes in which the buttons that were originally in the header are moved to a popup sidebar. */}
-				<ul className="sidenav" id="mobile-demo">
+				<ul className="sidenav light-blue darken-4" id="mobile-demo">
 					{this.renderContent()}
 				</ul>
 			</div>

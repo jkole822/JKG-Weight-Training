@@ -9,6 +9,32 @@
 	background-size: cover;
 }
 
+#landing-heading-1,
+#landing-heading-2 {
+	font-family: "Rock Salt", cursive;
+	text-align: center;
+	position: absolute;
+	margin-top: 0;
+	font-size: 2rem;
+}
+
+#landing-heading-1 {
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+}
+
+#landing-heading-2 {
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -70%);
+}
+
+/* Header */
+#logo-small {
+	font-size: 1.3rem;
+}
+
 /* Workout Log */
 #workout-log-note {
 	margin-bottom: 3rem;

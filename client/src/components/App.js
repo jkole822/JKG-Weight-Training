@@ -19,7 +19,7 @@ class App extends Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<div>
+				<div className="grey darken-4 grey-text text-lighten-2">
 					<Header />
 					<Route path="/" component={Landing} exact />
 					<div className="container">

@@ -75,21 +75,23 @@ class History extends Component {
 		} else {
 			return (
 				<div>
-					<div id="log-nav-buttons">
+					<div id="log-nav-buttons" className="row">
 						<button
 							onClick={this.handleBackClick}
-							className="btn light-blue darken-4 waves-effect waves-light"
+							className="col s2 btn light-blue darken-4 waves-effect waves-light"
 						>
 							<i className="material-icons">navigate_before</i>
 						</button>
+						<h2 id="log-history-heading" className="col s8">
+							Training History
+						</h2>
 						<button
 							onClick={this.handleNextClick}
-							className="btn light-blue darken-4 waves-effect waves-light"
+							className="col s2 btn light-blue darken-4 waves-effect waves-light"
 						>
 							<i className="material-icons">navigate_next</i>
 						</button>
 					</div>
-					<h2 id="log-history-heading">Training History</h2>
 				</div>
 			);
 		}

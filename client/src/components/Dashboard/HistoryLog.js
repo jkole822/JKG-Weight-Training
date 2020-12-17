@@ -13,7 +13,7 @@ const HistoryLog = ({ logData }) => {
 				if (setKey !== "_id") {
 					sets.push(
 						<div key={`review_set_${name}_${setKey}`} className="row">
-							<div className="col s6  set-id ">
+							<div className="col s6 set-id">
 								{setKey === "set_1"
 									? "Set 1"
 									: setKey === "set_2"

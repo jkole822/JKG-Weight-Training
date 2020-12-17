@@ -23,7 +23,7 @@ class NewWorkout extends Component {
 	render() {
 		return (
 			<form onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}>
-				<h2>Lifting Stats</h2>
+				<h2 id="log-heading">New Training Program</h2>
 				<p>
 					For each field below, enter your current or estimated 5RM of the
 					corresponding lift. If you have not performed the lift before, it is
@@ -31,12 +31,20 @@ class NewWorkout extends Component {
 					is typically 45 lbs.
 				</p>
 				{this.renderFields()}
-				<Link to="/workouts" className="red btn flat left white-text">
-					Cancel
-				</Link>
-				<button className="teal btn-flat right white-text" type="submit">
-					Review
-				</button>
+				<div className="row">
+					<Link
+						to="/workouts"
+						className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+					>
+						Cancel
+					</Link>
+					<button
+						type="submit"
+						className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+					>
+						Review
+					</button>
+				</div>
 			</form>
 		);
 	}

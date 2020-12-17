@@ -9,28 +9,32 @@ const WorkoutReview = ({ onCancel, formValues, submitWorkout, history }) => {
 	const reviewFields = _.map(formFields, ({ label, name }) => {
 		return (
 			<div key={name}>
-				<label>{label}</label>
-				<div>{formValues[name]}</div>
+				<h3 className="light-blue-text text-darken-1 center-align review-stats-exercise">
+					{label}
+				</h3>
+				<div className="center-align">{formValues[name]}</div>
 			</div>
 		);
 	});
 
 	return (
 		<div>
-			<h5>Review your entries</h5>
-			{reviewFields}
-			<button
-				onClick={onCancel}
-				className="yellow darken-3 white-text btn-flat"
-			>
-				Edit
-			</button>
-			<button
-				className="green white-text btn-flat right"
-				onClick={() => submitWorkout(formValues, history)}
-			>
-				Submit
-			</button>
+			<h2 id="log-heading">Review</h2>
+			<div id="review-stats">{reviewFields}</div>
+			<div className="row">
+				<button
+					onClick={onCancel}
+					className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+				>
+					Edit
+				</button>
+				<button
+					className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+					onClick={() => submitWorkout(formValues, history)}
+				>
+					Submit
+				</button>
+			</div>
 		</div>
 	);
 };

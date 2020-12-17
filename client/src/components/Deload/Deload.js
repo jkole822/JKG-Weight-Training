@@ -23,29 +23,42 @@ class Deload extends Component {
 	renderContent() {
 		return _.map(formFields, ({ name, label }) => {
 			return (
-				<section className="row" key={name}>
-					<div className="col s6">
-						<h3>{label}</h3>
-						<p>
-							{this.state.deloadStats[name]
-								? this.state.deloadStats[name]
-								: this.props.stats[name]}
-						</p>
+				<div className="row" key={name}>
+					<div className="card grey darken-3 log-card">
+						<div className="card-content grey-text text-lighten-2">
+							<span
+								className="card-title light-blue-text text-darken-1"
+								style={{ marginBottom: "20px" }}
+							>
+								{label}
+							</span>
+							<div className="row valign-wrapper">
+								<div className="col s6">
+									<p>
+										{this.state.deloadStats[name]
+											? `${this.state.deloadStats[name]} lbs`
+											: `${this.props.stats[name]} lbs`}
+									</p>
+								</div>
+								<div className="col s6">
+									<Dropdown
+										onChange={this.handleChange.bind(this)}
+										value={this.state.deloadPercent[name]}
+										name={name}
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="card-action log-card-bottom">
+							<a
+								className="light-blue-text text-darken-1"
+								onClick={() => this.handleClick(name)}
+							>
+								Reset
+							</a>
+						</div>
 					</div>
-					<div className="col s6">
-						<Dropdown
-							onChange={this.handleChange.bind(this)}
-							value={this.state.deloadPercent[name]}
-							name={name}
-						/>
-						<button
-							className="btn yellow darken-3"
-							onClick={() => this.handleClick(name)}
-						>
-							Reset
-						</button>
-					</div>
-				</section>
+				</div>
 			);
 		});
 	}
@@ -90,8 +103,8 @@ class Deload extends Component {
 		return (
 			<div>
 				<div id="modal1" className="modal">
-					<div className="modal-content">
-						<h4>Confirm Changes</h4>
+					<div className="modal-content grey darken-3">
+						<h4 className="light-blue-text text-darken-1">Confirm Changes</h4>
 						<p>
 							Are you sure you want to make these changes? By clicking confirm,
 							you will permanently overwrite your current lifting stats. As
@@ -99,10 +112,10 @@ class Deload extends Component {
 							recommended in your workout logs.
 						</p>
 					</div>
-					<div className="modal-footer">
+					<div className="modal-footer grey darken-4">
 						<a
 							href="#!"
-							className="modal-close waves-effect waves-green btn-flat"
+							className="modal-close light-blue-text text-darken-1 waves-effect waves-light btn-flat"
 							onClick={this.handleSubmit.bind(this)}
 						>
 							Confirm
@@ -135,12 +148,13 @@ class Deload extends Component {
 								deloadPercent: {},
 							})
 						}
-						className="col s12 m4 btn btn-large red"
+						className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
 					>
 						Reset All
 					</button>
 					<button
-						className="col s12 m4 offset-m4 btn btn-large teal waves-effect waves-light btn modal-trigger"
+						data-target="modal1"
+						className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light modal-trigger"
 						href="#modal1"
 					>
 						Submit

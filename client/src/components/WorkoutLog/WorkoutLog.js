@@ -33,7 +33,7 @@ class WorkoutLog extends Component {
 	render() {
 		return (
 			<div>
-				<h2>Workout Log</h2>
+				<h2 id="log-heading">Training Session</h2>
 				<p id="workout-log-note">
 					<strong>Note: </strong>Recommended values are previewed in each input
 					field.
@@ -41,20 +41,29 @@ class WorkoutLog extends Component {
 				<Timer />
 				<form onSubmit={this.props.handleSubmit(this.props.onLogSubmit)}>
 					{this.renderExercise()}
-					<Link to="/workouts" className="red btn flat left white-text">
-						Cancel
-					</Link>
-					<button className="teal btn-flat right white-text" type="submit">
-						Review
-					</button>
+					<div className="row">
+						<Link
+							to="/workouts"
+							className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+						>
+							Cancel
+						</Link>
+						<button
+							className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+							type="submit"
+							disabled={!this.props.formValues.values}
+						>
+							Review
+						</button>
+					</div>
 				</form>
 			</div>
 		);
 	}
 }
 
-function mapStateToProps({ auth }) {
-	return { auth };
+function mapStateToProps({ auth, form }) {
+	return { auth, formValues: form.workoutLog };
 }
 
 function validate(values) {
@@ -65,19 +74,17 @@ function validate(values) {
 	_.each(formFields, ({ name }) => {
 		_.forEach(values[name], (set, setKey) => {
 			if (set.weight && !set.reps) {
-				errors[name][setKey].reps =
-					"You must enter in the number of reps completed";
+				errors[name][setKey].reps = "Enter reps";
 			} else if (!set.weight && set.reps) {
-				errors[name][setKey].weight = "You must enter in the weight used";
+				errors[name][setKey].weight = "Enter weight";
 			}
 
-			if (set.weight && (isNaN(set.weight) || set.weight <= 0)) {
-				errors[name][setKey].weight =
-					"You must enter a number greater than zero";
+			if (set.weight <= 0) {
+				errors[name][setKey].weight = "Cannot be negative";
 			}
 
-			if (set.reps && (isNaN(set.reps) || set.reps <= 0)) {
-				errors[name][setKey].reps = "You must enter a number greater than zero";
+			if (set.reps <= 0) {
+				errors[name][setKey].reps = "Cannot be negative";
 			}
 		});
 	});
@@ -85,10 +92,8 @@ function validate(values) {
 	return errors;
 }
 
-WorkoutLog = connect(mapStateToProps, actions)(WorkoutLog);
-
 export default reduxForm({
 	validate,
 	form: "workoutLog",
 	destroyOnUnmount: false,
-})(WorkoutLog);
+})(connect(mapStateToProps, actions)(WorkoutLog));

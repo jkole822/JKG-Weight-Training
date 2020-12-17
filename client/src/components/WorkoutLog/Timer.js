@@ -126,7 +126,7 @@ class Timer extends Component {
 					{this.renderTime()}
 					<div className="row">
 						<button
-							className="btn waves-effect waves-light light-blue darken-4 col offset-s1 s4"
+							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s1 s4"
 							onClick={this.toggleTimer}
 						>
 							<i className="material-icons">
@@ -135,7 +135,7 @@ class Timer extends Component {
 						</button>
 
 						<button
-							className="btn waves-effect waves-light light-blue darken-4 col offset-s2 s4"
+							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s2 s4"
 							onClick={this.resetTimer}
 						>
 							<i className="material-icons">skip_previous</i>
@@ -144,22 +144,24 @@ class Timer extends Component {
 				</div>
 
 				<div className="row">
-					<div className="col s6">
+					<div className="col offset-s1 s4">
 						<label>Minutes</label>
 						<input
 							value={this.state.minutes}
 							type="number"
 							onChange={this.handleMinutesChange}
 							disabled={this.state.timerActive}
+							className="grey-text text-lighten-2"
 						/>
 					</div>
-					<div className="col s6">
+					<div className="col offset-s2 s4">
 						<label>Seconds</label>
 						<input
 							value={this.state.seconds}
 							type="number"
 							onChange={this.handleSecondsChange}
 							disabled={this.state.timerActive}
+							className="grey-text text-lighten-2"
 						/>
 					</div>
 				</div>

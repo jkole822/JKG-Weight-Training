@@ -8,33 +8,44 @@ class Exercise extends Component {
 		const sets = [];
 		for (let i = 0; i < 3; i++) {
 			sets.push(
-				<div key={`set_${this.props.name}_${i + 1}`} className="row">
-					<div className="col s4 center-align">{`Set ${i + 1}`}</div>
+				<div
+					key={`set_${this.props.name}_${i + 1}`}
+					className="row valign-wrapper"
+				>
+					<span className="col s3 set-id">{`Set ${i + 1}`}</span>
 					<Field
 						name={`${this.props.name}.set_${i + 1}.weight`}
 						component={ExerciseField}
 						placeholder={parseInt(this.props.stats[this.props.name]) + 5}
+						label={"Weight"}
 					/>
 					<Field
 						name={`${this.props.name}.set_${i + 1}.reps`}
 						component={ExerciseField}
 						placeholder={5}
+						label={"Reps"}
 					/>
 				</div>
 			);
 		}
+
 		return sets;
 	}
 
 	render() {
 		return (
-			<div>
-				<h2>{this.props.label}</h2>
-				<div className="row">
-					<h3 className="col s4 offset-s4 center-align">Weight</h3>
-					<h3 className="col s4 center-align">Reps</h3>
+			<div className="row">
+				<div className="card grey darken-3 log-card">
+					<div className="card-content grey-text text-lighten-2">
+						<span
+							className="card-title light-blue-text text-darken-1"
+							style={{ marginBottom: "20px" }}
+						>
+							{this.props.label}
+						</span>
+						{this.renderFields()}
+					</div>
 				</div>
-				{this.renderFields()}
 			</div>
 		);
 	}

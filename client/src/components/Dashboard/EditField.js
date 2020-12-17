@@ -9,7 +9,7 @@ export default ({
 	meta: { error, touched },
 }) => {
 	return (
-		<div>
+		<div className="col s4">
 			<label>{label}</label>
 			<input
 				className="center-align"
@@ -17,7 +17,7 @@ export default ({
 				value={value}
 				placeholder={placeholder}
 				{...input}
-				style={{ marginBottom: "5px" }}
+				style={{ fontSize: "0.8rem", color: "#e0e0e0" }}
 			/>
 			<div className="red-text" style={{ marginBottom: "20px" }}>
 				{touched && error}

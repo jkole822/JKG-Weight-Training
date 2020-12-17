@@ -61,7 +61,7 @@ class Chart extends Component {
 		svg
 			.append("text")
 			.attr("fill", "#e0e0e0")
-			.style("font-size", "1.3rem")
+			.style("font-size", "2.5rem")
 			.style("font-weight", "600")
 			.attr("id", "title")
 			.attr("x", w / 2)
@@ -73,9 +73,10 @@ class Chart extends Component {
 		svg
 			.append("text")
 			.attr("fill", "#e0e0e0")
+			.style("font-size", "2rem")
 			.attr("id", "subtitle")
 			.attr("x", w / 2)
-			.attr("y", padding / 2 + 28)
+			.attr("y", padding / 2 + 40)
 			.attr("text-anchor", "middle")
 			.text(exerciseLabel);
 
@@ -100,6 +101,7 @@ class Chart extends Component {
 		svg
 			.append("g")
 			.attr("id", "x-axis")
+			.style("font-size", "1rem")
 			.attr("transform", `translate(0, ${h - padding})`)
 			.call(xAxis);
 
@@ -107,10 +109,11 @@ class Chart extends Component {
 		svg
 			.append("text")
 			.attr("fill", "#039be5")
+			.style("font-size", "1.75rem")
 			.attr("class", "axis-label")
 			.attr("text-anchor", "middle")
 			.attr("x", w / 2)
-			.attr("y", h - padding / 2.5)
+			.attr("y", h - padding / 3)
 			.text("Date");
 
 		// y-axis
@@ -119,6 +122,7 @@ class Chart extends Component {
 		svg
 			.append("g")
 			.attr("id", "y-axis")
+			.style("font-size", "1rem")
 			.attr("transform", `translate(${padding}, 0)`)
 			.call(yAxis);
 
@@ -126,11 +130,12 @@ class Chart extends Component {
 		svg
 			.append("text")
 			.attr("fill", "#039be5")
+			.style("font-size", "1.75rem")
 			.attr("transform", "rotate(-90)")
 			.attr("text-anchor", "middle")
 			.attr("class", "axis-label")
 			.attr("x", -h / 2)
-			.attr("y", padding / 2.5)
+			.attr("y", padding / 2 - 10)
 			.text("Weight (lbs.)");
 	}
 

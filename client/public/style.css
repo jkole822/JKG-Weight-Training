@@ -92,41 +92,6 @@
 	margin-bottom: 3rem;
 }
 
-/* Timer */
-#timer {
-	display: flex;
-	justify-content: center;
-}
-
-#timer-buttons {
-	display: flex;
-	justify-content: center;
-	clear: both;
-}
-
-#timer-button-one {
-	margin-right: 1rem;
-}
-
-#timer-button-two {
-	margin-left: 1rem;
-}
-
-.timer-label {
-	display: flex;
-	justify-content: center;
-}
-
-#minutes {
-	font-size: 2.5rem;
-	float: "left";
-}
-
-#seconds {
-	font-size: 1.25rem;
-	float: "left";
-}
-
 /* Footer */
 .footer-icons {
 	margin: 0;

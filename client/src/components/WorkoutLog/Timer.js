@@ -75,9 +75,18 @@ class Timer extends Component {
 		const minutes = this.getFormattedMinutes();
 
 		return (
-			<div id="timer">
-				<span id="minutes">{minutes}</span>
-				<span id="seconds">{seconds}</span>
+			<div className="row">
+				<div
+					className="col s6 offset-s3 grey darken-3 light-blue-text text-darken-1 center-align"
+					style={{
+						padding: "5vh",
+						fontSize: "1.5rem",
+						letterSpacing: "2px",
+						borderRadius: "25px",
+					}}
+				>
+					{minutes}:{seconds}
+				</div>
 			</div>
 		);
 	}
@@ -112,50 +121,46 @@ class Timer extends Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="col s6">
-					<div id="timer-buttons">
+			<div>
+				<div>
+					{this.renderTime()}
+					<div className="row">
 						<button
-							id="timer-button-one"
-							className="btn-floating waves-effect waves-light red"
+							className="btn waves-effect waves-light light-blue darken-4 col offset-s1 s4"
 							onClick={this.toggleTimer}
 						>
 							<i className="material-icons">
 								{this.state.timerActive ? "pause" : "play_arrow"}
 							</i>
 						</button>
-						{this.renderTime()}
+
 						<button
-							id="timer-button-two"
-							className="btn-floating waves-effect waves-light red"
+							className="btn waves-effect waves-light light-blue darken-4 col offset-s2 s4"
 							onClick={this.resetTimer}
 						>
-							<i className="material-icons">loop</i>
+							<i className="material-icons">skip_previous</i>
 						</button>
 					</div>
 				</div>
-				<div className="col s6">
-					<div className="row">
-						<div className="col s6">
-							<label className="timer-label">Minutes</label>
-							<input
-								className="center-align"
-								value={this.state.minutes}
-								type="number"
-								onChange={this.handleMinutesChange}
-								disabled={this.state.timerActive}
-							/>
-						</div>
-						<div className="col s6">
-							<label className="timer-label">Seconds</label>
-							<input
-								className="center-align"
-								value={this.state.seconds}
-								type="number"
-								onChange={this.handleSecondsChange}
-								disabled={this.state.timerActive}
-							/>
-						</div>
+
+				<div className="row">
+					<div className="col s6">
+						<label>Minutes</label>
+						<input
+							value={this.state.minutes}
+							type="number"
+							onChange={this.handleMinutesChange}
+							disabled={this.state.timerActive}
+						/>
+					</div>
+					<div className="col s6">
+						<label>Seconds</label>
+						<input
+							value={this.state.seconds}
+							type="number"
+							onChange={this.handleSecondsChange}
+							disabled={this.state.timerActive}
+						/>
 					</div>
 				</div>
 			</div>

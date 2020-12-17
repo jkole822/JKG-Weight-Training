@@ -10,6 +10,7 @@ import WorkoutNew from "./WorkoutForm/WorkoutNew";
 import WorkoutLogNew from "./WorkoutLog/WorkoutLogNew";
 import Deload from "./Deload/Deload";
 import Edit from "./Dashboard/Edit";
+import Footer from "./Footer";
 
 class App extends Component {
 	componentDidMount() {
@@ -18,19 +19,22 @@ class App extends Component {
 
 	render() {
 		return (
-			<BrowserRouter>
-				<div className="grey darken-4 grey-text text-lighten-2">
-					<Header />
-					<Route path="/" component={Landing} exact />
-					<div className="container">
-						<Route path="/workouts" component={Dashboard} exact />
-						<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
-						<Route path="/workouts/log" component={WorkoutLogNew} exact />
-						<Route path="/workouts/deload" component={Deload} exact />
-						<Route path="/workouts/edit" component={Edit} exact />
-					</div>
+			<div className="grey darken-4 grey-text text-lighten-2">
+				<div className="content">
+					<BrowserRouter>
+						<Header />
+						<Route path="/" component={Landing} exact />
+						<div className="container">
+							<Route path="/workouts" component={Dashboard} exact />
+							<Route path="/workouts/new" component={WorkoutNew} exact />{" "}
+							<Route path="/workouts/log" component={WorkoutLogNew} exact />
+							<Route path="/workouts/deload" component={Deload} exact />
+							<Route path="/workouts/edit" component={Edit} exact />
+						</div>
+					</BrowserRouter>
 				</div>
-			</BrowserRouter>
+				<Footer />
+			</div>
 		);
 	}
 }

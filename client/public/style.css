@@ -52,6 +52,10 @@
 	color: #039be5 !important;
 }
 
+.caret {
+	fill: #e0e0e0 !important;
+}
+
 /* Log History */
 #log-nav-buttons {
 	display: flex;
@@ -120,4 +124,24 @@
 #seconds {
 	font-size: 1.25rem;
 	float: "left";
+}
+
+/* Footer */
+.footer-icons {
+	margin: 0;
+	font-size: 2rem;
+}
+
+#signature {
+	margin: 0;
+	font-size: 1.2rem;
+}
+
+#footer-icons-row {
+	margin: 0;
+}
+
+/* Sticky Footer  */
+.content {
+	min-height: calc(100vh - 150px);
 }

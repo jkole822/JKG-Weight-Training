@@ -15,26 +15,32 @@ class MobileButtons extends Component {
 		if (this.props.stats) {
 			return (
 				<div className="fixed-action-btn">
-					<button className="btn-floating btn-large indigo">
+					<button className="btn-floating btn-large light-blue darken-2">
 						<i className="large material-icons">menu</i>
 					</button>
 					<ul>
 						<li>
-							<Link to="/workouts/log" className="btn-floating green">
-								<i className="material-icons">fitness_center</i>
+							<Link
+								to="/workouts/deload"
+								className="btn-floating light-blue darken-4"
+							>
+								<i className="material-icons">replay</i>
 							</Link>
 						</li>
 						<li>
 							<Link
-								to="/workouts/deload"
-								className="btn-floating yellow darken-1"
+								to="/workouts/new"
+								className="btn-floating light-blue darken-4"
 							>
-								<i className="material-icons">loop</i>
+								<i className=" material-icons">create</i>
 							</Link>
 						</li>
 						<li>
-							<Link to="/workouts/new" className="btn-floating red">
-								<i className=" material-icons">add</i>
+							<Link
+								to="/workouts/log"
+								className="btn-floating light-blue darken-4"
+							>
+								<i className="material-icons">fitness_center</i>
 							</Link>
 						</li>
 					</ul>
@@ -43,8 +49,11 @@ class MobileButtons extends Component {
 		} else {
 			return (
 				<div className="fixed-action-btn">
-					<Link to="/workouts/new" className="btn-floating btn-large red">
-						<i className="large material-icons">add</i>
+					<Link
+						to="/workouts/new"
+						className="btn-floating btn-large light-blue darken-2"
+					>
+						<i className="large material-icons">create</i>
 					</Link>
 				</div>
 			);

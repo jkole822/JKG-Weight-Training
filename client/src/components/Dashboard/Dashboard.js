@@ -103,21 +103,44 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		return (
-			<div>
-				<Chart logData={this.state.logData} liftChart={this.state.liftChart} />
-				{this.renderDropdown()}
-				<History />
-				{/* Render hover FABs on large screens */}
-				<MediaQuery minWidth={993}>
-					<DesktopButtons stats={this.props.stats} />
-				</MediaQuery>
-				{/* Render click-to-toggle FABs on small screens */}
-				<MediaQuery maxWidth={992}>
-					<MobileButtons stats={this.props.stats} />
-				</MediaQuery>
-			</div>
-		);
+		if (!this.props.stats) {
+			return (
+				<div>
+					<div id="instructions" className="light-blue-text text-darken-3">
+						Click the <i className=" material-icons">create</i> at the bottom to
+						log your weight lifting stats and start your new workout program
+						today!
+					</div>
+					{/* Render hover FABs on large screens */}
+					<MediaQuery minWidth={993}>
+						<DesktopButtons stats={this.props.stats} />
+					</MediaQuery>
+					{/* Render click-to-toggle FABs on small screens */}
+					<MediaQuery maxWidth={992}>
+						<MobileButtons stats={this.props.stats} />
+					</MediaQuery>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<Chart
+						logData={this.state.logData}
+						liftChart={this.state.liftChart}
+					/>
+					{this.renderDropdown()}
+					<History />
+					{/* Render hover FABs on large screens */}
+					<MediaQuery minWidth={993}>
+						<DesktopButtons stats={this.props.stats} />
+					</MediaQuery>
+					{/* Render click-to-toggle FABs on small screens */}
+					<MediaQuery maxWidth={992}>
+						<MobileButtons stats={this.props.stats} />
+					</MediaQuery>
+				</div>
+			);
+		}
 	}
 }
 

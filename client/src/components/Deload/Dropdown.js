@@ -25,7 +25,9 @@ class Dropdown extends Component {
 					<option>Select value</option>
 					{this.renderDropdownOptions()}
 				</select>
-				<label>Deload Percentage</label>
+				<label className="light-blue-text text-darken-1">
+					Deload Percentage
+				</label>
 			</form>
 		);
 	}

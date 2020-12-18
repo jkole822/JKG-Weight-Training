@@ -1,3 +1,20 @@
+/* General  */
+.select-dropdown {
+	color: #e0e0e0;
+}
+
+.dropdown-content {
+	background-color: #424242 !important;
+}
+
+.dropdown-content > li > span {
+	color: #039be5 !important;
+}
+
+.caret {
+	fill: #e0e0e0 !important;
+}
+
 /* Landing */
 #landing {
 	height: 100vh;
@@ -36,24 +53,18 @@
 }
 
 /* Dashboard */
+#instructions {
+	font-family: "Rock Salt";
+	font-size: 2rem;
+	text-align: center;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+}
+
 #chart-dropdown {
 	margin-bottom: 5vh;
-}
-
-.select-dropdown {
-	color: #e0e0e0;
-}
-
-.dropdown-content {
-	background-color: #424242 !important;
-}
-
-.dropdown-content > li > span {
-	color: #039be5 !important;
-}
-
-.caret {
-	fill: #e0e0e0 !important;
 }
 
 /* Log History */

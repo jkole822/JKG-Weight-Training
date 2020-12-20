@@ -4,6 +4,10 @@ class Timer extends Component {
 	constructor(props) {
 		super(props);
 
+		// minutes and seconds state correspond to input values for the timer
+		// totalSeconds is the total number of seconds for the timer
+		// elapsedTimer is the number of seconds elapsed since starting the timer
+		// timerActive controls whether the timer interval increments elapsedSeconds
 		this.state = {
 			minutes: 1,
 			seconds: 30,
@@ -18,12 +22,16 @@ class Timer extends Component {
 		this.resetTimer = this.resetTimer.bind(this);
 	}
 
+	// Starts the interval when the component is mounted, but does not start counting down
+	// the timer until timerActive is set to true (default is false)
 	componentDidMount() {
 		setInterval(() => {
 			if (
 				this.state.timerActive &&
 				this.state.totalSeconds > this.state.secondsElapsed
 			) {
+				// increments elapsedSeconds every second which is reflected in the
+				// rendered values for minutes and seconds while the timer is active
 				this.setState({ secondsElapsed: this.state.secondsElapsed + 1 });
 			}
 		}, 1000);
@@ -41,11 +49,15 @@ class Timer extends Component {
 		});
 	}
 
+	// Calculates the minutes to render based off of the difference between the
+	// totalSeconds and elapsedSeconds
 	getFormattedMinutes() {
 		const secondsLeft = this.state.totalSeconds - this.state.secondsElapsed;
 		const minutesLeft = Math.floor(secondsLeft / 60);
 		let formattedMinutes;
 
+		// Appends zero to the begin if the calculated minutes is less than ten,
+		// so that two digits are always rendered for formatting reasons.
 		if (minutesLeft < 10) {
 			formattedMinutes = "0" + minutesLeft;
 		} else {
@@ -55,12 +67,16 @@ class Timer extends Component {
 		return formattedMinutes;
 	}
 
+	// Calculates the seconds to render based off of the difference between the
+	// totalSeconds and elapsedSeconds
 	getFormattedSeconds() {
 		const secondsLeft =
 			(this.state.totalSeconds - this.state.secondsElapsed) % 60;
 
 		let formattedSeconds;
 
+		// Appends zero to the begin if the calculated seconds is less than ten,
+		// so that two digits are always rendered for formatting reasons.
 		if (secondsLeft < 10) {
 			formattedSeconds = "0" + secondsLeft;
 		} else {
@@ -70,6 +86,9 @@ class Timer extends Component {
 		return formattedSeconds;
 	}
 
+	// Renders the timer based on output from getFormattedSeconds and getFormattedMinutes
+	// Calls getFormattedSeconds and getFormattedSeconds everytime state updates which occurs every
+	// second from the above interval incrementing elapsedSeconds while the timer is active.
 	renderTime() {
 		const seconds = this.getFormattedSeconds();
 		const minutes = this.getFormattedMinutes();
@@ -91,30 +110,41 @@ class Timer extends Component {
 		);
 	}
 
+	// Handles the change in input value for minutes
+	// Need to set as async to call await for setState in order for recalculateTotalTime
+	// to capture the change to this.state.minutes
 	async handleMinutesChange(event) {
+		// Call resetTimer to ensure elapsedSeconds is reset to zero
 		this.resetTimer();
 		const input = parseInt(event.target.value);
-		if (!input || input < 0) {
+		// Prevent timer from breaking with incorrect user input
+		if (!input || isNaN(input) || input < 0) {
 			await this.setState({ minutes: "" });
+			// Prevent user from inputting a number with more than two digits
 		} else if (input < 100) {
 			await this.setState({ minutes: parseInt(input) });
 		}
+		// Recalculate totalSeconds based on changes to minutes
 		this.recalcuateTotalTime();
 	}
 
 	async handleSecondsChange(event) {
+		// Call resetTimer to ensure elapsedSeconds is reset to zero
 		this.resetTimer();
 		const input = parseInt(event.target.value);
-		if (!input || input < 0) {
+		// Prevent timer from breaking with incorrect user input
+		if (!input || isNaN(input) || input < 0) {
 			await this.setState({ seconds: "" });
+			// Prevent user from inputting a number greater than or equal to 60 seconds
 		} else if (input < 60) {
 			await this.setState({ seconds: parseInt(input) });
 		}
+		// Recalculate totalSeconds based on changes to seconds
 		this.recalcuateTotalTime();
 	}
 
-	async recalcuateTotalTime() {
-		await this.setState({
+	recalcuateTotalTime() {
+		this.setState({
 			totalSeconds: parseInt(this.state.minutes * 60 + this.state.seconds),
 		});
 	}
@@ -125,6 +155,7 @@ class Timer extends Component {
 				<div>
 					{this.renderTime()}
 					<div className="row">
+						{/* Toggles between start and pause timer */}
 						<button
 							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s1 s4"
 							onClick={this.toggleTimer}
@@ -134,6 +165,7 @@ class Timer extends Component {
 							</i>
 						</button>
 
+						{/* Resets the timer based on current input for minutes and seconds */}
 						<button
 							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s2 s4"
 							onClick={this.resetTimer}
@@ -143,6 +175,7 @@ class Timer extends Component {
 					</div>
 				</div>
 
+				{/* Input for Minutes */}
 				<div className="row">
 					<div className="col offset-s1 s4">
 						<label>Minutes</label>
@@ -154,6 +187,7 @@ class Timer extends Component {
 							className="grey-text text-lighten-2"
 						/>
 					</div>
+					{/* Input for Seconds */}
 					<div className="col offset-s2 s4">
 						<label>Seconds</label>
 						<input

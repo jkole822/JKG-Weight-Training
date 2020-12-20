@@ -1,8 +1,11 @@
+// Mobile version of FAB on Dashboard
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import M from "materialize-css";
 
 class MobileButtons extends Component {
+	// Materialize CSS code the specifies for the FABS to flow to the left when the .fixed-action-btn is clicked
+	// Visibility is not enabled from hovering over the .fixed-action-button like in the desktop version.
 	componentDidMount() {
 		const elems = document.querySelectorAll(".fixed-action-btn");
 		M.FloatingActionButton.init(elems, {
@@ -12,8 +15,15 @@ class MobileButtons extends Component {
 	}
 
 	renderButtons() {
+		// Checks to see if user has already started a program
+		// If they have, shows the log and deload button in addition to start
+		// a new program. Otherwise, renderButtons() only shows the start a new
+		// program button.
 		if (this.props.stats) {
 			return (
+				// Unlike the desktop version, the mobile buttons have a menu button that
+				// does not link to anywhere but toggles the visibility of the other buttons
+				// in the list <ul>
 				<div className="fixed-action-btn">
 					<button className="btn-floating btn-large light-blue darken-2">
 						<i className="large material-icons">menu</i>

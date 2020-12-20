@@ -1,8 +1,10 @@
+// Desktop version of FAB on dashboard
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import M from "materialize-css";
 
 class DesktopButtons extends Component {
+	// Materialize CSS code that specifies for the FAB to flow upwards on hover.
 	componentDidMount() {
 		const elems = document.querySelectorAll(".fixed-action-btn");
 		M.FloatingActionButton.init(elems, {
@@ -12,6 +14,10 @@ class DesktopButtons extends Component {
 	}
 
 	renderButtons() {
+		// Checks to see if user has already started a program
+		// If they have, shows the log and deload button in addition to start
+		// a new program. Otherwise, renderButtons() only shows the start a new
+		// program button.
 		if (this.props.stats) {
 			return (
 				<div className="fixed-action-btn">

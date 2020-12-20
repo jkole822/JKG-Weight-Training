@@ -1,3 +1,4 @@
+// Displays workout history below the chart component within the Dashboard
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -18,9 +19,14 @@ class History extends Component {
 	}
 
 	componentDidMount() {
+		// fetches data for the five most recently logged training sessions
 		this.props.fetchLogsHistory(this.state.page);
 	}
 
+	// Called when the user clicks the pagination buttons and updates this.state.page
+	// Will fetch five training sessions corresponding to this.state.page
+	// e.g. if page is 2, then fetches training sessions with indices -10 to -5
+	// in the logHistory array in the database
 	componentDidUpdate(prevProps, prevState) {
 		if (this.state.page !== prevState.page) {
 			this.props.fetchLogsHistory(this.state.page);
@@ -29,27 +35,36 @@ class History extends Component {
 
 	renderLogs() {
 		if (!this.props.logsHistory.logHistory) {
+			// Required to prevent errors when page loads prior to data being fetched from the db
 			return;
 		} else {
 			const logs = this.props.logsHistory.logHistory;
+			// declaring and incrementing i only to assign as keys for JSX array returned from loop
 			let i = 0;
+			// Need to reverse the returned array to display in chronological order from most recent
+			// at the top of the page to least recent at the bottom of the page and then map over the
+			// array to return JSX to display log data
 			return _.chain(logs)
 				.reverse()
 				.map(log => {
 					i++;
 					return (
+						// Using Materialize CSS Card component
 						<div className="row" key={i}>
 							<div className="col s12">
 								<div className="card grey darken-3 log-card">
 									<div className="card-content grey-text text-lighten-2">
 										<span className="card-title">
+											{/* Using luxon to format the date off from the log data */}
 											{DateTime.fromISO(log.date).toLocaleString(
 												DateTime.DATETIME_MED
 											)}
 										</span>
+										{/* Passing the log data into the history log component to further format each training session entry */}
 										<HistoryLog logData={log} />
 									</div>
 									<div className="card-action log-card-bottom">
+										{/* Using react-router-dom props to pass along props (log data) via Link */}
 										<Link
 											className="light-blue-text text-darken-1"
 											to={{
@@ -70,6 +85,8 @@ class History extends Component {
 	}
 
 	renderButtonsAndHeading() {
+		// Prevent display of pagination buttons and log history header
+		// if the user does not have any training sessioms logged to the db
 		if (!this.props.logs) {
 			return;
 		} else {
@@ -98,13 +115,20 @@ class History extends Component {
 	}
 
 	handleBackClick() {
+		// Decrements this.state.page to paginate through
+		// the logged training sessions in the databse
 		if (this.state.page > 1) {
+			// Validate to ensure this.state.page is NLT one
 			this.setState({ page: this.state.page - 1 });
 		}
 	}
 
 	handleNextClick() {
+		// Increments this.state.page to paginate through
+		// the logged training sessions in the databse
 		if (this.state.page * 5 <= this.props.logs.logHistory.length) {
+			// Validate to ensure this.state.page is not set to value that does
+			// not correspond to any logged training sessions
 			this.setState({ page: this.state.page + 1 });
 		}
 	}

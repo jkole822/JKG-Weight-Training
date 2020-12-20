@@ -1,14 +1,22 @@
+// Responsible for rendering the data contained in the logData prop from History component
 import React from "react";
 import formFields from "../formFields";
 import _ from "lodash";
 
 const HistoryLog = ({ logData }) => {
+	// Iterate over the formFields object and filter out any of the exercises that are not included
+	// in the logData prop then map over each of the returned exercises to format the data from the
+	// logData prop into JSX.
 	const logContent = _.chain(formFields)
 		.filter(({ name }) => {
 			return logData.hasOwnProperty(name) && name;
 		})
 		.map(({ label, name }) => {
 			const sets = [];
+			// For each set of the current iteration (logData[name] or 'exercise'), push in block
+			// of JSX that formats the set metrics (i.e. set number, weight, reps). Need the setKey
+			// to properly label the set number as well as pick out the corresponding weight and reps
+			// for that particular set from the logData prop.
 			_.forEach(logData[name], (set, setKey) => {
 				if (setKey !== "_id") {
 					sets.push(

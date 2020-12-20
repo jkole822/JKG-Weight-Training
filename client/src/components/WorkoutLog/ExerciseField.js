@@ -10,7 +10,7 @@ export default ({ input, label, placeholder, meta: { error, touched } }) => {
 				type="number"
 				{...input}
 				placeholder={placeholder}
-				style={{ fontSize: "0.8rem", color: "#e0e0e0" }}
+				style={{ fontSize: "0.8rem", color: "#039be5" }}
 			/>
 			<div className="red-text" style={{ marginBottom: "20px" }}>
 				{touched && error}

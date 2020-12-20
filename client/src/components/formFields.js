@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+// FormFields object is mapped over and filtered in multiple components to create JSX
 export default [
 	{ label: "Squat", name: "squat", routine: "a" },
 	{ label: "Romanian Deadlift", name: "romanian_deadlift", routine: "a" },

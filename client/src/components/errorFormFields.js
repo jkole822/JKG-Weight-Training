@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+// Template object for Edit form validation
 export default {
 	squat: {
 		set_1: {

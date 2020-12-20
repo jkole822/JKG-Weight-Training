@@ -67,7 +67,7 @@ class Header extends Component {
 						<a href="#" data-target="mobile-demo" className="sidenav-trigger">
 							<i className="material-icons">menu</i>
 						</a>
-						{/* Used materialize css `Mobile Collapse Button` to compact all options into a single button that opens up to a sidebar to display those options. */}
+						{/* Used Materialize CSS `Mobile Collapse Button` to compact all options into a single button that opens up to a sidebar to display those options. */}
 						<ul
 							id="nav-mobile"
 							className="right hide-on-med-and-down"

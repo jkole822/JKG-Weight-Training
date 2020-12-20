@@ -94,7 +94,7 @@ class Timer extends Component {
 	async handleMinutesChange(event) {
 		this.resetTimer();
 		const input = parseInt(event.target.value);
-		if (!input) {
+		if (!input || input < 0) {
 			await this.setState({ minutes: "" });
 		} else if (input < 100) {
 			await this.setState({ minutes: parseInt(input) });
@@ -105,7 +105,7 @@ class Timer extends Component {
 	async handleSecondsChange(event) {
 		this.resetTimer();
 		const input = parseInt(event.target.value);
-		if (!input) {
+		if (!input || input < 0) {
 			await this.setState({ seconds: "" });
 		} else if (input < 60) {
 			await this.setState({ seconds: parseInt(input) });

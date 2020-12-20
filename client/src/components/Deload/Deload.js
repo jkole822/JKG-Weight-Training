@@ -130,7 +130,9 @@ class Deload extends Component {
 				{/* Modal */}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">
+						{/* Modal Heading */}
 						<h4 className="light-blue-text text-darken-1">Confirm Changes</h4>
+						{/* Modal Message */}
 						<p>
 							Are you sure you want to make these changes? By clicking confirm,
 							you will permanently overwrite your current lifting stats. As
@@ -169,6 +171,7 @@ class Deload extends Component {
 				</p>
 				{this.renderContent()}
 				<div className="row">
+					{/* Reset all deload selections */}
 					<button
 						onClick={() =>
 							this.setState({

@@ -7,6 +7,7 @@ import formFields from "../formFields";
 
 class NewWorkout extends Component {
 	renderFields() {
+		// Maps over formFields to provide an input field for each exercise
 		return _.map(formFields, ({ label, name }) => {
 			return (
 				<Field
@@ -22,8 +23,14 @@ class NewWorkout extends Component {
 
 	render() {
 		return (
+			/* handleSubmit is built-in action creator from reduxForm to save form data to redux store */
+			/* When calling handleSubmit, onSubmit, will also call onWorkoutSubmit to set state of showFormReview
+			in WorkoutNew component to true which causes the WorkoutReview component to render instead of
+			WorkoutForm. */
 			<form onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}>
+				{/* Form heading */}
 				<h2 id="log-heading">New Training Program</h2>
+				{/* Form instructions */}
 				<p>
 					For each field below, enter your current or estimated 5RM of the
 					corresponding lift. If you have not performed the lift before, it is
@@ -32,12 +39,14 @@ class NewWorkout extends Component {
 				</p>
 				{this.renderFields()}
 				<div className="row">
+					{/* Navigate back to Dashboard */}
 					<Link
 						to="/workouts"
 						className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
 					>
 						Cancel
 					</Link>
+					{/* Navigate to WorkoutReview */}
 					<button
 						type="submit"
 						className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
@@ -50,11 +59,13 @@ class NewWorkout extends Component {
 	}
 }
 
+// Redux Form validation to ensure values are entered into each input and that each input
+// is a value greater than zero.
 function validate(values) {
 	const errors = {};
 
 	_.each(formFields, ({ name, label }) => {
-		if (isNaN(values[name]) || values[name] <= 0) {
+		if (values[name] <= 0) {
 			errors[name] = "You must enter a number greater than zero";
 		}
 		if (!values[name]) {
@@ -64,6 +75,9 @@ function validate(values) {
 	return errors;
 }
 
+// Saving form data under workoutForm
+// Set destroyOnUnmount to allow form values to persist
+// when user navigates away from WorkoutForm component
 export default reduxForm({
 	validate,
 	form: "workoutForm",

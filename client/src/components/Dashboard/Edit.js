@@ -116,6 +116,7 @@ const Edit = ({
 					<button
 						type="submit"
 						className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+						// Button is only enabled once user enters a value into at least one input field
 						disabled={!formValues.values}
 					>
 						Submit
@@ -149,7 +150,8 @@ function validate(values) {
 	return errors;
 }
 
-// Bring in this form data from redux store
+// Bring in this form data from redux store so that it can sent off in a patch
+// request via handleEditSubmti
 function mapStateToProps(state) {
 	return { formValues: state.form.editForm };
 }

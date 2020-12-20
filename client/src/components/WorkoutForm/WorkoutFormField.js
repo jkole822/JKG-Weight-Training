@@ -7,9 +7,11 @@ export default ({ input, label, meta: { error, touched } }) => {
 			<label>{label}</label>
 			<input
 				type="number"
+				// spread in attributes from input from redux form
 				{...input}
 				style={{ fontSize: "0.8rem", color: "#e0e0e0", marginBottom: "5px" }}
 			/>
+			{/* Validation Errors  */}
 			<div className="red-text" style={{ marginBottom: "20px" }}>
 				{touched && error}
 			</div>

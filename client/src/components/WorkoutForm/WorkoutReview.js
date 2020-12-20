@@ -1,3 +1,4 @@
+// Review Screen for the workout form data
 import React from "react";
 import { connect } from "react-redux";
 import formFields from "../formFields";
@@ -24,9 +25,8 @@ const WorkoutReview = ({ onCancel, formValues, submitWorkout, history }) => {
 			<h2 id="log-heading">Review</h2>
 			<div id="review-stats">{reviewFields}</div>
 			<div className="row">
-				{/* Set state of showFormReview
-				in WorkoutNew component to false which causes the WorkoutForm component to render instead of
-				WorkoutReview. */}
+				{/* Set state of showFormReview in WorkoutNew component to false which 
+				causes the WorkoutForm component to render instead of WorkoutReview. */}
 				<button
 					onClick={onCancel}
 					className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"

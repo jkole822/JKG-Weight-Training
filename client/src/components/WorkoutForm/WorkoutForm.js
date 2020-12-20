@@ -1,3 +1,4 @@
+// Form for users to input their lifting stats for the program exercises
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";

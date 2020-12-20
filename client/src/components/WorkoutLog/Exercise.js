@@ -4,6 +4,8 @@ import { Field } from "redux-form";
 import ExerciseField from "./ExerciseField";
 
 class Exercise extends Component {
+	// For each exercise specified in the WorkoutLog component, render three sets of two input fields
+	// for weight and reps as well as a label for the set
 	renderFields() {
 		const sets = [];
 		for (let i = 0; i < 3; i++) {
@@ -16,12 +18,14 @@ class Exercise extends Component {
 					<Field
 						name={`${this.props.name}.set_${i + 1}.weight`}
 						component={ExerciseField}
+						// Add 5 to the user's current stat as the recommended weight amount
 						placeholder={parseInt(this.props.stats[this.props.name]) + 5}
 						label={"Weight"}
 					/>
 					<Field
 						name={`${this.props.name}.set_${i + 1}.reps`}
 						component={ExerciseField}
+						// Static value: The recommeneded reps to complete is 5 for every set for every exercise
 						placeholder={5}
 						label={"Reps"}
 					/>
@@ -33,6 +37,7 @@ class Exercise extends Component {
 	}
 
 	render() {
+		// Formats above JSX into a Materialize CSS card
 		return (
 			<div className="row">
 				<div className="card grey darken-3 log-card">
@@ -51,6 +56,8 @@ class Exercise extends Component {
 	}
 }
 
+// Load in the user's stats from the redux store to determine the recommended weight for
+// each exercise
 function mapStateToProps({ stats }) {
 	return { stats };
 }

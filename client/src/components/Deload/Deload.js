@@ -58,11 +58,16 @@ class Deload extends Component {
 									</p>
 								</div>
 								<div className="col s6">
+									{/* Pass in onChange prop to dropdown component that calls
+									the handleChange function when a user selects an option
+									from the dropdown */}
 									<Dropdown onChange={this.handleChange} name={name} />
 								</div>
 							</div>
 						</div>
 						<div className="card-action log-card-bottom">
+							{/* Note for future improvements: Find a way to reset the display
+							of the dropdown menu when reset is clicked */}
 							<a
 								className="light-blue-text text-darken-1"
 								onClick={() => this.handleClick(name)}

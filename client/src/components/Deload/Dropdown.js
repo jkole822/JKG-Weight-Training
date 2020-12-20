@@ -1,7 +1,9 @@
+// Dropdown menu for Deload page
 import React, { Component } from "react";
 import _ from "lodash";
 
 class Dropdown extends Component {
+	// Create the options for the dropdown menu
 	renderDropdownOptions() {
 		const dropdownValues = ["5", "10", "15", "20", "25"];
 		const options = _.map(dropdownValues, dropdownValue => {
@@ -19,6 +21,9 @@ class Dropdown extends Component {
 			<form className="input-field">
 				<select
 					onChange={event => {
+						// Send the select option value and corresponding exercise name
+						// back to the deload component to call its handleChange function
+						// with the value taget value and the name
 						this.props.onChange(event.target.value, this.props.name);
 					}}
 				>

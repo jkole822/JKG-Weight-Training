@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+// Deload page allows users to reduce their lifting stats by a certain percentage
+// which is reflected in the recommended values in the workout log
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -11,17 +13,28 @@ import Dropdown from "./Dropdown";
 import formFields from "../formFields";
 
 class Deload extends Component {
-	state = {
-		deloadStats: {},
-		deloadPercent: {},
-	};
+	constructor(props) {
+		super(props);
 
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		// deloadStats contains all deloaded weights for the selected exercises (e.g. squat: 275)
+		// deloadPercent stores the deload percent for the selected exercises (e.g. sqaut: 15)
+		this.state = {
+			deloadStats: {},
+			deloadPercent: {},
+		};
+	}
+
+	// Need to fetch the current user's lifting stats on load for rendering to the page
 	componentDidMount() {
 		this.props.fetchStats();
 		M.AutoInit();
 	}
 
 	renderContent() {
+		// Map over the formFields object to format the label, stats metric, dropdown for deload percentage,
+		// and reset button
 		return _.map(formFields, ({ name, label }) => {
 			return (
 				<div className="row" key={name}>
@@ -35,6 +48,9 @@ class Deload extends Component {
 							</span>
 							<div className="row valign-wrapper">
 								<div className="col s6">
+									{/* If a deload percentage is applied from the dropdown, */}
+									{/* show the resulting weight after that deload percentage */}
+									{/* is multiplied into the corresponding stat weight */}
 									<p>
 										{this.state.deloadStats[name]
 											? `${this.state.deloadStats[name]} lbs`
@@ -42,11 +58,7 @@ class Deload extends Component {
 									</p>
 								</div>
 								<div className="col s6">
-									<Dropdown
-										onChange={this.handleChange.bind(this)}
-										value={this.state.deloadPercent[name]}
-										name={name}
-									/>
+									<Dropdown onChange={this.handleChange} name={name} />
 								</div>
 							</div>
 						</div>
@@ -65,6 +77,8 @@ class Deload extends Component {
 	}
 
 	async handleChange(value, name) {
+		// updates deloadPercent state each time a value is selected from the deload
+		// percent dropdown menu
 		await this.setState({
 			deloadPercent: {
 				...this.state.deloadPercent,
@@ -72,17 +86,24 @@ class Deload extends Component {
 			},
 		});
 
+		// Converts deload percentage into a decimal and multiplies it into the
+		// corresponding stat weight to get the deload stat
 		const deloadStat =
 			this.props.stats[name] * ((100 - this.state.deloadPercent[name]) / 100);
+
+		// Need to round the resulting deloadStat to a muliple of 5 since weights
+		// only come in factors of 5
 		const roundedDeloadStat = Math.round(deloadStat / 5) * 5;
 
+		// set the deloadStat which changes the rendered stat on the page for the
+		// corresponding exercise
 		await this.setState({
 			deloadStats: { ...this.state.deloadStats, [name]: roundedDeloadStat },
 		});
 	}
 
+	// Click handler for the reset button that resets the deload percentage and stat
 	async handleClick(name) {
-		console.log(name);
 		await this.setState({
 			deloadStats: {
 				...this.state.deloadStats,
@@ -96,13 +117,17 @@ class Deload extends Component {
 	}
 
 	handleSubmit() {
+		// Overwrites stats in database with the resulting deloadStats based
+		// on user selection
 		axios.patch("/api/workouts/deload", this.state.deloadStats);
+		// Redirect to the dashboard
 		this.props.history.push("/workouts");
 	}
 
 	render() {
 		return (
 			<div>
+				{/* Modal */}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">
 						<h4 className="light-blue-text text-darken-1">Confirm Changes</h4>
@@ -117,13 +142,15 @@ class Deload extends Component {
 						<a
 							href="#!"
 							className="modal-close light-blue-text text-darken-1 waves-effect waves-light btn-flat"
-							onClick={this.handleSubmit.bind(this)}
+							onClick={this.handleSubmit}
 						>
 							Confirm
 						</a>
 					</div>
 				</div>
+				{/* Main heading */}
 				<h2>Deload Stats</h2>
+				{/* Instructions */}
 				<p>
 					If you are plateauing on one or more of your lifts, it is recommended
 					that you implement deloading which is typically a period of time that
@@ -170,4 +197,5 @@ function mapStateToProps({ stats }) {
 	return { stats };
 }
 
+// Use withRouter from react-router-dom to use `history` for redirect
 export default connect(mapStateToProps, actions)(withRouter(Deload));

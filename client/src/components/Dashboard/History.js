@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import _ from "lodash";
+import axios from "axios";
 import { DateTime } from "luxon";
+import M from "materialize-css";
 
 import HistoryLog from "./HistoryLog";
 
@@ -14,13 +16,17 @@ class History extends Component {
 
 		this.handleBackClick = this.handleBackClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
+		this.handleDeletePrime = this.handleDeletePrime.bind(this);
+		this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
 
-		this.state = { page: 1 };
+		this.state = { page: 1, logToDelete: "" };
 	}
 
 	componentDidMount() {
 		// fetches data for the five most recently logged training sessions
 		this.props.fetchLogsHistory(this.state.page);
+		// Initialize Materialize CSS JS for Modal
+		M.AutoInit();
 	}
 
 	// Called when the user clicks the pagination buttons and updates this.state.page
@@ -74,6 +80,14 @@ class History extends Component {
 										>
 											Edit
 										</Link>
+										{/* Modal Trigger */}
+										<a
+											className="waves-effect waves-light modal-trigger red-text text-darken-3 right"
+											href="#modal1"
+											onClick={() => this.handleDeletePrime(log)}
+										>
+											Delete
+										</a>
 									</div>
 								</div>
 							</div>
@@ -133,9 +147,46 @@ class History extends Component {
 		}
 	}
 
+	handleDeletePrime(log) {
+		// Make the selected log accessible to handleDeleteConfirm
+		this.setState({ logToDelete: log._id });
+	}
+
+	async handleDeleteConfirm() {
+		// Delete the selected log from the database
+		await axios.delete(`/api/workouts/delete/${this.state.logToDelete}`);
+		// Update to props causes renderLogs() to be re-rendered to reflect
+		// this deletion
+		this.props.fetchLogsHistory(this.state.page);
+		// This calls this.props.fetchLogs() in the Dashboard component
+		// to ultimately update the Chart component
+		this.props.onDelete();
+	}
+
 	render() {
 		return (
 			<div>
+				{/* Modal */}
+				<div id="modal1" className="modal">
+					<div className="modal-content grey darken-3">
+						{/* Modal Heading */}
+						<h4 className="light-blue-text text-darken-1">Confirm Deletion</h4>
+						{/* Modal Message */}
+						<p>
+							Are you sure you want to make these changes? By clicking confirm,
+							you will permanently remove all data associated with this log.
+						</p>
+					</div>
+					<div className="modal-footer grey darken-4">
+						<a
+							href="#!"
+							className="modal-close light-blue-text text-darken-1 waves-effect waves-light btn-flat"
+							onClick={this.handleDeleteConfirm}
+						>
+							Confirm
+						</a>
+					</div>
+				</div>
 				{this.renderButtonsAndHeading()}
 				{this.renderLogs()}
 			</div>

@@ -26,6 +26,17 @@ class Dashboard extends Component {
 		M.AutoInit();
 	}
 
+	componentDidUpdate(prevProps) {
+		// Added to re-render the Chart component to reflect deletions in the Training History.
+		// On deleting a log in the History component, this.props.fetchLogs() will be called from
+		// the onDelete prop attached to the History component. This change in props will be caught
+		// here and re-run this.parseLogData() which updates this.state.logData which is passed as
+		// a prop to the Chart component, causing it to re-render.
+		if (this.props.logs !== prevProps.logs) {
+			this.parseLogData();
+		}
+	}
+
 	// Formats incoming log book into a usable data for the Chart component
 	parseLogData() {
 		const logs = this.props.logs.logHistory;
@@ -129,7 +140,10 @@ class Dashboard extends Component {
 						liftChart={this.state.liftChart}
 					/>
 					{this.renderDropdown()}
-					<History />
+					{/* Updates log in redux store after a user deletes a log
+					which will rerender the training history to reflect
+					the deletion */}
+					<History onDelete={() => this.props.fetchLogs()} />
 					{/* Render hover FABs on large screens */}
 					<MediaQuery minWidth={993}>
 						<DesktopButtons stats={this.props.stats} />

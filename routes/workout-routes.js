@@ -272,4 +272,20 @@ module.exports = app => {
 
 		res.send();
 	});
+
+	// Deletes a single log from the current user's log book
+	app.delete("/api/workouts/delete/:id", requireLogin, async (req, res) => {
+		const logId = req.params.id;
+
+		await LogHistory.updateOne(
+			{
+				_user: req.user._id,
+			},
+			{
+				$pull: { logHistory: { _id: logId } },
+			}
+		);
+
+		res.send();
+	});
 };

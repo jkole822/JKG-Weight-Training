@@ -173,8 +173,8 @@ class History extends Component {
 						<h4 className="light-blue-text text-darken-1">Confirm Deletion</h4>
 						{/* Modal Message */}
 						<p>
-							Are you sure you want to make these changes? By clicking confirm,
-							you will permanently remove all data associated with this log.
+							Are you sure you want to delete this log? By clicking confirm, you
+							will permanently remove all data associated with this log.
 						</p>
 					</div>
 					<div className="modal-footer grey darken-4">

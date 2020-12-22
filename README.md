@@ -6,6 +6,8 @@
 
 Weight lifting training application that stores training session performance and provides a program regimen to follow with recommended weights, reps, and exercises based on performance history.
 
+[View deployed project](https://jkg-workout-app.herokuapp.com/)
+
 ## Table of Contents
 
 - [Visuals](#visuals)

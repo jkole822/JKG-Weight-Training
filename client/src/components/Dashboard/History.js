@@ -19,12 +19,20 @@ class History extends Component {
 		this.handleDeletePrime = this.handleDeletePrime.bind(this);
 		this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
 
-		this.state = { page: 1, logToDelete: "" };
+		this.state = { page: 1, logToDelete: "", reversedLogs: [] };
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		// fetches data for the five most recently logged training sessions
-		this.props.fetchLogsHistory(this.state.page);
+		await this.props.fetchLogsHistory(this.state.page);
+		// Need to reverse the incoming data to display (with renderLogs() below)
+		// in chronological order from most recent at the top of the page to least
+		// recent at the bottom of the page
+		// Cannot use _.reverse() in renderLogs() as this will not always work to
+		// display the desired order
+		this.setState({
+			reversedLogs: this.props.logsHistory.logHistory.reverse(),
+		});
 		// Initialize Materialize CSS JS for Modal
 		M.AutoInit();
 	}
@@ -33,68 +41,66 @@ class History extends Component {
 	// Will fetch five training sessions corresponding to this.state.page
 	// e.g. if page is 2, then fetches training sessions with indices -10 to -5
 	// in the logHistory array in the database
-	componentDidUpdate(prevProps, prevState) {
+	async componentDidUpdate(prevProps, prevState) {
 		if (this.state.page !== prevState.page) {
-			this.props.fetchLogsHistory(this.state.page);
+			await this.props.fetchLogsHistory(this.state.page);
+			this.setState({
+				reversedLogs: this.props.logsHistory.logHistory.reverse(),
+			});
 		}
 	}
 
 	renderLogs() {
-		if (!this.props.logsHistory.logHistory) {
+		if (!this.state.reversedLogs) {
 			// Required to prevent errors when page loads prior to data being fetched from the db
 			return;
 		} else {
-			const logs = this.props.logsHistory.logHistory;
+			const logs = this.state.reversedLogs;
 			// declaring and incrementing i only to assign as keys for JSX array returned from loop
 			let i = 0;
-			// Need to reverse the returned array to display in chronological order from most recent
-			// at the top of the page to least recent at the bottom of the page and then map over the
-			// array to return JSX to display log data
-			return _.chain(logs)
-				.reverse()
-				.map(log => {
-					i++;
-					return (
-						// Using Materialize CSS Card component
-						<div className="row" key={i}>
-							<div className="col s12">
-								<div className="card grey darken-3 log-card">
-									<div className="card-content grey-text text-lighten-2">
-										<span className="card-title">
-											{/* Using luxon to format the date off from the log data */}
-											{DateTime.fromISO(log.date).toLocaleString(
-												DateTime.DATETIME_MED
-											)}
-										</span>
-										{/* Passing the log data into the history log component to further format each training session entry */}
-										<HistoryLog logData={log} />
-									</div>
-									<div className="card-action log-card-bottom">
-										{/* Using react-router-dom props to pass along props (log data) via Link */}
-										<Link
-											className="light-blue-text text-darken-1"
-											to={{
-												pathname: "/workouts/edit",
-												state: { logData: log },
-											}}
-										>
-											Edit
-										</Link>
-										{/* Modal Trigger */}
-										<a
-											className="waves-effect waves-light modal-trigger red-text text-darken-3 right"
-											href="#modal1"
-											onClick={() => this.handleDeletePrime(log)}
-										>
-											Delete
-										</a>
-									</div>
+			// Map over the reversedLog to return JSX displaying the data
+			return _.map(logs, log => {
+				i++;
+				return (
+					// Using Materialize CSS Card component
+					<div className="row" key={i}>
+						<div className="col s12">
+							<div className="card grey darken-3 log-card">
+								<div className="card-content grey-text text-lighten-2">
+									<span className="card-title">
+										{/* Using luxon to format the date off from the log data */}
+										{DateTime.fromISO(log.date).toLocaleString(
+											DateTime.DATETIME_MED
+										)}
+									</span>
+									{/* Passing the log data into the history log component to further format each training session entry */}
+									<HistoryLog logData={log} />
+								</div>
+								<div className="card-action log-card-bottom">
+									{/* Using react-router-dom props to pass along props (log data) via Link */}
+									<Link
+										className="light-blue-text text-darken-1"
+										to={{
+											pathname: "/workouts/edit",
+											state: { logData: log },
+										}}
+									>
+										Edit
+									</Link>
+									{/* Modal Trigger */}
+									<a
+										className="waves-effect waves-light modal-trigger red-text text-darken-3 right"
+										href="#modal1"
+										onClick={() => this.handleDeletePrime(log)}
+									>
+										Delete
+									</a>
 								</div>
 							</div>
 						</div>
-					);
-				})
-				.value();
+					</div>
+				);
+			});
 		}
 	}
 

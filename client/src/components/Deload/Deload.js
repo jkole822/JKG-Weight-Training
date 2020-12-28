@@ -2,7 +2,7 @@
 // Deload page allows users to reduce their lifting stats by a certain percentage
 // which is reflected in the recommended values in the workout log
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import _ from "lodash";
@@ -176,6 +176,13 @@ class Deload extends Component {
 				</p>
 				{this.renderContent()}
 				<div className="row">
+					{/* Navigate back to Dashboard */}
+					<Link
+						to="/workouts"
+						className="col s3 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+					>
+						Cancel
+					</Link>
 					{/* Reset all deload selections */}
 					<button
 						onClick={() =>
@@ -184,13 +191,13 @@ class Deload extends Component {
 								deloadPercent: {},
 							})
 						}
-						className="col offset-s1 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
+						className="col s4 offset-s1 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light"
 					>
 						Reset All
 					</button>
 					<button
 						data-target="modal1"
-						className="col offset-s2 s4 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light modal-trigger"
+						className="col s3 offset-s1 btn light-blue darken-4 grey-text text-lighten-2 waves-effect waves-light modal-trigger"
 						href="#modal1"
 					>
 						Submit

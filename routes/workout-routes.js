@@ -56,7 +56,7 @@ module.exports = app => {
 	});
 
 	// Overwrites existing stats with user input when starting a new program for the current user
-	app.patch("/api/workouts/renew", requireLogin, async (req, res) => {
+	app.patch("/api/workouts/new", requireLogin, async (req, res) => {
 		const change = req.body;
 
 		const updates = Object.keys(change);
@@ -161,7 +161,7 @@ module.exports = app => {
 		);
 
 		if (!log) {
-			return res.send();
+			return res.send(null);
 		}
 
 		res.send(log);

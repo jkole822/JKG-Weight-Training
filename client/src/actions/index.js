@@ -33,7 +33,7 @@ export const submitWorkout = (values, history) => async dispatch => {
 
 	let res;
 	if (existingStats.data) {
-		res = await axios.patch("/api/workouts/renew", values);
+		res = await axios.patch("/api/workouts/new", values);
 	} else {
 		res = await axios.post("/api/workouts", values);
 	}

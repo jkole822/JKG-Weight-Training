@@ -93,7 +93,8 @@ class Chart extends Component {
 					.line()
 					.x(d => xScale(new Date(d.date)))
 					.y(d => yScale(d.weight))
-			);
+			)
+			.attr("transform", `translate(30, 0)`);
 
 		// x-axis
 		const xAxis = d3.axisBottom(xScale).tickFormat(dateFormat);
@@ -102,7 +103,7 @@ class Chart extends Component {
 			.append("g")
 			.attr("id", "x-axis")
 			.style("font-size", "1rem")
-			.attr("transform", `translate(0, ${h - padding})`)
+			.attr("transform", `translate(30, ${h - padding})`)
 			.call(xAxis);
 
 		// x-axis Label
@@ -123,7 +124,7 @@ class Chart extends Component {
 			.append("g")
 			.attr("id", "y-axis")
 			.style("font-size", "1rem")
-			.attr("transform", `translate(${padding}, 0)`)
+			.attr("transform", `translate(${padding + 30}, 0)`)
 			.call(yAxis);
 
 		// y-axis Label
@@ -135,7 +136,7 @@ class Chart extends Component {
 			.attr("text-anchor", "middle")
 			.attr("class", "axis-label")
 			.attr("x", -h / 2)
-			.attr("y", padding / 2 - 10)
+			.attr("y", padding / 2)
 			.text("Weight (lbs.)");
 	}
 

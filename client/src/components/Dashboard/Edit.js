@@ -46,7 +46,7 @@ const Edit = ({
 							</div>
 							<Field
 								component={EditField}
-								name={`${name}.${setKey}.weighst`}
+								name={`${name}.${setKey}.weight`}
 								label={"Weight"}
 								placeholder={logData[name][setKey].weight}
 							/>

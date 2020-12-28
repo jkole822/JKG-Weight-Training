@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import _ from "lodash";
-import axios from "axios";
 import { DateTime } from "luxon";
 import M from "materialize-css";
 
@@ -18,44 +17,43 @@ class History extends Component {
 		this.handleNextClick = this.handleNextClick.bind(this);
 		this.handleDeletePrime = this.handleDeletePrime.bind(this);
 		this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
+		this.paginateLogs = this.paginateLogs.bind(this);
 
-		this.state = { page: 1, logToDelete: "", reversedLogs: [] };
+		this.state = {
+			page: 0,
+			logToDelete: "",
+			displayedLogs: [],
+		};
 	}
 
 	async componentDidMount() {
 		// fetches data for the five most recently logged training sessions
-		await this.props.fetchLogsHistory(this.state.page);
-		// Need to reverse the incoming data to display (with renderLogs() below)
-		// in chronological order from most recent at the top of the page to least
-		// recent at the bottom of the page
-		// Cannot use _.reverse() in renderLogs() as this will not always work to
-		// display the desired order
-		this.setState({
-			reversedLogs: this.props.logsHistory.logHistory.reverse(),
-		});
+		await this.props.fetchLogs();
+
+		this.paginateLogs();
+
 		// Initialize Materialize CSS JS for Modal
 		M.AutoInit();
 	}
 
 	// Called when the user clicks the pagination buttons and updates this.state.page
 	// Will fetch five training sessions corresponding to this.state.page
-	// e.g. if page is 2, then fetches training sessions with indices -10 to -5
-	// in the logHistory array in the database
 	async componentDidUpdate(prevProps, prevState) {
 		if (this.state.page !== prevState.page) {
-			await this.props.fetchLogsHistory(this.state.page);
-			this.setState({
-				reversedLogs: this.props.logsHistory.logHistory.reverse(),
-			});
+			this.paginateLogs();
+		}
+
+		if (this.props.logs !== prevProps.logs) {
+			this.paginateLogs();
 		}
 	}
 
 	renderLogs() {
-		if (!this.state.reversedLogs) {
+		if (!this.state.displayedLogs) {
 			// Required to prevent errors when page loads prior to data being fetched from the db
 			return;
 		} else {
-			const logs = this.state.reversedLogs;
+			const logs = this.state.displayedLogs;
 			// declaring and incrementing i only to assign as keys for JSX array returned from loop
 			let i = 0;
 			// Map over the reversedLog to return JSX displaying the data
@@ -89,7 +87,7 @@ class History extends Component {
 									</Link>
 									{/* Modal Trigger */}
 									<a
-										className="waves-effect waves-light modal-trigger red-text text-darken-3 right"
+										className="modal-trigger red-text text-darken-3 right"
 										href="#modal1"
 										onClick={() => this.handleDeletePrime(log)}
 									>
@@ -102,6 +100,17 @@ class History extends Component {
 				);
 			});
 		}
+	}
+
+	async paginateLogs() {
+		const firstIndex = this.state.page * 5;
+		const secondIndex = this.state.page * 5 + 5;
+
+		const reversedLogs = this.props.logs.logHistory.slice().reverse();
+
+		this.setState({
+			displayedLogs: reversedLogs.slice(firstIndex, secondIndex),
+		});
 	}
 
 	renderButtonsAndHeading() {
@@ -137,7 +146,7 @@ class History extends Component {
 	handleBackClick() {
 		// Decrements this.state.page to paginate through
 		// the logged training sessions in the databse
-		if (this.state.page > 1) {
+		if (this.state.page > 0) {
 			// Validate to ensure this.state.page is NLT one
 			this.setState({ page: this.state.page - 1 });
 		}
@@ -146,7 +155,7 @@ class History extends Component {
 	handleNextClick() {
 		// Increments this.state.page to paginate through
 		// the logged training sessions in the databse
-		if (this.state.page * 5 <= this.props.logs.logHistory.length) {
+		if (this.state.displayedLogs.length >= 5) {
 			// Validate to ensure this.state.page is not set to value that does
 			// not correspond to any logged training sessions
 			this.setState({ page: this.state.page + 1 });
@@ -158,15 +167,8 @@ class History extends Component {
 		this.setState({ logToDelete: log._id });
 	}
 
-	async handleDeleteConfirm() {
-		// Delete the selected log from the database
-		await axios.delete(`/api/workouts/delete/${this.state.logToDelete}`);
-		// Update to props causes renderLogs() to be re-rendered to reflect
-		// this deletion
-		this.props.fetchLogsHistory(this.state.page);
-		// This calls this.props.fetchLogs() in the Dashboard component
-		// to ultimately update the Chart component
-		this.props.onDelete();
+	handleDeleteConfirm() {
+		this.props.deleteLog(this.state.logToDelete);
 	}
 
 	render() {
@@ -186,7 +188,7 @@ class History extends Component {
 					<div className="modal-footer grey darken-4">
 						<a
 							href="#!"
-							className="modal-close light-blue-text text-darken-1 waves-effect waves-light btn-flat"
+							className="modal-close light-blue-text text-darken-1 btn-flat waves-effect waves-light"
 							onClick={this.handleDeleteConfirm}
 						>
 							Confirm
@@ -200,8 +202,8 @@ class History extends Component {
 	}
 }
 
-function mapStateToProps({ logs, logsHistory }) {
-	return { logs, logsHistory };
+function mapStateToProps({ logs }) {
+	return { logs };
 }
 
 export default connect(mapStateToProps, actions)(History);

@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-	FETCH_USER,
-	FETCH_STATS,
-	FETCH_LOGS,
-	FETCH_LOGS_HISTORY,
-} from "./types";
+import { FETCH_USER, FETCH_STATS, FETCH_LOGS } from "./types";
 
 export const fetchUser = () => async dispatch => {
 	const res = await axios.get("/api/current_user");
@@ -29,15 +24,6 @@ export const fetchLogs = () => async dispatch => {
 
 	dispatch({
 		type: FETCH_LOGS,
-		payload: res.data,
-	});
-};
-
-export const fetchLogsHistory = page => async dispatch => {
-	const res = await axios.get(`/api/workouts/log/${page}`);
-
-	dispatch({
-		type: FETCH_LOGS_HISTORY,
 		payload: res.data,
 	});
 };
@@ -74,6 +60,15 @@ export const submitLog = (values, history) => async dispatch => {
 	history.push("/workouts");
 	dispatch({
 		type: FETCH_USER,
+		payload: res.data,
+	});
+};
+
+export const deleteLog = id => async dispatch => {
+	const res = await axios.delete(`/api/workouts/log/${id}`);
+
+	dispatch({
+		type: FETCH_LOGS,
 		payload: res.data,
 	});
 };

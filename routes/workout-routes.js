@@ -158,28 +158,7 @@ module.exports = app => {
 			{
 				logHistory: { $slice: -60 },
 			}
-		).exec();
-
-		if (!log) {
-			return res.send();
-		}
-
-		res.send(log);
-	});
-
-	app.get("/api/workouts/log/:page", requireLogin, async (req, res) => {
-		const page = parseInt(req.params.page);
-		const firstIndex = -5 * page;
-		const secondIndex = 5;
-
-		const log = await LogHistory.findOne(
-			{
-				_user: req.user,
-			},
-			{
-				logHistory: { $slice: [firstIndex, secondIndex] },
-			}
-		).exec();
+		);
 
 		if (!log) {
 			return res.send();
@@ -232,7 +211,7 @@ module.exports = app => {
 				break;
 		}
 
-		const log = await LogHistory.findOneAndUpdate(
+		await LogHistory.updateOne(
 			{ _user: req.user._id },
 			{
 				$push: { logHistory: req.body },
@@ -241,7 +220,6 @@ module.exports = app => {
 
 		try {
 			const user = await req.user.save();
-			await log.save();
 			res.send(user);
 		} catch (e) {
 			res.status(422).send(e);
@@ -249,43 +227,44 @@ module.exports = app => {
 	});
 
 	// Edits a single log from the current user's log book
-	app.patch("/api/workouts/edit", requireLogin, (req, res) => {
+	app.patch("/api/workouts/log/:id", requireLogin, (req, res) => {
 		const updates = req.body;
+		const logId = req.params.id;
 
 		_.forEach(updates, (exercise, exerciseKey) => {
-			if (exerciseKey !== "_id")
-				_.forEach(exercise, (set, setKey) => {
-					_.forEach(set, async (entry, entryKey) => {
-						const property = `logHistory.$.${exerciseKey}.${setKey}.${entryKey}`;
-						await LogHistory.updateOne(
-							{
-								_user: req.user._id,
-								logHistory: {
-									$elemMatch: { _id: updates._id },
-								},
+			_.forEach(exercise, (set, setKey) => {
+				_.forEach(set, async (entry, entryKey) => {
+					const property = `logHistory.$.${exerciseKey}.${setKey}.${entryKey}`;
+					await LogHistory.updateOne(
+						{
+							_user: req.user._id,
+							logHistory: {
+								$elemMatch: { _id: logId },
 							},
-							{ $set: { [property]: entry } }
-						);
-					});
+						},
+						{ $set: { [property]: entry } }
+					);
 				});
+			});
 		});
 
 		res.send();
 	});
 
 	// Deletes a single log from the current user's log book
-	app.delete("/api/workouts/delete/:id", requireLogin, async (req, res) => {
+	app.delete("/api/workouts/log/:id", requireLogin, async (req, res) => {
 		const logId = req.params.id;
 
-		await LogHistory.updateOne(
+		const logs = await LogHistory.findOneAndUpdate(
 			{
 				_user: req.user._id,
 			},
 			{
 				$pull: { logHistory: { _id: logId } },
-			}
+			},
+			{ new: true }
 		);
 
-		res.send();
+		res.send(logs);
 	});
 };

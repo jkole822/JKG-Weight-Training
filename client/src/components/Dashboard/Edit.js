@@ -83,12 +83,12 @@ const Edit = ({
 		.value();
 
 	const handleEditSubmit = async () => {
-		const _id = logData._id;
+		const id = logData._id;
 		// Need to pass along the log _id to match to the correct training session
 		// in the logHistory array in the database.
-		const req = { ...formValues.values, _id };
+		const req = { ...formValues.values };
 		// overwrite the corresponding log data with the submitted form data
-		await axios.patch("/api/workouts/edit", req);
+		await axios.patch(`/api/workouts/log/${id}`, req);
 		// redirect back to the dashboard using react-router-dom history
 		history.push("/workouts");
 	};

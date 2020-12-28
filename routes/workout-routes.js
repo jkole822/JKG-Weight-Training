@@ -230,7 +230,6 @@ module.exports = app => {
 	app.patch("/api/workouts/log/:id", requireLogin, (req, res) => {
 		const updates = req.body;
 		const logId = req.params.id;
-		console.log(req.body);
 
 		_.forEach(updates, (exercise, exerciseKey) => {
 			_.forEach(exercise, (set, setKey) => {

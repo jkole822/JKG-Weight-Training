@@ -103,14 +103,16 @@ class History extends Component {
 	}
 
 	async paginateLogs() {
-		const firstIndex = this.state.page * 5;
-		const secondIndex = this.state.page * 5 + 5;
+		if (this.props.logs) {
+			const firstIndex = this.state.page * 5;
+			const secondIndex = this.state.page * 5 + 5;
 
-		const reversedLogs = this.props.logs.logHistory.slice().reverse();
+			const reversedLogs = this.props.logs.logHistory.slice().reverse();
 
-		this.setState({
-			displayedLogs: reversedLogs.slice(firstIndex, secondIndex),
-		});
+			this.setState({
+				displayedLogs: reversedLogs.slice(firstIndex, secondIndex),
+			});
+		}
 	}
 
 	renderButtonsAndHeading() {

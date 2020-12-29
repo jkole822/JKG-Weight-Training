@@ -11,7 +11,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const fetchStats = () => async dispatch => {
-	const res = await axios.get("/api/workouts");
+	const res = await axios.get("/api/stats");
 
 	dispatch({
 		type: FETCH_STATS,
@@ -20,7 +20,7 @@ export const fetchStats = () => async dispatch => {
 };
 
 export const fetchLogs = () => async dispatch => {
-	const res = await axios.get("/api/workouts/log");
+	const res = await axios.get("/api/log");
 
 	dispatch({
 		type: FETCH_LOGS,
@@ -29,13 +29,13 @@ export const fetchLogs = () => async dispatch => {
 };
 
 export const submitWorkout = (values, history) => async dispatch => {
-	const existingStats = await axios.get("/api/workouts");
+	const existingStats = await axios.get("/api/stats");
 
 	let res;
 	if (existingStats.data) {
-		res = await axios.patch("/api/workouts/new", values);
+		res = await axios.patch("/api/stats/new", values);
 	} else {
-		res = await axios.post("/api/workouts", values);
+		res = await axios.post("/api/stats", values);
 	}
 
 	history.push("/workouts/log");
@@ -46,16 +46,16 @@ export const submitWorkout = (values, history) => async dispatch => {
 };
 
 export const submitLog = (values, history) => async dispatch => {
-	const existingLog = await axios.get("/api/workouts/log");
+	const existingLog = await axios.get("/api/log");
 
 	let res;
 	if (existingLog.data) {
-		res = await axios.patch("/api/workouts/log", values);
+		res = await axios.patch("/api/log", values);
 	} else {
-		res = await axios.post("/api/workouts/log", values);
+		res = await axios.post("/api/log", values);
 	}
 
-	await axios.patch("/api/workouts/update", values);
+	await axios.patch("/api/stats/update", values);
 
 	history.push("/workouts");
 	dispatch({
@@ -65,7 +65,7 @@ export const submitLog = (values, history) => async dispatch => {
 };
 
 export const deleteLog = id => async dispatch => {
-	const res = await axios.delete(`/api/workouts/log/${id}`);
+	const res = await axios.delete(`/api/log/${id}`);
 
 	dispatch({
 		type: FETCH_LOGS,

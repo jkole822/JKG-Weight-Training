@@ -124,7 +124,7 @@ class Deload extends Component {
 	handleSubmit() {
 		// Overwrites stats in database with the resulting deloadStats based
 		// on user selection
-		axios.patch("/api/workouts/deload", this.state.deloadStats);
+		axios.patch("/api/stats/deload", this.state.deloadStats);
 		// Redirect to the dashboard
 		this.props.history.push("/workouts");
 	}

@@ -88,7 +88,7 @@ const Edit = ({
 		// in the logHistory array in the database.
 		const req = { ...formValues.values };
 		// overwrite the corresponding log data with the submitted form data
-		await axios.patch(`/api/workouts/log/${id}`, req);
+		await axios.patch(`/api/log/${id}`, req);
 		// redirect back to the dashboard using react-router-dom history
 		history.push("/workouts");
 	};

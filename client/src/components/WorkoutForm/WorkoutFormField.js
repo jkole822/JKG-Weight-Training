@@ -7,6 +7,7 @@ export default ({ input, label, meta: { error, touched } }) => {
 			<label>{label}</label>
 			<input
 				type="number"
+				autocomplete="off"
 				// spread in attributes from input from redux form
 				{...input}
 				style={{ fontSize: "0.8rem", color: "#e0e0e0", marginBottom: "5px" }}

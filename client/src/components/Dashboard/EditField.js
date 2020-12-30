@@ -6,6 +6,7 @@ export default ({ placeholder, input, label, meta: { error, touched } }) => {
 		<div className="col s4">
 			<label>{label}</label>
 			<input
+				autocomplete="off"
 				className="center-align"
 				type="number"
 				placeholder={placeholder}

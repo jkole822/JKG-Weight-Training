@@ -94,7 +94,7 @@ const Edit = ({
 	};
 
 	return (
-		<div>
+		<div className="container">
 			{/* Main Heading */}
 			<h2 id="log-heading">Edit Training Session</h2>
 			{/* Sub-heading using date from log data that is formatted using luxon */}

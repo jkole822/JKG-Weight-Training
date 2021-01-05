@@ -131,7 +131,7 @@ class Deload extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="container">
 				{/* Modal */}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">

@@ -130,7 +130,7 @@ class Dashboard extends Component {
 			);
 		} else {
 			return (
-				<div>
+				<div className="container">
 					<Chart
 						logData={this.state.logData}
 						liftChart={this.state.liftChart}

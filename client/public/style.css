@@ -138,6 +138,17 @@
 	margin: 0;
 }
 
+/* Page Not Found */
+#not-found {
+	font-family: "Rock Salt";
+	font-size: 3vh;
+	text-align: center;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+}
+
 /* Sticky Footer  */
 .content {
 	min-height: calc(100vh - 150px);

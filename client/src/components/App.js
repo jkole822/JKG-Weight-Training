@@ -13,7 +13,7 @@ import Edit from "./Dashboard/Edit";
 import Footer from "./Footer";
 import PageNotFound from "./Dashboard/PageNotFound";
 
-class App extends Component {
+export class UnconnectedApp extends Component {
 	componentDidMount() {
 		this.props.fetchUser();
 	}
@@ -41,4 +41,4 @@ class App extends Component {
 	}
 }
 
-export default connect(null, actions)(App);
+export default connect(null, actions)(UnconnectedApp);

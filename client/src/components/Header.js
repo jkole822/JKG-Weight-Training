@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import M from "materialize-css";
 import MediaQuery from "react-responsive";
 
-class Header extends Component {
+export class UnconnectedHeader extends Component {
 	componentDidMount() {
 		// M.AutoInit() allows you to initialize all of the Materialize Components with a single function call.
 		// It is important to note that you cannot pass in options using this method.
@@ -20,12 +20,20 @@ class Header extends Component {
 			case false:
 				return [
 					<li key="google-login">
-						<a className="white-text" href="/auth/google">
+						<a
+							data-test="button-google"
+							className="white-text"
+							href="/auth/google"
+						>
 							Login with Google
 						</a>
 					</li>,
 					<li key="facebook-login">
-						<a className="white-text" href="/auth/facebook">
+						<a
+							data-test="button-facebook"
+							className="white-text"
+							href="/auth/facebook"
+						>
 							Login with Facebook
 						</a>
 					</li>,
@@ -33,7 +41,11 @@ class Header extends Component {
 			default:
 				return (
 					<li>
-						<a className="white-text" href="/api/logout">
+						<a
+							data-test="button-logout"
+							className="white-text"
+							href="/api/logout"
+						>
 							Logout
 						</a>
 					</li>
@@ -42,7 +54,7 @@ class Header extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div data-test="component-header">
 				<nav className="nav-extended">
 					<div className="nav-wrapper grey darken-3">
 						{/* MediaQuery is used to add a margin to the logo on larger screens. 
@@ -94,4 +106,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(UnconnectedHeader);

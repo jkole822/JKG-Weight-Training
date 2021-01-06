@@ -22,13 +22,10 @@ describe("redux properties", () => {
 
 test("`fetchUser runs on App mount`", () => {
 	const fetchUserMock = jest.fn();
-
 	const props = { fetchUser: fetchUserMock };
-
 	const wrapper = shallow(<UnconnectedApp {...props} />);
 
 	wrapper.instance().componentDidMount();
-
 	const fetchUserMockCallCount = fetchUserMock.mock.calls.length;
 
 	expect(fetchUserMockCallCount).toBe(1);

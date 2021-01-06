@@ -13,7 +13,7 @@ const setup = (initialState = {}) => {
 	return wrapper;
 };
 
-describe("render", () => {
+describe("Component", () => {
 	let wrapper;
 	beforeEach(() => {
 		const initialState = {
@@ -26,22 +26,62 @@ describe("render", () => {
 		const component = findByTestAttr(wrapper, "component-header");
 		expect(component.length).toBe(1);
 	});
+});
 
-	test("renders logout button when signed in", () => {
-		// Renders two versions, one for the main navbar and one for the mobile sidebar.
-		const logoutButton = findByTestAttr(wrapper, "button-logout");
-		expect(logoutButton.length).toBe(2);
+describe("Login/Logout Buttons", () => {
+	describe("Rendering when signed in", () => {
+		let wrapper;
+		beforeEach(() => {
+			const initialState = {
+				auth: { id: "123" },
+			};
+			wrapper = setup(initialState);
+		});
+		test("renders logout button when signed in", () => {
+			// Renders two versions, one for the main navbar and one for the mobile sidebar.
+			const logoutButton = findByTestAttr(wrapper, "button-logout");
+			expect(logoutButton.length).toBe(2);
+		});
+
+		test("does not render login button when signed in", () => {
+			const googleButton = findByTestAttr(wrapper, "button-google");
+			const facebookButton = findByTestAttr(wrapper, "button-facebook");
+
+			expect(googleButton.length).toBe(0);
+			expect(facebookButton.length).toBe(0);
+		});
 	});
 
-	test("renders login button when not signed in", () => {
-		// Renders two versions, one for the main navbar and one for the mobile sidebar.
-		const initialState = { auth: false };
-		wrapper = setup(initialState);
+	describe("Rendering when not signed in", () => {
+		let wrapper;
+		beforeEach(() => {
+			const initialState = {
+				auth: false,
+			};
+			wrapper = setup(initialState);
+		});
 
-		const googleButton = findByTestAttr(wrapper, "button-google");
-		const facebookButton = findByTestAttr(wrapper, "button-facebook");
+		test("does not render logout button when not signed", () => {
+			const logoutButton = findByTestAttr(wrapper, "button-logout");
+			expect(logoutButton.length).toBe(0);
+		});
 
-		expect(googleButton.length).toBe(2);
-		expect(facebookButton.length).toBe(2);
+		test("renders login button when not signed in", () => {
+			// Renders two versions, one for the main navbar and one for the mobile sidebar.
+			const googleButton = findByTestAttr(wrapper, "button-google");
+			const facebookButton = findByTestAttr(wrapper, "button-facebook");
+
+			expect(googleButton.length).toBe(2);
+			expect(facebookButton.length).toBe(2);
+		});
+	});
+});
+
+describe("Redux Props", () => {
+	test("has auth piece of state as prop", () => {
+		const auth = { id: "123 " };
+		const wrapper = setup({ auth });
+		const authProp = wrapper.instance().props.auth;
+		expect(authProp).toBe(auth);
 	});
 });

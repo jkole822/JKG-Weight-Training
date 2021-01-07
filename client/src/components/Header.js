@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import M from "materialize-css";
 import MediaQuery from "react-responsive";
 
-export class UnconnectedHeader extends Component {
+class Header extends Component {
 	componentDidMount() {
 		// M.AutoInit() allows you to initialize all of the Materialize Components with a single function call.
 		// It is important to note that you cannot pass in options using this method.
@@ -106,4 +106,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps)(UnconnectedHeader);
+export default connect(mapStateToProps)(Header);

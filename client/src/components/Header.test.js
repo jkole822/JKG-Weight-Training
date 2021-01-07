@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { storeFactory, findByTestAttr } from "../../test/testUtils";
-import Header, { UnconnectedHeader } from "./Header";
+import Header from "./Header";
 
 const setup = (initialState = {}) => {
 	const store = storeFactory(initialState);
@@ -17,7 +17,7 @@ describe("Component", () => {
 	let wrapper;
 	beforeEach(() => {
 		const initialState = {
-			auth: { id: "123" },
+			auth: true,
 		};
 		wrapper = setup(initialState);
 	});
@@ -33,7 +33,7 @@ describe("Login/Logout Buttons", () => {
 		let wrapper;
 		beforeEach(() => {
 			const initialState = {
-				auth: { id: "123" },
+				auth: true,
 			};
 			wrapper = setup(initialState);
 		});

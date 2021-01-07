@@ -11,7 +11,7 @@ import DesktopButtons from "./DesktopButtons";
 import MobileButtons from "./MobileButtons";
 import History from "./History";
 
-class Dashboard extends Component {
+export class UnconnectedDashboard extends Component {
 	state = { logData: {}, liftChart: "squat" };
 
 	async componentDidMount() {
@@ -20,7 +20,6 @@ class Dashboard extends Component {
 		// fetching log book of current user for use in Chart component after parsing data with parseLogData
 		// and saving the result to this.state.logData
 		await this.props.fetchLogs();
-		this.parseLogData();
 		// M.AutoInit() allows you to initialize all of the Materialize Components with a single function call.
 		// It is important to note that you cannot pass in options using this method.
 		M.AutoInit();
@@ -112,7 +111,7 @@ class Dashboard extends Component {
 	render() {
 		if (!this.props.stats) {
 			return (
-				<div>
+				<div data-test="component-dashboard-one">
 					<div id="instructions" className="light-blue-text text-darken-3">
 						Click the <i className=" material-icons">create</i> at the bottom to
 						log your weight lifting stats and start your new workout program
@@ -130,7 +129,7 @@ class Dashboard extends Component {
 			);
 		} else {
 			return (
-				<div className="container">
+				<div data-test="component-dashboard-two" className="container">
 					<Chart
 						logData={this.state.logData}
 						liftChart={this.state.liftChart}
@@ -158,4 +157,4 @@ function mapStateToProps({ stats, logs }) {
 	return { stats, logs };
 }
 
-export default connect(mapStateToProps, actions)(Dashboard);
+export default connect(mapStateToProps, actions)(UnconnectedDashboard);

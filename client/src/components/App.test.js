@@ -10,7 +10,7 @@ const setup = (state = {}) => {
 	return wrapper;
 };
 
-describe("redux properties", () => {
+describe("Redux Properties", () => {
 	let wrapper;
 
 	test("`fetchUser` action creator is a function on the props", () => {
@@ -20,7 +20,7 @@ describe("redux properties", () => {
 	});
 });
 
-test("`fetchUser runs on App mount`", () => {
+test("`fetchUser` runs on App mount`", () => {
 	const fetchUserMock = jest.fn();
 	const props = { fetchUser: fetchUserMock };
 	const wrapper = shallow(<UnconnectedApp {...props} />);

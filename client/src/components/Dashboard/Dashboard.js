@@ -82,15 +82,18 @@ export class UnconnectedDashboard extends Component {
 		if (!_.isEmpty(this.state.logData)) {
 			const options = _.map(formFields, ({ name, label }) => {
 				return (
-					<option key={name} value={name}>
+					<option data-test="dropdown-options" key={name} value={name}>
 						{label}
 					</option>
 				);
 			});
 
 			return (
-				<div id="chart-dropdown" className="input-field">
-					<select onChange={event => this.handleChange(event)}>
+				<div data-test="dropdown" id="chart-dropdown" className="input-field">
+					<select
+						data-test="select-dropdown"
+						onChange={event => this.handleChange(event)}
+					>
 						<option>Select a lift</option>
 						{options}
 					</select>

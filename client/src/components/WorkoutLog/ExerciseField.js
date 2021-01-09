@@ -6,7 +6,7 @@ export default ({ input, label, placeholder, meta: { error, touched } }) => {
 		<div className="col s4">
 			<label>{label}</label>
 			<input
-				autocomplete="off"
+				autoComplete="off"
 				className="center-align"
 				type="number"
 				// spread in attributes from input from redux form

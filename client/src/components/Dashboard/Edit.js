@@ -22,6 +22,7 @@ const Edit = ({
 	// as props through logData from the History component.
 	const logContent = _.chain(formFields)
 		.filter(({ name }) => {
+			console.log(logData);
 			return logData.hasOwnProperty(name) && name;
 		})
 		// Map over each returned exercise from formFields after filter to create JSX to format
@@ -137,11 +138,11 @@ function validate(values) {
 	// Add in validation to ensure user input is a positive number
 	_.each(formFields, ({ name }) => {
 		_.forEach(values[name], (set, setKey) => {
-			if (set.weight <= 0) {
+			if (set.weight < 0) {
 				errors[name][setKey].weight = "Cannot be negative";
 			}
 
-			if (set.reps <= 0) {
+			if (set.reps < 0) {
 				errors[name][setKey].reps = "Cannot be negative";
 			}
 		});

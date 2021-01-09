@@ -20,7 +20,10 @@ class DesktopButtons extends Component {
 		// program button.
 		if (this.props.stats) {
 			return (
-				<div className="fixed-action-btn">
+				<div
+					data-test="component-desktop-buttons-one"
+					className="fixed-action-btn"
+				>
 					<Link
 						to="/workouts/log"
 						className="btn-floating btn-large light-blue darken-2"
@@ -49,7 +52,10 @@ class DesktopButtons extends Component {
 			);
 		} else {
 			return (
-				<div className="fixed-action-btn">
+				<div
+					data-test="component-desktop-buttons-two"
+					className="fixed-action-btn"
+				>
 					<Link
 						to="/workouts/new"
 						className="btn-floating btn-large light-blue darken-2"

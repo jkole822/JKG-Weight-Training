@@ -24,7 +24,10 @@ class MobileButtons extends Component {
 				// Unlike the desktop version, the mobile buttons have a menu button that
 				// does not link to anywhere but toggles the visibility of the other buttons
 				// in the list <ul>
-				<div className="fixed-action-btn">
+				<div
+					data-test="component-mobile-buttons-one"
+					className="fixed-action-btn"
+				>
 					<button className="btn-floating btn-large light-blue darken-2">
 						<i className="large material-icons">menu</i>
 					</button>
@@ -58,7 +61,10 @@ class MobileButtons extends Component {
 			);
 		} else {
 			return (
-				<div className="fixed-action-btn">
+				<div
+					data-test="component-mobile-buttons-two"
+					className="fixed-action-btn"
+				>
 					<Link
 						to="/workouts/new"
 						className="btn-floating btn-large light-blue darken-2"

@@ -107,7 +107,7 @@ describe("Local State", () => {
 		await wrapper.instance().componentDidUpdate(prevProps);
 
 		const dropdown = findByTestAttr(wrapper, "select-dropdown");
-		dropdown.simulate("change", {
+		dropdown.at(0).simulate("change", {
 			target: { value: "deadlift" },
 		});
 

@@ -14,8 +14,7 @@ class Chart extends Component {
 	// component
 	componentDidUpdate(prevProps) {
 		if (
-			(this.props.liftChart === prevProps.liftChart &&
-				this.props.logData !== prevProps.logData) ||
+			this.props.logData !== prevProps.logData ||
 			this.props.liftChart !== prevProps.liftChart
 		) {
 			this.renderData(this.props.logData[this.props.liftChart]);
@@ -141,7 +140,7 @@ class Chart extends Component {
 	}
 
 	render() {
-		return <div ref={this.myRef}></div>;
+		return <div data-test="component-chart" ref={this.myRef}></div>;
 	}
 }
 

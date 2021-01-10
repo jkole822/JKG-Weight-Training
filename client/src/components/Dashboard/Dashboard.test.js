@@ -67,9 +67,7 @@ describe("Component", () => {
 });
 
 describe("Local State", () => {
-	let wrapper;
-
-	wrapper = setup({ stats, logs });
+	const wrapper = setup({ stats, logs });
 
 	test("has access to `logData` local state", () => {
 		expect(wrapper.state("logData")).toEqual({});
@@ -116,9 +114,7 @@ describe("Local State", () => {
 });
 
 describe("Redux Properties", () => {
-	let wrapper;
-
-	wrapper = setup({ stats, logs });
+	const wrapper = setup({ stats, logs });
 
 	test("has access to `stats` state", () => {
 		const statsProp = wrapper.instance().props.stats;

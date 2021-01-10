@@ -9,7 +9,7 @@ import M from "materialize-css";
 
 import HistoryLog from "./HistoryLog";
 
-class History extends Component {
+export class UnconnectedHistory extends Component {
 	constructor(props) {
 		super(props);
 
@@ -61,7 +61,7 @@ class History extends Component {
 				i++;
 				return (
 					// Using Materialize CSS Card component
-					<div className="row" key={i}>
+					<div data-test="section-log" className="row" key={i}>
 						<div className="col s12">
 							<div className="card grey darken-3 log-card">
 								<div className="card-content grey-text text-lighten-2">
@@ -87,6 +87,7 @@ class History extends Component {
 									</Link>
 									{/* Modal Trigger */}
 									<a
+										data-test="button-delete-prime"
 										className="modal-trigger red-text text-darken-3 right"
 										href="#modal1"
 										onClick={() => this.handleDeletePrime(log)}
@@ -125,6 +126,7 @@ class History extends Component {
 				<div>
 					<div id="log-nav-buttons" className="row">
 						<button
+							data-test="button-back"
 							onClick={this.handleBackClick}
 							className="col s2 btn light-blue darken-4 waves-effect waves-light"
 						>
@@ -134,6 +136,7 @@ class History extends Component {
 							Training History
 						</h2>
 						<button
+							data-test="button-next"
 							onClick={this.handleNextClick}
 							className="col s2 btn light-blue darken-4 waves-effect waves-light"
 						>
@@ -175,7 +178,7 @@ class History extends Component {
 
 	render() {
 		return (
-			<div>
+			<div data-test="component-history">
 				{/* Modal */}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">
@@ -189,6 +192,7 @@ class History extends Component {
 					</div>
 					<div className="modal-footer grey darken-4">
 						<a
+							data-test="button-delete-confirm"
 							href="#!"
 							className="modal-close light-blue-text text-darken-1 btn-flat waves-effect waves-light"
 							onClick={this.handleDeleteConfirm}
@@ -208,4 +212,4 @@ function mapStateToProps({ logs }) {
 	return { logs };
 }
 
-export default connect(mapStateToProps, actions)(History);
+export default connect(mapStateToProps, actions)(UnconnectedHistory);

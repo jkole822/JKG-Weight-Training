@@ -22,7 +22,6 @@ const Edit = ({
 	// as props through logData from the History component.
 	const logContent = _.chain(formFields)
 		.filter(({ name }) => {
-			console.log(logData);
 			return logData.hasOwnProperty(name) && name;
 		})
 		// Map over each returned exercise from formFields after filter to create JSX to format

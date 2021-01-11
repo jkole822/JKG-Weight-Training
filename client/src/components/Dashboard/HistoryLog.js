@@ -20,7 +20,11 @@ const HistoryLog = ({ logData }) => {
 			_.forEach(logData[name], (set, setKey) => {
 				if (setKey !== "_id") {
 					sets.push(
-						<div key={`review_set_${name}_${setKey}`} className="row">
+						<div
+							data-test="sub-content"
+							key={`review_set_${name}_${setKey}`}
+							className="row"
+						>
 							<div className="col s6 set-id">
 								{setKey === "set_1"
 									? "Set 1"
@@ -37,7 +41,7 @@ const HistoryLog = ({ logData }) => {
 			});
 
 			return (
-				<div key={name}>
+				<div data-test="content" key={name}>
 					<h3 className="exercise-name light-blue-text text-darken-1">
 						{label}
 					</h3>
@@ -46,7 +50,7 @@ const HistoryLog = ({ logData }) => {
 			);
 		})
 		.value();
-	return <div>{logContent}</div>;
+	return <div data-test="component-log-history">{logContent}</div>;
 };
 
 export default HistoryLog;

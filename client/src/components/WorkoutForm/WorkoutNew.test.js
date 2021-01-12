@@ -29,3 +29,11 @@ describe("Component", () => {
 		expect(WorkoutReview.length).toBe(1);
 	});
 });
+
+describe("Local State", () => {
+	const wrapper = shallow(<UnconnectedWorkoutNew />);
+
+	test("has access to `showFormReview` local state", () => {
+		expect(wrapper.state("showFormReview")).toBe(false);
+	});
+});

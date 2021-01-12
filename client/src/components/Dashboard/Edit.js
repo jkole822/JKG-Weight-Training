@@ -10,7 +10,7 @@ import { DateTime } from "luxon";
 import EditField from "./EditField";
 import errorFormFields from "../errorFormFields";
 
-const Edit = ({
+export const UnconnectedEdit = ({
 	history,
 	formValues,
 	handleSubmit,
@@ -156,12 +156,8 @@ function mapStateToProps(state) {
 	return { formValues: state.form.editForm };
 }
 
-// export const ConnectedEdit = reduxForm({ validate, form: "editForm" })(
-// 	connect(mapStateToProps)(Edit)
-// );
-
 // Saving form data under 'editForm'
 // Use withRouter from react-router-dom to use `history` for redirect
 export default reduxForm({ validate, form: "editForm" })(
-	connect(mapStateToProps)(withRouter(Edit))
+	connect(mapStateToProps)(withRouter(UnconnectedEdit))
 );

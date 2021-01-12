@@ -6,12 +6,17 @@ import { withRouter } from "react-router-dom";
 import * as actions from "../../actions";
 import _ from "lodash";
 
-const WorkoutReview = ({ onCancel, formValues, submitWorkout, history }) => {
+export const UnconnectedWorkoutReview = ({
+	onCancel,
+	formValues,
+	submitWorkout,
+	history,
+}) => {
 	// Map over formFields object to render the exercise name and the associated
 	// form data from the WorkoutForm component.
 	const reviewFields = _.map(formFields, ({ label, name }) => {
 		return (
-			<div key={name}>
+			<div data-test="content" key={name}>
 				<h3 className="light-blue-text text-darken-1 center-align review-stats-exercise">
 					{label}
 				</h3>
@@ -21,7 +26,7 @@ const WorkoutReview = ({ onCancel, formValues, submitWorkout, history }) => {
 	});
 
 	return (
-		<div>
+		<div data-test="component-workout-review">
 			<h2 id="log-heading">Review</h2>
 			<div id="review-stats">{reviewFields}</div>
 			<div className="row">
@@ -55,4 +60,7 @@ function mapStateToProps(state) {
 }
 
 // // Use withRouter from react-router-dom to use `history` for redirect within the action
-export default connect(mapStateToProps, actions)(withRouter(WorkoutReview));
+export default connect(
+	mapStateToProps,
+	actions
+)(withRouter(UnconnectedWorkoutReview));

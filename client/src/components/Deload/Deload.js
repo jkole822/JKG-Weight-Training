@@ -12,7 +12,7 @@ import axios from "axios";
 import Dropdown from "./Dropdown";
 import formFields from "../formFields";
 
-class Deload extends Component {
+export class UnconnectedDeload extends Component {
 	constructor(props) {
 		super(props);
 
@@ -35,50 +35,53 @@ class Deload extends Component {
 	renderContent() {
 		// Map over the formFields object to format the label, stats metric, dropdown for deload percentage,
 		// and reset button
-		return _.map(formFields, ({ name, label }) => {
-			return (
-				<div className="row" key={name}>
-					<div className="card grey darken-3 log-card">
-						<div className="card-content grey-text text-lighten-2">
-							<span
-								className="card-title light-blue-text text-darken-1"
-								style={{ marginBottom: "20px" }}
-							>
-								{label}
-							</span>
-							<div className="row valign-wrapper">
-								<div className="col s6">
-									{/* If a deload percentage is applied from the dropdown, */}
-									{/* show the resulting weight after that deload percentage */}
-									{/* is multiplied into the corresponding stat weight */}
-									<p>
-										{this.state.deloadStats[name]
-											? `${this.state.deloadStats[name]} lbs`
-											: `${this.props.stats[name]} lbs`}
-									</p>
-								</div>
-								<div className="col s6">
-									{/* Pass in onChange prop to dropdown component that calls
+		if (this.props.stats) {
+			return _.map(formFields, ({ name, label }) => {
+				return (
+					<div data-test="content" className="row" key={name}>
+						<div className="card grey darken-3 log-card">
+							<div className="card-content grey-text text-lighten-2">
+								<span
+									className="card-title light-blue-text text-darken-1"
+									style={{ marginBottom: "20px" }}
+								>
+									{label}
+								</span>
+								<div className="row valign-wrapper">
+									<div className="col s6">
+										{/* If a deload percentage is applied from the dropdown, */}
+										{/* show the resulting weight after that deload percentage */}
+										{/* is multiplied into the corresponding stat weight */}
+										<p>
+											{this.state.deloadStats[name]
+												? `${this.state.deloadStats[name]} lbs`
+												: `${this.props.stats[name]} lbs`}
+										</p>
+									</div>
+									<div className="col s6">
+										{/* Pass in onChange prop to dropdown component that calls
 									the handleChange function when a user selects an option
 									from the dropdown */}
-									<Dropdown onChange={this.handleChange} name={name} />
+										<Dropdown onChange={this.handleChange} name={name} />
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="card-action log-card-bottom">
-							{/* Note for future improvements: Find a way to reset the display
+							<div className="card-action log-card-bottom">
+								{/* Note for future improvements: Find a way to reset the display
 							of the dropdown menu when reset is clicked */}
-							<a
-								className="light-blue-text text-darken-1"
-								onClick={() => this.handleClick(name)}
-							>
-								Reset
-							</a>
+								<a
+									data-test="button-reset"
+									className="light-blue-text text-darken-1"
+									onClick={() => this.handleClick(name)}
+								>
+									Reset
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			);
-		});
+				);
+			});
+		}
 	}
 
 	async handleChange(value, name) {
@@ -131,7 +134,7 @@ class Deload extends Component {
 
 	render() {
 		return (
-			<div className="container">
+			<div data-test="component-deload" className="container">
 				{/* Modal */}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">
@@ -185,6 +188,7 @@ class Deload extends Component {
 					</Link>
 					{/* Reset all deload selections */}
 					<button
+						data-test="button-reset-all"
 						onClick={() =>
 							this.setState({
 								deloadStats: {},
@@ -212,5 +216,9 @@ function mapStateToProps({ stats }) {
 	return { stats };
 }
 
+export const ConnectedDeload = connect(
+	mapStateToProps,
+	actions
+)(UnconnectedDeload);
 // Use withRouter from react-router-dom to use `history` for redirect
-export default connect(mapStateToProps, actions)(withRouter(Deload));
+export default connect(mapStateToProps, actions)(withRouter(UnconnectedDeload));

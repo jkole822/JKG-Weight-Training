@@ -94,7 +94,7 @@ const Edit = ({
 	};
 
 	return (
-		<div className="container">
+		<div data-test="component-edit" className="container">
 			{/* Main Heading */}
 			<h2 id="log-heading">Edit Training Session</h2>
 			{/* Sub-heading using date from log data that is formatted using luxon */}
@@ -155,6 +155,10 @@ function validate(values) {
 function mapStateToProps(state) {
 	return { formValues: state.form.editForm };
 }
+
+// export const ConnectedEdit = reduxForm({ validate, form: "editForm" })(
+// 	connect(mapStateToProps)(Edit)
+// );
 
 // Saving form data under 'editForm'
 // Use withRouter from react-router-dom to use `history` for redirect

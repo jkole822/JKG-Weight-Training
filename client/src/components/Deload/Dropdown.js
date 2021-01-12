@@ -8,7 +8,11 @@ class Dropdown extends Component {
 		const dropdownValues = ["5", "10", "15", "20", "25"];
 		const options = _.map(dropdownValues, dropdownValue => {
 			return (
-				<option key={dropdownValue} value={dropdownValue}>
+				<option
+					data-test="dropdown-options"
+					key={dropdownValue}
+					value={dropdownValue}
+				>
 					{`${dropdownValue}%`}
 				</option>
 			);
@@ -18,7 +22,7 @@ class Dropdown extends Component {
 
 	render() {
 		return (
-			<form className="input-field">
+			<form data-test="component-dropdown" className="input-field">
 				<select
 					onChange={event => {
 						// Send the select option value and corresponding exercise name

@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import { findByTestAttr, storeFactory } from "../../../test/testUtils";
+import { findByTestAttr } from "../../../test/testUtils";
 import Edit, { UnconnectedEdit } from "./Edit";
+import errorFormFields from "../errorFormFields";
 
 const location = {
 	state: {
@@ -48,5 +49,44 @@ describe("Component", () => {
 	test("renders sub-content", () => {
 		const subContent = findByTestAttr(wrapper, "sub-content");
 		expect(subContent.length).toBe(6);
+	});
+});
+
+describe("Validation", () => {
+	test("returns original errorFormField when positive integers are passed in as values", () => {
+		const errorObj = Edit.defaultProps.validate({
+			squat: { set_1: { weight: 100, reps: 5 } },
+		});
+		expect(errorObj).toEqual(errorFormFields);
+	});
+
+	test("returns modified errorFormField when a negative integer is passed in for weight", () => {
+		const errorObj = Edit.defaultProps.validate({
+			squat: { set_1: { weight: -100, reps: 5 } },
+		});
+		const changes = {
+			squat: {
+				set_1: { weight: "Cannot be negative", reps: "" },
+				set_2: { weight: "", reps: "" },
+				set_3: { weight: "", reps: "" },
+			},
+		};
+		const expectedObj = { ...errorObj, ...changes };
+		expect(errorObj).toEqual(expectedObj);
+	});
+
+	test("returns modified errorFormField when a negative integer is passed in for reps", () => {
+		const errorObj = Edit.defaultProps.validate({
+			squat: { set_1: { weight: 100, reps: -5 } },
+		});
+		const changes = {
+			squat: {
+				set_1: { weight: "", reps: "Cannot be negative" },
+				set_2: { weight: "", reps: "" },
+				set_3: { weight: "", reps: "" },
+			},
+		};
+		const expectedObj = { ...errorObj, ...changes };
+		expect(errorObj).toEqual(expectedObj);
 	});
 });

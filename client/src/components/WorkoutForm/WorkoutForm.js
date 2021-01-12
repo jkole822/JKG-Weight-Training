@@ -6,18 +6,19 @@ import WorkoutFormField from "./WorkoutFormField";
 import _ from "lodash";
 import formFields from "../formFields";
 
-class NewWorkout extends Component {
+export class UnconnectedWorkoutForm extends Component {
 	renderFields() {
 		// Maps over formFields to provide an input field for each exercise
 		return _.map(formFields, ({ label, name }) => {
 			return (
-				<Field
-					key={name}
-					component={WorkoutFormField}
-					type="text"
-					label={label}
-					name={name}
-				/>
+				<div data-test="input-fields" key={name}>
+					<Field
+						component={WorkoutFormField}
+						type="text"
+						label={label}
+						name={name}
+					/>
+				</div>
 			);
 		});
 	}
@@ -28,7 +29,10 @@ class NewWorkout extends Component {
 			/* When calling handleSubmit, onSubmit, will also call onWorkoutSubmit to set state of showFormReview
 			in WorkoutNew component to true which causes the WorkoutReview component to render instead of
 			WorkoutForm. */
-			<form onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}>
+			<form
+				data-test="component-workout-form"
+				onSubmit={this.props.handleSubmit(this.props.onWorkoutSubmit)}
+			>
 				{/* Form heading */}
 				<h2 id="log-heading">New Training Program</h2>
 				{/* Form instructions */}
@@ -67,10 +71,10 @@ function validate(values) {
 
 	_.each(formFields, ({ name, label }) => {
 		if (values[name] <= 0) {
-			errors[name] = "You must enter a number greater than zero";
+			errors[name] = "Cannot be negative";
 		}
 		if (!values[name]) {
-			errors[name] = `You must enter a weight for ${label}`;
+			errors[name] = `Enter a weight for ${label}`;
 		}
 	});
 	return errors;
@@ -83,4 +87,4 @@ export default reduxForm({
 	validate,
 	form: "workoutForm",
 	destroyOnUnmount: false,
-})(NewWorkout);
+})(UnconnectedWorkoutForm);

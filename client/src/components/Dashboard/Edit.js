@@ -34,6 +34,7 @@ export const UnconnectedEdit = ({
 				if (setKey !== "_id") {
 					sets.push(
 						<div
+							data-test="sub-content"
 							key={`review_set_${name}_${setKey}`}
 							className="row valign-wrapper"
 						>
@@ -64,7 +65,7 @@ export const UnconnectedEdit = ({
 			// Return Materialize CSS card containing the processed data from above as `sets` with the
 			// corresponding label for the current iteration of the exercise.
 			return (
-				<div className="row" key={name}>
+				<div data-test="content" className="row" key={name}>
 					<div className="card grey darken-3 log-card">
 						<div className="card-content grey-text text-lighten-2">
 							<span

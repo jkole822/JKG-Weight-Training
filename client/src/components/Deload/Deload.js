@@ -220,5 +220,6 @@ export const ConnectedDeload = connect(
 	mapStateToProps,
 	actions
 )(UnconnectedDeload);
+
 // Use withRouter from react-router-dom to use `history` for redirect
 export default connect(mapStateToProps, actions)(withRouter(UnconnectedDeload));

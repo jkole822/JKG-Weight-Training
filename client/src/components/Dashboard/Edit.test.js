@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 
 import { findByTestAttr, storeFactory } from "../../../test/testUtils";
 import Edit, { UnconnectedEdit } from "./Edit";
@@ -23,9 +23,7 @@ const location = {
 	},
 };
 
-const formValues = {};
-
-const defaultProps = { location, formValues, handleSubmit: jest.fn() };
+const defaultProps = { location, formValues: {}, handleSubmit: jest.fn() };
 
 const setup = (props = {}) => {
 	const setupProps = { ...defaultProps, ...props };
@@ -35,11 +33,20 @@ const setup = (props = {}) => {
 };
 
 describe("Component", () => {
-	let wrapper;
+	const wrapper = setup();
 
 	test("render component without error", () => {
-		wrapper = setup();
 		const component = findByTestAttr(wrapper, "component-edit");
 		expect(component.length).toBe(1);
+	});
+
+	test("renders content", () => {
+		const content = findByTestAttr(wrapper, "content");
+		expect(content.length).toBe(2);
+	});
+
+	test("renders sub-content", () => {
+		const subContent = findByTestAttr(wrapper, "sub-content");
+		expect(subContent.length).toBe(6);
 	});
 });

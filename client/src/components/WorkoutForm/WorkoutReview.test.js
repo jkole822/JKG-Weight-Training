@@ -1,8 +1,8 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 
-import { findByTestAttr, storeFactory } from "../../../test/testUtils";
-import WorkoutReview, { UnconnectedWorkoutReview } from "./WorkoutReview";
+import { findByTestAttr } from "../../../test/testUtils";
+import { UnconnectedWorkoutReview } from "./WorkoutReview";
 
 const formValues = {
 	squat: 315,
@@ -16,16 +16,12 @@ const formValues = {
 };
 
 const defaultProps = {
-	// submitWorkout: jest.fn(),
-	// history: jest.fn(),
-	// onCancel: jest.fn(),
 	formValues,
 };
 
 const setup = (props = {}) => {
 	const setupProps = { ...defaultProps, ...props };
-	const wrapper = mount(<UnconnectedWorkoutReview {...setupProps} />);
-
+	const wrapper = shallow(<UnconnectedWorkoutReview {...setupProps} />);
 	return wrapper;
 };
 

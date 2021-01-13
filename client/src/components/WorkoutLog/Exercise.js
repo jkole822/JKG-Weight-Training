@@ -11,6 +11,7 @@ class Exercise extends Component {
 		for (let i = 0; i < 3; i++) {
 			sets.push(
 				<div
+					data-test="content"
 					key={`set_${this.props.name}_${i + 1}`}
 					className="row valign-wrapper"
 				>
@@ -39,7 +40,7 @@ class Exercise extends Component {
 	render() {
 		// Formats above JSX into a Materialize CSS card
 		return (
-			<div className="row">
+			<div data-test="component-exercise" className="row">
 				<div className="card grey darken-3 log-card">
 					<div className="card-content grey-text text-lighten-2">
 						<span

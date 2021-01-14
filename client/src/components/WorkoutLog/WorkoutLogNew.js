@@ -6,26 +6,36 @@ import { reduxForm } from "redux-form";
 import WorkoutLog from "./WorkoutLog";
 import WorkoutLogReview from "./WorkoutLogReview";
 
-class WorkoutNew extends Component {
+export class UnconnectedWorkoutNew extends Component {
 	// Dictates whether to show the WorkoutForm or WorkoutReview component
 	state = { showFormReview: false };
 
 	renderContent() {
 		if (this.state.showFormReview === true) {
 			return (
-				<WorkoutLogReview
-					onCancel={() => this.setState({ showFormReview: false })}
-				/>
+				<div data-test="component-workout-log-review">
+					<WorkoutLogReview
+						onCancel={() => this.setState({ showFormReview: false })}
+					/>
+				</div>
 			);
 		}
 
 		return (
-			<WorkoutLog onLogSubmit={() => this.setState({ showFormReview: true })} />
+			<div data-test="component-workout-log">
+				<WorkoutLog
+					onLogSubmit={() => this.setState({ showFormReview: true })}
+				/>
+			</div>
 		);
 	}
 
 	render() {
-		return <div className="container">{this.renderContent()}</div>;
+		return (
+			<div data-test="component-workout-log-new" className="container">
+				{this.renderContent()}
+			</div>
+		);
 	}
 }
 
@@ -33,4 +43,4 @@ class WorkoutNew extends Component {
 // WorkoutLog component since destroyOnUnmount is set to false.
 export default reduxForm({
 	form: "workoutLog",
-})(WorkoutNew);
+})(UnconnectedWorkoutNew);

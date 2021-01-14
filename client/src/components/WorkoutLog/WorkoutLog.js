@@ -11,9 +11,9 @@ import Exercise from "./Exercise";
 import formFields from "../formFields";
 import errorFormFields from "../errorFormFields";
 
-class WorkoutLog extends Component {
+export class UnconnectedWorkoutLog extends Component {
 	// Fetch user stats to determine the recommended values to preview in
-	// the input fields
+	// the input fields within the Exercise child component
 	componentDidMount() {
 		this.props.fetchStats();
 	}
@@ -32,7 +32,11 @@ class WorkoutLog extends Component {
 					return routine === this.props.auth.workout_routine;
 				})
 				.map(({ label, name }) => {
-					return <Exercise key={name} label={label} name={name} />;
+					return (
+						<div data-test="component-exercise" key={name}>
+							<Exercise label={label} name={name} />
+						</div>
+					);
 				})
 				.value();
 		}
@@ -40,7 +44,7 @@ class WorkoutLog extends Component {
 
 	render() {
 		return (
-			<div>
+			<div data-test="component-workout-log">
 				{/* Heading */}
 				<h2 id="log-heading">Training Session</h2>
 				<p id="workout-log-note">
@@ -121,4 +125,4 @@ export default reduxForm({
 	validate,
 	form: "workoutLog",
 	destroyOnUnmount: false,
-})(connect(mapStateToProps, actions)(WorkoutLog));
+})(connect(mapStateToProps, actions)(UnconnectedWorkoutLog));

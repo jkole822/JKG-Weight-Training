@@ -37,6 +37,16 @@ class Timer extends Component {
 		}, 1000);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (
+			this.state.secondsElapsed !== prevState.secondsElapsed &&
+			this.state.totalSeconds === this.state.secondsElapsed
+		) {
+			console.log("testTwo");
+			this.resetTimer();
+		}
+	}
+
 	toggleTimer() {
 		this.setState({ timerActive: !this.state.timerActive });
 	}
@@ -118,11 +128,11 @@ class Timer extends Component {
 		this.resetTimer();
 		const input = parseInt(event.target.value);
 		// Prevent timer from breaking with incorrect user input
-		if (!input || isNaN(input) || input < 0) {
+		if (isNaN(input) || input < 0) {
 			await this.setState({ minutes: "" });
 			// Prevent user from inputting a number with more than two digits
 		} else if (input < 100) {
-			await this.setState({ minutes: parseInt(input) });
+			await this.setState({ minutes: input });
 		}
 		// Recalculate totalSeconds based on changes to minutes
 		this.recalcuateTotalTime();
@@ -133,11 +143,11 @@ class Timer extends Component {
 		this.resetTimer();
 		const input = parseInt(event.target.value);
 		// Prevent timer from breaking with incorrect user input
-		if (!input || isNaN(input) || input < 0) {
+		if (isNaN(input) || input < 0) {
 			await this.setState({ seconds: "" });
 			// Prevent user from inputting a number greater than or equal to 60 seconds
 		} else if (input < 60) {
-			await this.setState({ seconds: parseInt(input) });
+			await this.setState({ seconds: input });
 		}
 		// Recalculate totalSeconds based on changes to seconds
 		this.recalcuateTotalTime();

@@ -42,7 +42,6 @@ class Timer extends Component {
 			this.state.secondsElapsed !== prevState.secondsElapsed &&
 			this.state.totalSeconds === this.state.secondsElapsed
 		) {
-			console.log("testTwo");
 			this.resetTimer();
 		}
 	}
@@ -161,7 +160,7 @@ class Timer extends Component {
 
 	render() {
 		return (
-			<div>
+			<div data-test="component-timer">
 				<div>
 					{this.renderTime()}
 					<div className="row">

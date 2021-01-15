@@ -70,6 +70,7 @@ export class UnconnectedDeload extends Component {
 								{/* Note for future improvements: Find a way to reset the display
 							of the dropdown menu when reset is clicked */}
 								<a
+									style={{ cursor: "pointer" }}
 									data-test="button-reset"
 									className="light-blue-text text-darken-1"
 									onClick={() => this.handleClick(name)}
@@ -135,7 +136,7 @@ export class UnconnectedDeload extends Component {
 	render() {
 		return (
 			<div data-test="component-deload" className="container">
-				{/* Modal */}
+				{/* Modal: Submit Changes*/}
 				<div id="modal1" className="modal">
 					<div className="modal-content grey darken-3">
 						{/* Modal Heading */}
@@ -158,25 +159,42 @@ export class UnconnectedDeload extends Component {
 						</a>
 					</div>
 				</div>
+				{/* Modal: Deload Info */}
+				<div id="modal2" className="modal">
+					<div className="modal-content grey darken-3">
+						{/* Modal Heading */}
+						<h4 className="light-blue-text text-darken-1">Deloading</h4>
+						{/* Modal Message: Instructions */}
+						<p>
+							If you are plateauing on one or more of your lifts, it is
+							recommended that you implement deloading which is typically a
+							period of time that you take things easier in the gym by reducing
+							your training volume. In the context of this application, you are
+							essentially resetting your progress to a certain degree based on
+							the deload percentage you select. This enables you to focus more
+							on practicing good lifting form, decreases the likelihood that you
+							will sustain an injury, and boosts morale.
+						</p>
+						<p>
+							Your current stats are shown below on the left. Simply select a
+							percentage for each of the lifts you would like to deload, and the
+							change will automatically be previewed for you. If you are
+							satisfied with the selections you made, click submit to confirm
+							your changes.
+						</p>
+					</div>
+				</div>
 				{/* Main heading */}
-				<h2>Deload Stats</h2>
-				{/* Instructions */}
-				<p>
-					If you are plateauing on one or more of your lifts, it is recommended
-					that you implement deloading which is typically a period of time that
-					you take things easier in the gym by reducing your training volume. In
-					the context of this application, you are essentially resetting your
-					progress to a certain degree based on the deload percentage you
-					select. This enables you to focus more on practicing good lifting
-					form, decreases the likelihood that you will sustain an injury, and
-					boosts morale.
-				</p>
-				<p>
-					Your current stats are shown below on the left. Simply select a
-					percentage for each of the lifts you would like to deload, and the
-					change will automatically be previewed for you. If you are satisfied
-					with the selections you made, click submit to confirm your changes.
-				</p>
+				<h2 id="deload-heading">
+					Deload Stats{" "}
+					<i
+						href="#modal2"
+						style={{ cursor: "pointer" }}
+						className="modal-trigger material-icons light-blue-text text-darken-1"
+					>
+						info_outline
+					</i>
+				</h2>
 				{this.renderContent()}
 				<div className="row">
 					{/* Navigate back to Dashboard */}

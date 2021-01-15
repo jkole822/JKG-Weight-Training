@@ -123,6 +123,12 @@
 	font-size: 0.8rem;
 }
 
+/* Deload */
+#deload-heading {
+	text-align: center;
+	font-size: 2rem;
+}
+
 /* Footer */
 .footer-icons {
 	margin: 0;

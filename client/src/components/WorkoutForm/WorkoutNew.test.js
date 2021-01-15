@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { findByTestAttr } from "../../../test/testUtils";
-import WorkoutNew, { UnconnectedWorkoutNew } from "./WorkoutNew";
+import { UnconnectedWorkoutNew } from "./WorkoutNew";
 
 describe("Component", () => {
 	const wrapper = shallow(<UnconnectedWorkoutNew />);

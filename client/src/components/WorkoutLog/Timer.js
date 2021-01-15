@@ -103,7 +103,7 @@ class Timer extends Component {
 		const minutes = this.getFormattedMinutes();
 
 		return (
-			<div className="row">
+			<div data-test="display" className="row">
 				<div
 					className="col s6 offset-s3 grey darken-3 light-blue-text text-darken-1 center-align"
 					style={{
@@ -166,6 +166,7 @@ class Timer extends Component {
 					<div className="row">
 						{/* Toggles between start and pause timer */}
 						<button
+							data-test="button-start"
 							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s1 s4"
 							onClick={this.toggleTimer}
 						>
@@ -176,6 +177,7 @@ class Timer extends Component {
 
 						{/* Resets the timer based on current input for minutes and seconds */}
 						<button
+							data-test="button-reset"
 							className="btn waves-effect waves-light light-blue darken-4 waves-effect waves-light col offset-s2 s4"
 							onClick={this.resetTimer}
 						>
@@ -189,6 +191,7 @@ class Timer extends Component {
 					<div className="col offset-s1 s4">
 						<label>Minutes</label>
 						<input
+							data-test="input-minutes"
 							value={this.state.minutes}
 							type="number"
 							onChange={this.handleMinutesChange}
@@ -200,6 +203,7 @@ class Timer extends Component {
 					<div className="col offset-s2 s4">
 						<label>Seconds</label>
 						<input
+							data-test="input-seconds"
 							value={this.state.seconds}
 							type="number"
 							onChange={this.handleSecondsChange}

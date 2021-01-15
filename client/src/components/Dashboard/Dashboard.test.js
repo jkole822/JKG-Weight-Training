@@ -100,10 +100,7 @@ describe("Local State", () => {
 		expect(wrapper.state("logData")).toEqual(expectedState);
 	});
 
-	test("should update `liftChart` local state on dropdown selection", async () => {
-		const prevProps = { logs: null };
-		await wrapper.instance().componentDidUpdate(prevProps);
-
+	test("should update `liftChart` local state on dropdown selection", () => {
 		const dropdown = findByTestAttr(wrapper, "select-dropdown");
 		dropdown.at(0).simulate("change", {
 			target: { value: "deadlift" },

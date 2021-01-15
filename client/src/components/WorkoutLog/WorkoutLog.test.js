@@ -132,3 +132,14 @@ describe("Validation", () => {
 		expect(errorObj).toEqual(expectedObj);
 	});
 });
+
+test("`fetchStats` runs on WorkoutLog mount`", async () => {
+	const fetchStatsMock = jest.fn();
+	const props = { fetchStats: fetchStatsMock };
+	const wrapper = setup(props);
+
+	await wrapper.instance().componentDidMount();
+	const fetchStatsMockCallCount = fetchStatsMock.mock.calls.length;
+
+	expect(fetchStatsMockCallCount).toBe(1);
+});

@@ -26,6 +26,21 @@ module.exports = app => {
 		}
 	);
 
+	app.get(
+		"/auth/github",
+		passport.authenticate("github", {
+			scope: ["profile"],
+		})
+	);
+
+	app.get(
+		"/auth/github/callback",
+		passport.authenticate("github"),
+		(req, res) => {
+			res.redirect("/workouts");
+		}
+	);
+
 	app.get("/api/logout", (req, res) => {
 		req.logout(); // Kill the cookie
 		res.redirect("/");

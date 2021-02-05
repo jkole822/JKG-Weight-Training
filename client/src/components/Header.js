@@ -28,13 +28,13 @@ class Header extends Component {
 							Login with Google
 						</a>
 					</li>,
-					<li key="facebook-login">
+					<li key="github-login">
 						<a
-							data-test="button-facebook"
+							data-test="button-github"
 							className="white-text"
-							href="/auth/facebook"
+							href="/auth/github"
 						>
-							Login with Facebook
+							Login with GitHub
 						</a>
 					</li>,
 				];

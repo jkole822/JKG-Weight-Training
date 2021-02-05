@@ -45,10 +45,10 @@ describe("Login/Logout Buttons", () => {
 
 		test("does not render login button when signed in", () => {
 			const googleButton = findByTestAttr(wrapper, "button-google");
-			const facebookButton = findByTestAttr(wrapper, "button-facebook");
+			const githubButton = findByTestAttr(wrapper, "button-github");
 
 			expect(googleButton.length).toBe(0);
-			expect(facebookButton.length).toBe(0);
+			expect(githubButton.length).toBe(0);
 		});
 	});
 
@@ -69,10 +69,10 @@ describe("Login/Logout Buttons", () => {
 		test("renders login button when not signed in", () => {
 			// Renders two versions, one for the main navbar and one for the mobile sidebar.
 			const googleButton = findByTestAttr(wrapper, "button-google");
-			const facebookButton = findByTestAttr(wrapper, "button-facebook");
+			const githubButton = findByTestAttr(wrapper, "button-github");
 
 			expect(googleButton.length).toBe(2);
-			expect(facebookButton.length).toBe(2);
+			expect(githubButton.length).toBe(2);
 		});
 	});
 });

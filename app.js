@@ -14,6 +14,7 @@ require("./models/stat");
 require("./models/logHistory");
 require("./services/passport/facebook");
 require("./services/passport/google");
+require("./services/passport/github");
 
 // Session stores user information for 24 hours
 app.use(bodyParser.json());
